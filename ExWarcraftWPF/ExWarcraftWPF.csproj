@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="38f110a9d86c3d75ca5cc8ca8a6d4510.jpg" />
+    <None Remove="70a7c575cfc67680c0a32829d12a38bf.jpg" />
+    <None Remove="8067.jpg" />
+    <None Remove="ilya-abdrakhimov-undex-fire.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="38f110a9d86c3d75ca5cc8ca8a6d4510.jpg" />
+    <Resource Include="70a7c575cfc67680c0a32829d12a38bf.jpg" />
+    <Resource Include="8067.jpg" />
+    <Resource Include="ilya-abdrakhimov-undex-fire.jpg" />
+  </ItemGroup>
+
+</Project>
