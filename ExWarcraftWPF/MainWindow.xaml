@@ -14,25 +14,27 @@
 
         <Style x:Key="btn_Black" TargetType="Button">
             <Setter Property="Content" Value="" />
-            <Setter Property="Background" Value="#AF9210" />
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Padding" Value="6"/>
+            <!--<Setter Property="Background" Value="#AF9210" />
+            <Setter Property="Foreground" Value="White"/>-->
 
             <EventSetter Event="Click" Handler="Button_Click"></EventSetter>
 
         </Style>
 
-        
 
-        
+
+
 
     </Window.Resources>
 
-    <Grid Background ="#1E0F05">
+    <Grid Background ="Azure">
 
 
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="45*"/>
             <ColumnDefinition Width="45*"/>
             <ColumnDefinition Width="45*"/>
             <ColumnDefinition Width="45*"/>
@@ -47,34 +49,28 @@
             <RowDefinition Height="45*"/>
             <RowDefinition Height="45*"/>
             <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
         </Grid.RowDefinitions>
 
-
-        <Button x:Name="btnRogue" Content="Choose" Style="{StaticResource btn_Black}" VerticalAlignment="Center"  Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,10,10,10">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Button x:Name="btnWarier" Content="Choose"   VerticalAlignment="Center" Style="{StaticResource btn_Black}" Grid.Row="4" Grid.Column="2" Margin="10,10,10,10">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Button x:Name="btnWizard" Content="Choose"  VerticalAlignment="Center" Style="{StaticResource btn_Black}" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,10,10,10">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <TextBlock TextWrapping="NoWrap" HorizontalAlignment="Stretch" Text="Rogue" Grid.Column="1" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" FontFamily="Showcard Gothic">
+        <TextBlock 
+            x:Name="textHero"
+            TextWrapping="NoWrap"
+            Text="Warier"
+            VerticalAlignment="Center" 
+            Grid.Column="3" 
+            TextAlignment="Center" 
+            FontSize="36"
+            FontWeight="Bold"
+            FontFamily="Showcard Gothic"
+            RenderTransformOrigin="1.66,0.634" 
+            Grid.ColumnSpan="2" 
+            Margin="94,0,6,0">
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
@@ -84,29 +80,107 @@
             </TextBlock.Foreground>
         </TextBlock>
 
-        <TextBlock HorizontalAlignment="Stretch"  TextWrapping="NoWrap" Text="Warier" VerticalAlignment="Center" Grid.Column="2" TextAlignment="Center" FontSize="36" FontWeight="Bold" FontFamily="Showcard Gothic">
-            <TextBlock.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="1"/>
-                    <GradientStop Color="#FFEACB3D" Offset="0.01"/>
-                    <GradientStop Color="#FF66581A" Offset="0.877"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
-        </TextBlock>
 
-        <TextBlock HorizontalAlignment="Stretch" TextWrapping="NoWrap" Text="Wizard" VerticalAlignment="Center" Grid.Column="3" TextAlignment="Center" FontSize="36" FontWeight="Bold" FontFamily="Showcard Gothic">
-            <TextBlock.Foreground>
+        <!--<Image x:Name="imgRogue" Source="/38f110a9d86c3d75ca5cc8ca8a6d4510.jpg" Stretch="UniformToFill" Grid.Row="1"  Grid.Column="0" HorizontalAlignment="Center" Margin="10,10,10,10">
+            <Image.OpacityMask>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
-                    <GradientStop Color="#FFEACB3D" Offset="0.01"/>
-                    <GradientStop Color="#FF66581A" Offset="0.877"/>
+                    <GradientStop Color="#FF2B2A2A" Offset="0.997"/>
+                    <GradientStop Color="#FF2B2A2A" Offset="0.4"/>
+                    <GradientStop Color="#FF1D0404"/>
                 </LinearGradientBrush>
-            </TextBlock.Foreground>
-        </TextBlock>
-            
-        <Image x:Name="imgRogue" Source="/38f110a9d86c3d75ca5cc8ca8a6d4510.jpg" Stretch="UniformToFill" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+            </Image.OpacityMask>
+        </Image>
         <Image HorizontalAlignment="Right" OpacityMask="#FFF3DEDE" Source="/70a7c575cfc67680c0a32829d12a38bf.jpg" Stretch="Fill" Grid.Row="1" Grid.RowSpan="3" Grid.Column="2"  Margin="10,10,10,10"/>
-        <Image VerticalAlignment="Bottom" OpacityMask="#FFF3DEDE" Source="/ilya-abdrakhimov-undex-fire.jpg" Stretch="Fill" Grid.Row="1" Grid.RowSpan="3" Grid.Column="3" HorizontalAlignment="Left" Margin="10,10,10,10"/>
+        <Image VerticalAlignment="Bottom" OpacityMask="#FFF3DEDE" Source="/ilya-abdrakhimov-undex-fire.jpg" Stretch="Fill" Grid.Row="1" Grid.RowSpan="3" Grid.Column="3" HorizontalAlignment="Left" Margin="10,10,10,10"/>-->
+
+
+
+
+        <RadioButton
+            x:Name="radioRogue"
+            Content="Rogue"
+            Checked="RadioButton_Checked"
+            GroupName="Hero"
+            HorizontalAlignment="Left"
+            Margin="35,0,0,0"
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            FontSize="19px"/>
+
+        <RadioButton
+            x:Name="radioWarrior"
+            Content="Warrior"
+            Checked="RadioButton_Checked"
+            GroupName="Hero"
+            HorizontalAlignment="Left"
+            Margin="35,0,0,0"
+            Grid.Row="2"
+            VerticalAlignment="Center"
+            FontSize="19px"/>
+
+        <RadioButton
+            x:Name="radioWizard"
+            Content="Wizard"
+            Checked="RadioButton_Checked"
+            GroupName="Hero"
+            HorizontalAlignment="Left"
+            Margin="35,0,0,0"
+            Grid.Row="3"
+            VerticalAlignment="Center"
+            FontSize="19px"/>
+
+
+        <ProgressBar
+            x:Name="barStrensth"
+            Grid.Column="6"
+                Grid.Row="2"
+            Height="30"
+        
+    
+            Minimum="0"
+            Maximum="100"
+            Value="50"
+            HorizontalAlignment="Stretch"
+            Margin="0,3,0,4"/>
+
+        <TextBlock
+            Text="{Binding ElementName=barStrensth, Path=Value, StringFormat={}{0:0}%}"
+            Grid.Column="6"
+                Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+
+        <TextBlock
+            Grid.Column="5"
+            HorizontalAlignment="Left"
+            Grid.Row="2"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+          
+            VerticalAlignment="Center"
+            Margin="16,0,0,0" RenderTransformOrigin="0.541,0.01"/>
+
+
+        <Button 
+            Grid.Column="5"
+            Content="-" 
+            Height="30"
+              Width="30" 
+            FontSize="19px" 
+            Margin="0,3,5,4"
+            Style="{StaticResource btn_Black}"
+            Grid.Row="2" HorizontalAlignment="Right"/>
+
+        <Button 
+            Grid.Column="7"
+            Content="+" 
+            Height="30"
+              Width="30" 
+            FontSize="19px" 
+             Margin="5,3,0,4"
+            Style="{StaticResource btn_Black}"
+            Grid.Row="2" HorizontalAlignment="Left"/>
 
 
     </Grid>

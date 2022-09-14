@@ -8,19 +8,19 @@ namespace ExWarcraftWPF.enumUnits
 {
     public class Warrior
     {
-        int strensthMin = 30;
-        int strensthMax = 250;
-        int desterityMin = 15;
-        int desterityMax = 70;
-        int constitutionMin = 20;
-        int constitutionMax = 100;
-        int intellisenseMin = 10;
-        int intellisenseMax = 50;
+        public  int strensthMin = 30;
+        public int strensthMax = 250;
+        public int desterityMin = 15;
+        public int desterityMax = 70;
+        public int constitutionMin = 20;
+        public int constitutionMax = 100;
+        public int intellisenseMin = 10;
+        public int intellisenseMax = 50;
 
-        int currentStrensth = 0;
-        int currentDesterity = 0;
-        int currentConstitution = 0;
-        int currentIntellisense = 0;
+        public int currentStrensth = 0;
+        public int currentDesterity = 0;
+        public int currentConstitution = 0;
+        public int currentIntellisense = 0;
 
         public int health = 0;
         public int damage = 0;
