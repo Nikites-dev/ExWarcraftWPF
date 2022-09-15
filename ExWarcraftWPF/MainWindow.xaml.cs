@@ -1,40 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ExWarcraftWPF.enumUnits;
 
 namespace ExWarcraftWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-  
-    /// 
 
     public partial class MainWindow : Window
     {
         Button btn = new Button();
-        public Warrior warier;
-        public Rogue rogue;
-        public Wizard wizard;
-
+        public customMain hero = null;
       
 
         public MainWindow()
         {
-        
-
             InitializeComponent();
         }
 
@@ -45,40 +23,21 @@ namespace ExWarcraftWPF
            
             if(pressed.Content.ToString() == "Warrior")
             {
-                 warier = new Warrior();
-                 barStrensth.MaxHeight = warier.strensthMax;
-                 barStrensth.MinHeight = warier.strensthMin;
-
-                barStrensth.Value = warier.currentStrensth;
-                barDesterity.Value = warier.currentDesterity;
-                barConstitution.Value = warier.currentConstitution;
-                barIntel.Value = warier.currentIntellisense;
+                 hero = new Warrior();
+                SetProgressBarValue();
 
 
             } else if(pressed.Content.ToString() == "Rogue")
             {
-                rogue = new Rogue();
-                barStrensth.MaxHeight = rogue.strensthMax;
-                barStrensth.MinHeight = rogue.strensthMin;
-
-                barStrensth.Value = rogue.currentStrensth;
-                barDesterity.Value = rogue.currentDesterity;
-                barConstitution.Value = rogue.currentConstitution;
-                barIntel.Value = rogue.currentIntellisense;
+                hero = new Rogue();
+                SetProgressBarValue();
             }
             else if (pressed.Content.ToString() == "Wizard")
             {
-                wizard = new Wizard();
-                barStrensth.MaxHeight = wizard.strensthMax;
-                barStrensth.MinHeight = wizard.strensthMin;
+                hero = new Wizard();
 
-                barStrensth.Value = wizard.currentStrensth;
-                barDesterity.Value = wizard.currentDesterity;
-                barConstitution.Value = wizard.currentConstitution;
-                barIntel.Value = wizard.currentIntellisense;
+                SetProgressBarValue();
             }
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -86,60 +45,116 @@ namespace ExWarcraftWPF
             bool isEvent = false;
             btn = (Button)sender;
 
+            PerformAction();
+            SetProgressBarValue();
+            SetTextCharacter();
+        }
 
-            if (textHero.Text.ToString() == "Warrior")
+        public void SetProgressBarValue()
+        {
+                if (hero is Wizard wizard)
+                {
+                    barStrensth.MaxHeight = wizard.strensthMax;
+                    barStrensth.MinHeight = wizard.strensthMin;
+
+                    barStrensth.Value = wizard.currentStrensth;
+                    barDesterity.Value = wizard.currentDesterity;
+                    barConstitution.Value = wizard.currentConstitution;
+                    barIntel.Value = wizard.currentIntellisense;
+
+                }else if (hero is Rogue rogue)
+                {
+                    barStrensth.MaxHeight = rogue.strensthMax;
+                    barStrensth.MinHeight = rogue.strensthMin;
+
+                    barStrensth.Value = rogue.currentStrensth;
+                    barDesterity.Value = rogue.currentDesterity;
+                    barConstitution.Value = rogue.currentConstitution;
+                    barIntel.Value = rogue.currentIntellisense;
+                }
+                else if (hero is Warrior warrior)
+                {
+                    barStrensth.MaxHeight = warrior.strensthMax;
+                    barStrensth.MinHeight = warrior.strensthMin;
+
+                    barStrensth.Value = warrior.currentStrensth;
+                    barDesterity.Value = warrior.currentDesterity;
+                    barConstitution.Value = warrior.currentConstitution;
+                    barIntel.Value = warrior.currentIntellisense;
+                }
+
+
+        }
+
+        public void SetTextCharacter()
+        {
+            if (hero is Wizard wiz)
             {
+                textHP.Text = "HP: " + wiz.HP.ToString();
+                textMP.Text = "MP: " + wiz.MP.ToString();
+                textPdet.Text = "PDet: " + wiz.PDet.ToString();
+                textAttack.Text = "Attack: " + wiz.Attack.ToString();
+                textMAH.Text = "MAH: " + wiz.MAH.ToString();
+            } else if(hero is Rogue rogue)
+            {
+                textHP.Text = "HP: " + rogue.HP.ToString();
+                textMP.Text = "MP: " + rogue.MP.ToString();
+                textPdet.Text = "PDet: " + rogue.PDet.ToString();
+                textAttack.Text = "Attack: " + rogue.Attack.ToString();
+                textMAH.Text = "MAH: " + rogue.MAH.ToString();
+            }
+            else if (hero is Warrior warrior)
+            {
+                textHP.Text = "HP: " + warrior.HP.ToString();
+                textMP.Text = "MP: " + warrior.MP.ToString();
+                textPdet.Text = "PDet: " + warrior.PDet.ToString();
+                textAttack.Text = "Attack: " + warrior.Attack.ToString();
+                textMAH.Text = "MAH: " + warrior.MAH.ToString();
+            }
+        }
 
+        public void PerformAction()
+        {
+            if (hero is Wizard wiz)
+            {
                 if (btn.Name == "btnStrensthP")
                 {
-                    warier.changeStrensth(true);
-                } else if(btn.Name == "btnStrensthM")
+                    wiz.changeStrensth(true);
+                }
+                else if (btn.Name == "btnStrensthM")
                 {
-                    warier.changeStrensth(false);
+                    wiz.changeStrensth(false);
                 }
 
                 if (btn.Name == "btnDesterityP")
                 {
-                    warier.changeDesterity(true);
+                    wiz.changeDesterity(true);
                 }
                 else if (btn.Name == "btnDesterityM")
                 {
-                    warier.changeDesterity(false);
+                    wiz.changeDesterity(false);
                 }
 
                 if (btn.Name == "btnConstitutP")
                 {
-                    warier.changeConstitution(true);
+                    wiz.changeConstitution(true);
                 }
                 else if (btn.Name == "btnConstitutM")
                 {
-                    warier.changeConstitution(false);
+                    wiz.changeConstitution(false);
                 }
 
                 if (btn.Name == "btnIntelP")
                 {
-                    warier.changeIntellisense(true);
+                    wiz.changeIntellisense(true);
                 }
                 else if (btn.Name == "btnIntelM")
                 {
-                    warier.changeIntellisense(false);
+                    wiz.changeIntellisense(false);
                 }
-
-
-                barStrensth.Value = warier.currentStrensth;
-                barDesterity.Value = warier.currentDesterity;
-                barConstitution.Value = warier.currentConstitution;
-                barIntel.Value = warier.currentIntellisense;
-
-
-                textHP.Text ="HP: " + warier.HP.ToString();
-                textMP.Text ="MP: " + warier.MP.ToString();
-                textPdet.Text ="PDet: " + warier.PDet.ToString();
-                textAttack.Text ="Attack: " + warier.Attack.ToString();
-                textMAH.Text ="MAH: " + warier.MAH.ToString();
-            
             }
-            else if (textHero.Text.ToString() == "Rogue")
+
+            else if (hero is Rogue rogue)
             {
                 if (btn.Name == "btnStrensthP")
                 {
@@ -176,76 +191,49 @@ namespace ExWarcraftWPF
                 {
                     rogue.changeIntellisense(false);
                 }
-
-
-                barStrensth.Value = rogue.currentStrensth;
-                barDesterity.Value = rogue.currentDesterity;
-                barConstitution.Value = rogue.currentConstitution;
-                barIntel.Value = rogue.currentIntellisense;
-
-
-                textHP.Text = "HP: " + rogue.HP.ToString();
-                textMP.Text = "MP: " + rogue.MP.ToString();
-                textPdet.Text = "PDet: " + rogue.PDet.ToString();
-                textAttack.Text = "Attack: " + rogue.Attack.ToString();
-                textMAH.Text = "MAH: " + rogue.MAH.ToString();
             }
 
-            else if (textHero.Text.ToString() == "Wizard")
+            else if (hero is Warrior warrior)
             {
-                PerformAction(wizard);
-
-                barStrensth.Value = wizard.currentStrensth;
-                barDesterity.Value = wizard.currentDesterity;
-                barConstitution.Value = wizard.currentConstitution;
-                barIntel.Value = wizard.currentIntellisense;
-
-
-                textHP.Text = "HP: " + wizard.HP.ToString();
-                textMP.Text = "MP: " + wizard.MP.ToString();
-                textPdet.Text = "PDet: " + wizard.PDet.ToString();
-                textAttack.Text = "Attack: " + wizard.Attack.ToString();
-                textMAH.Text = "MAH: " + wizard.MAH.ToString();
-            }
-        }
-
-        public void PerformAction(customMain typeHero)
-        {
-             if (btn.Name == "btnStrensthP")
+                if (btn.Name == "btnStrensthP")
                 {
-                typeHero.changeStrensth(true);
+                    warrior.changeStrensth(true);
                 }
                 else if (btn.Name == "btnStrensthM")
                 {
-                typeHero.changeStrensth(false);
+                    warrior.changeStrensth(false);
                 }
 
                 if (btn.Name == "btnDesterityP")
                 {
-                typeHero.changeDesterity(true);
+                    warrior.changeDesterity(true);
                 }
                 else if (btn.Name == "btnDesterityM")
                 {
-                typeHero.changeDesterity(false);
+                    warrior.changeDesterity(false);
                 }
 
                 if (btn.Name == "btnConstitutP")
                 {
-                typeHero.changeConstitution(true);
+                    warrior.changeConstitution(true);
                 }
                 else if (btn.Name == "btnConstitutM")
                 {
-                typeHero.changeConstitution(false);
+                    warrior.changeConstitution(false);
                 }
 
                 if (btn.Name == "btnIntelP")
                 {
-                typeHero.changeIntellisense(true);
+                    warrior.changeIntellisense(true);
                 }
                 else if (btn.Name == "btnIntelM")
                 {
-                typeHero.changeIntellisense(false);
+                    warrior.changeIntellisense(false);
                 }
+            }
+
+
+           
         }
 
 
