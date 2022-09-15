@@ -70,22 +70,57 @@ namespace ExWarcraftWPF
 
             if (textHero.Text.ToString() == "Warrior")
             {
-                int strensth = warier.changeStrensth();
 
-                warier.changeConstitution();
-                warier.changeIntellisense();
-                warier.changeConstitution();
-                warier.changeDesterity();
+                if (btn.Name == "btnStrensthP")
+                {
+                    warier.changeStrensth(true);
+                } else if(btn.Name == "btnStrensthM")
+                {
+                    warier.changeStrensth(false);
+                }
+
+                if (btn.Name == "btnDesterityP")
+                {
+                    warier.changeDesterity(true);
+                }
+                else if (btn.Name == "btnDesterityM")
+                {
+                    warier.changeDesterity(false);
+                }
+
+                if (btn.Name == "btnConstitutP")
+                {
+                    warier.changeConstitution(true);
+                }
+                else if (btn.Name == "btnConstitutM")
+                {
+                    warier.changeConstitution(false);
+                }
+
+                if (btn.Name == "btnIntelP")
+                {
+                    warier.changeIntellisense(true);
+                }
+                else if (btn.Name == "btnIntelM")
+                {
+                    warier.changeIntellisense(false);
+                }
+
 
                 barStrensth.Value = warier.currentStrensth;
+                barDesterity.Value = warier.currentDesterity;
+                barConstitution.Value = warier.currentConstitution;
+                barIntel.Value = warier.currentIntellisense;
+
+
+                textHP.Text ="HP: " + warier.HP.ToString();
+                textMP.Text ="MP: " + warier.MP.ToString();
+                textPdet.Text ="PDet: " + warier.PDet.ToString();
+                textAttack.Text ="Attack: " + warier.Attack.ToString();
+                textMAH.Text ="MAH: " + warier.MAH.ToString();
+            
+
            
-
-                Console.WriteLine($"strensth:  {strensth}");
-                Console.WriteLine($"HP:  {warier.HP}; Attack: {warier.Attack}; PDet: {warier.PDet}; MAH: {warier.MAH}; MP: {warier.MP}");
-
-
-               // MessageBox.Show($"HP:  {warier.HP}; Attack: {warier.Attack}; PDet: {warier.PDet}; MAH: {warier.MAH}; MP: {warier.MP}");
-
             }
             else if (textHero.Text.ToString() == "Rogue")
             {
