@@ -137,7 +137,7 @@
                 Grid.Row="2"
             Height="30"
         
-    
+            Foreground="Brown"
             Minimum="0"
             Maximum="100"
             Value="50"
@@ -190,7 +190,7 @@
             Grid.Column="6"
             Grid.Row="3"
             Height="30"
-        
+            Foreground="Brown"
             Minimum="0"
             Maximum="100"
             Value="50"
@@ -238,65 +238,60 @@
 
         <TextBlock
             x:Name="textHP"
-            Grid.Column="3"
-            HorizontalAlignment="Right"
-            Margin="0,0,27,0"
-            Grid.Row="2" 
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
            TextWrapping="Wrap" 
             Text="HP: 0" 
             VerticalAlignment="Center"
-            Width="63"/>
+            Width="64"/>
 
         <TextBlock
             x:Name="textMP"
-            Grid.Column="3"
-            HorizontalAlignment="Right"
-            Margin="0,0,27,0"
-            Grid.Row="3" 
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
            TextWrapping="Wrap" 
             Text="MP: 0" 
             VerticalAlignment="Center"
-            Width="63"/>
+            Width="64"/>
 
         <TextBlock
             x:Name="textPdet"
             Grid.Column="3"
-            HorizontalAlignment="Right"
-            Margin="0,0,27,0"
-            Grid.Row="4" 
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
            TextWrapping="Wrap" 
             Text="PDet: 0" 
             VerticalAlignment="Center"
-            Width="63"/>
+            Width="64"/>
 
         <TextBlock
             x:Name="textAttack"
-            Grid.Column="3"
-            HorizontalAlignment="Right"
-            Margin="0,0,27,0"
-            Grid.Row="5" 
+            Grid.Column="4"
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
            TextWrapping="Wrap" 
             Text="Attack: 0" 
             VerticalAlignment="Center"
-            Width="63"/>
+            Width="64"/>
 
         <TextBlock
             x:Name="textMAH"
-            Grid.Column="3"
-            HorizontalAlignment="Right"
-            Margin="0,0,27,0"
-            Grid.Row="6" 
+            Grid.Column="5"
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
            TextWrapping="Wrap" 
             Text="MAH: 0" 
             VerticalAlignment="Center"
-            Width="63"/>
+            Width="64"/>
 
         <ProgressBar
             x:Name="barConstitution"
             Grid.Column="6"
             Grid.Row="4"
             Height="30"
-        
+            Foreground="Brown"
             Minimum="0"
             Maximum="100"
             Value="50"
@@ -342,18 +337,18 @@
             Grid.Row="4"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
-        
+
         <ProgressBar
             x:Name="barIntel"
             Grid.Column="6"
             Grid.Row="5"
             Height="30"
-        
+            Foreground="Brown"
             Minimum="0"
             Maximum="100"
             Value="50"
             Margin="0,3,0,3"/>
-        
+
         <TextBlock
             Grid.Column="5"
             HorizontalAlignment="Left"
@@ -363,7 +358,7 @@
             Padding="0,0,0,10"
             VerticalAlignment="Center"
             Margin="16,0,0,0" RenderTransformOrigin="0.541,0.01"/>
-        
+
         <Button 
             x:Name="btnIntelM"
             Grid.Column="5"
@@ -376,7 +371,7 @@
             HorizontalAlignment="Right"
             Style="{StaticResource btn_Black}"
            />
-        
+
         <Button 
             x:Name="btnIntelP"
             Grid.Column="7"
