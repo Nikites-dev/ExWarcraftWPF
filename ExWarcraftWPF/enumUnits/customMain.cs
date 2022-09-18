@@ -10,19 +10,19 @@ namespace ExWarcraftWPF.enumUnits
     public class customMain
     {
 
-        public int strensthMin = 15;
-        public int strensthMax = 55;
-        public int desterityMin = 30;
-        public int desterityMax = 250;
-        public int constitutionMin = 20;
-        public int constitutionMax = 80;
-        public int intellisenseMin = 15;
-        public int intellisenseMax = 7;
+         int strensthMin = 15;
+        int strensthMax = 55;
+         int desterityMin = 30;
+   int desterityMax = 250;
+     int constitutionMin = 20;
+        int constitutionMax = 80;
+       int intellisenseMin = 15;
+  int intellisenseMax = 7;
 
-        public int currentStrensth = 30;
-        public int currentDesterity = 0;
-        public int currentConstitution = 0;
-        public int currentIntellisense = 0;
+      int currentStrensth = 30;
+      int currentDesterity = 0;
+        int currentConstitution = 0;
+      int currentIntellisense = 0;
 
         int health = 0;
         int damage = 0;

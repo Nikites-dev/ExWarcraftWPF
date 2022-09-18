@@ -145,7 +145,7 @@
             Margin="0,3,0,4"/>
 
         <TextBlock
-            Text="{Binding ElementName=barStrensth, Path=Value, StringFormat={}{0:0}%}"
+            Text="{Binding ElementName=barStrensth, Path=Value, StringFormat={}{0:0}}"
             Grid.Column="6"
                 Grid.Row="2"
             HorizontalAlignment="Center"
@@ -230,7 +230,7 @@
             Grid.Row="3" HorizontalAlignment="Left"/>
 
         <TextBlock
-            Text="{Binding ElementName=barDesterity, Path=Value, StringFormat={}{0:0}%}"
+            Text="{Binding ElementName=barDesterity, Path=Value, StringFormat={}{0:0}}"
             Grid.Column="6"
                 Grid.Row="3"
             HorizontalAlignment="Center"
@@ -337,7 +337,7 @@
             Grid.Row="4" HorizontalAlignment="Left"/>
 
         <TextBlock
-            Text="{Binding Value, ElementName=barConstitution, StringFormat=\{0:0\}%}"
+            Text="{Binding Value, ElementName=barConstitution, StringFormat=\{0:0\}}"
             Grid.Column="6"
             Grid.Row="4"
             HorizontalAlignment="Center"
@@ -388,7 +388,7 @@
             Style="{StaticResource btn_Black}"
             Grid.Row="5" HorizontalAlignment="Left"/>
         <TextBlock
-            Text="{Binding Value, ElementName=barIntel, StringFormat=\{0:0\}%}"
+            Text="{Binding Value, ElementName=barIntel, StringFormat=\{0:0\}}"
             Grid.Column="6"
             Grid.Row="5"
             HorizontalAlignment="Center"

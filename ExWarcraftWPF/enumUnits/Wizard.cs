@@ -39,104 +39,92 @@ namespace ExWarcraftWPF.enumUnits
 
     public override int changeStrensth(bool isPlus)
     {
-        if (currentStrensth >= strensthMin)
+
+        if (isPlus)
         {
-            if (isPlus)
+            if (currentStrensth < strensthMax)
             {
                 currentStrensth += 1;
                 Attack += currentStrensth * 3;
                 HP += currentStrensth * 1;
             }
-            else
-            {
-                currentStrensth -= 1;
-                Attack -= currentStrensth * 3;
-                HP -= currentStrensth * 1;
-            }
         }
         else
         {
-            currentStrensth = strensthMin;
-            Attack = currentStrensth * 3;
-            HP = currentStrensth * 1;
+            if (currentStrensth > strensthMin)
+            {
+                Attack -= currentStrensth * 3;
+                HP -= currentStrensth * 1;
+                currentStrensth -= 1;
+            }
         }
-
         return currentStrensth;
     }
 
     public override int changeDesterity(bool isPlus)
     {
-        if (currentDesterity >= desterityMin)
+
+        if (isPlus)
         {
-            if (isPlus)
+            if (currentDesterity < desterityMax)
             {
                 currentDesterity += 1;
                 PDet += currentDesterity * 1;
             }
-            else
-            {
-                currentDesterity -= 1;
-                PDet -= currentDesterity * 1;
-            }
         }
         else
         {
-            currentDesterity = desterityMin;
-            PDet = currentDesterity * 1;
+            if (currentDesterity > desterityMin)
+            {
+                PDet -= currentDesterity * 1;
+                currentDesterity -= 1;
+            }
         }
         return currentDesterity;
     }
 
     public override int changeConstitution(bool isPlus)
     {
-        if (currentConstitution >= constitutionMin)
+        if (isPlus)
         {
-            if (isPlus)
+            if (currentConstitution < constitutionMax)
             {
                 currentConstitution += 1;
                 HP += currentConstitution * 3;
                 PDet += currentDesterity * 1;
             }
-            else
-            {
-                currentConstitution -= 1;
-                HP -= currentConstitution * 3;
-                PDet -= currentDesterity * 1;
-            }
         }
         else
         {
-            currentConstitution = constitutionMin;
-            HP = currentConstitution * 3;
-            PDet = currentDesterity * 1;
+            if (currentConstitution > constitutionMin)
+            {
+                HP -= currentConstitution * 3;
+                PDet -= currentDesterity * 1;
+                currentConstitution -= 1;
+            }
         }
         return currentConstitution;
     }
 
-
-
     public override int changeIntellisense(bool isPlus)
     {
-        if (currentIntellisense >= intellisenseMin)
+        if (isPlus)
         {
-            if (isPlus)
+            if (currentIntellisense < intellisenseMax)
             {
                 currentIntellisense += 1;
                 MP += currentIntellisense * 2;
                 MAH += currentIntellisense * 5;
             }
-            else
-            {
-                currentIntellisense -= 1;
-                MP -= currentIntellisense * 2;
-                MAH -= currentIntellisense * 5;
-            }
         }
         else
         {
-            currentIntellisense = intellisenseMin;
-            MP = currentIntellisense * 2;
-            MAH = currentIntellisense * 5;
+            if (currentIntellisense > intellisenseMin)
+            {
+                MP -= currentIntellisense * 2;
+                MAH -= currentIntellisense * 5;
+                currentIntellisense -= 1;
+            }
         }
         return currentIntellisense;
     }
