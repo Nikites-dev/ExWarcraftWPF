@@ -64,6 +64,56 @@ namespace ExWarcraftWPF.enumUnits
             set => currentIntellisense = value;
         }
 
+
+        public int StrensthMin
+        {
+            get => strensthMin;
+            set => strensthMin = value;
+        }
+
+        public int StrensthMax
+        {
+            get => strensthMax;
+            set => strensthMax = value;
+        }
+
+        public int DesterityMin
+        {
+            get => desterityMin;
+            set => desterityMin = value;
+        }
+
+        public int DesterityMax
+        {
+            get => desterityMax;
+            set => desterityMax = value;
+        }
+
+        public int ConstitutionMin
+        {
+            get => constitutionMin;
+            set => constitutionMin = value;
+        }
+
+        public int ConstitutionMax
+        {
+            get => constitutionMax;
+            set => constitutionMax = value;
+        }
+
+        public int IntellisenseMin
+        {
+            get => intellisenseMin;
+            set => intellisenseMin = value;
+        }
+
+        public int IntellisenseMax
+        {
+            get => intellisenseMax;
+            set => intellisenseMax = value;
+        }
+
+
         public int HP
         {
             get { return health; }

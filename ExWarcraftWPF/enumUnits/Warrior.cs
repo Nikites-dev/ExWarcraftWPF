@@ -25,10 +25,19 @@ namespace ExWarcraftWPF.enumUnits
 
         public Warrior()
         {
-            CurrentStrensth = strensthMin;
-            CurrentDesterity = desterityMin;
-            CurrentConstitution = constitutionMin;
-            CurrentIntellisense = intellisenseMin; ;
+            StrensthMin = strensthMin;
+            StrensthMax = strensthMax;
+            DesterityMin = desterityMin;
+            DesterityMax = desterityMax;
+            ConstitutionMin = constitutionMin;
+            ConstitutionMax = constitutionMax;
+            IntellisenseMin = intellisenseMin;
+            IntellisenseMax = intellisenseMax;
+
+                CurrentStrensth = StrensthMin;
+            CurrentDesterity = DesterityMin;
+            CurrentConstitution = ConstitutionMin;
+            CurrentIntellisense = IntellisenseMin; ;
         }
 
         public override int changeStrensth(bool isPlus)
@@ -36,7 +45,7 @@ namespace ExWarcraftWPF.enumUnits
            
             if (isPlus)      
             {
-                if (CurrentStrensth < strensthMax)
+                if (CurrentStrensth < StrensthMax)
                 {
                     CurrentStrensth += 1;
                     Attack += CurrentStrensth * 5;
@@ -45,7 +54,7 @@ namespace ExWarcraftWPF.enumUnits
             }
             else 
             {
-                if (CurrentStrensth > strensthMin)
+                if (CurrentStrensth > StrensthMin)
                 {
                     Attack -= CurrentStrensth * 5;
                     HP -= CurrentStrensth * 2;
@@ -61,7 +70,7 @@ namespace ExWarcraftWPF.enumUnits
 
             if (isPlus)
             {
-                if (CurrentDesterity < desterityMax)
+                if (CurrentDesterity < DesterityMax)
                 {
                     CurrentDesterity += 1;
                     Attack += CurrentDesterity * 1;
@@ -70,7 +79,7 @@ namespace ExWarcraftWPF.enumUnits
             }
             else
             {
-                if (CurrentDesterity > desterityMin)
+                if (CurrentDesterity > DesterityMin)
                 {
                     Attack -= CurrentDesterity * 1;
                     PDet -= CurrentDesterity * 1;
@@ -85,7 +94,7 @@ namespace ExWarcraftWPF.enumUnits
 
             if (isPlus)
             {
-                if (CurrentConstitution < constitutionMax)
+                if (CurrentConstitution < ConstitutionMax)
                 {
                     CurrentConstitution += 1;
                     HP += CurrentConstitution * 10;
@@ -94,7 +103,7 @@ namespace ExWarcraftWPF.enumUnits
             }
             else
             {
-                if (CurrentConstitution > constitutionMin)
+                if (CurrentConstitution > ConstitutionMin)
                 {
                     HP -= CurrentConstitution * 10;
                     PDet -= CurrentDesterity * 2;
@@ -108,7 +117,7 @@ namespace ExWarcraftWPF.enumUnits
         {
             if (isPlus)
             {
-                if (CurrentIntellisense < intellisenseMax)
+                if (CurrentIntellisense < IntellisenseMax)
                 {
                     CurrentIntellisense += 1;
                     MP += CurrentIntellisense * 1;
@@ -117,7 +126,7 @@ namespace ExWarcraftWPF.enumUnits
             }
             else
             {
-                if (CurrentIntellisense > intellisenseMin)
+                if (CurrentIntellisense > IntellisenseMin)
                 {
                     MP -= CurrentIntellisense * 1;
                     MAH -= CurrentIntellisense * 1;
