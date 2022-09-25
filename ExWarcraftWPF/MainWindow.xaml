@@ -131,6 +131,8 @@
             FontSize="19px"/>
 
 
+
+
         <ProgressBar
             x:Name="barStrensth"
             Grid.Column="6"
@@ -236,7 +238,18 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
 
-        <TextBlock
+        <StackPanel 
+            Grid.Column="0" 
+            Grid.Row="10" 
+            Grid.ColumnSpan="8"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+          
+            Background="LightPink"
+            
+            >
+
+            <TextBlock
             x:Name="textHP"
             Grid.Column="1"
             HorizontalAlignment="Center"
@@ -246,7 +259,7 @@
             VerticalAlignment="Center"
             Width="64"/>
 
-        <TextBlock
+            <TextBlock
             x:Name="textMP"
             Grid.Column="2"
             HorizontalAlignment="Center"
@@ -256,7 +269,7 @@
             VerticalAlignment="Center"
             Width="64"/>
 
-        <TextBlock
+            <TextBlock
             x:Name="textPdet"
             Grid.Column="3"
             HorizontalAlignment="Center"
@@ -266,7 +279,7 @@
             VerticalAlignment="Center"
             Width="64"/>
 
-        <TextBlock
+            <TextBlock
             x:Name="textAttack"
             Grid.Column="4"
             HorizontalAlignment="Center"
@@ -276,7 +289,7 @@
             VerticalAlignment="Center"
             Width="64"/>
 
-        <TextBlock
+            <TextBlock
             x:Name="textMAH"
             Grid.Column="5"
             HorizontalAlignment="Center"
@@ -285,6 +298,8 @@
             Text="MAH: 0" 
             VerticalAlignment="Center"
             Width="64"/>
+
+        </StackPanel>
 
         <ProgressBar
             x:Name="barConstitution"
@@ -388,6 +403,29 @@
             Grid.Row="5"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
+        <Menu
 
+            Grid.Column="0"
+            Grid.Row="0"
+            Grid.ColumnSpan="8"
+            VerticalAlignment="Top"
+            >
+
+            <MenuItem Header="Save" >
+                <MenuItem Header="Save local" Click="MenuItem_Click" ></MenuItem>
+
+                <Separator />
+                <MenuItem Header="Save mongo db"  Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="Load">
+                <MenuItem Header="Load local" Click="MenuItem_Click"></MenuItem>
+                <Separator />
+                <MenuItem Header="Load mongo db" Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="Edit" ></MenuItem>
+            <MenuItem Header="View" ></MenuItem>
+        </Menu>
     </Grid>
 </Window>

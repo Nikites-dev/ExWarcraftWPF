@@ -17,11 +17,6 @@ namespace ExWarcraftWPF.enumUnits
         public int intellisenseMin = 35;
         public int intellisenseMax = 250;
 
-        public int currentStrensth = 30;
-        public int currentDesterity = 0;
-        public int currentConstitution = 0;
-        public int currentIntellisense = 0;
-
         int health = 0;
         int damage = 0;
         int magicPoints = 0;
@@ -31,34 +26,37 @@ namespace ExWarcraftWPF.enumUnits
 
     public Wizard()
     {
-        currentStrensth = strensthMin;
-        currentDesterity = desterityMin;
-        currentConstitution = constitutionMin;
-        currentIntellisense = intellisenseMin; ;
+        CurrentStrensth = strensthMin;
+        CurrentDesterity = desterityMin;
+        CurrentConstitution = constitutionMin;
+        CurrentIntellisense = intellisenseMin; ;
     }
+
+    
+
 
     public override int changeStrensth(bool isPlus)
     {
 
         if (isPlus)
         {
-            if (currentStrensth < strensthMax)
+            if (CurrentStrensth < strensthMax)
             {
-                currentStrensth += 1;
-                Attack += currentStrensth * 3;
-                HP += currentStrensth * 1;
+                CurrentStrensth += 1;
+                Attack += CurrentStrensth * 3;
+                HP += CurrentStrensth * 1;
             }
         }
         else
         {
-            if (currentStrensth > strensthMin)
+            if (CurrentStrensth > strensthMin)
             {
-                Attack -= currentStrensth * 3;
-                HP -= currentStrensth * 1;
-                currentStrensth -= 1;
+                Attack -= CurrentStrensth * 3;
+                HP -= CurrentStrensth * 1;
+                CurrentStrensth -= 1;
             }
         }
-        return currentStrensth;
+        return CurrentStrensth;
     }
 
     public override int changeDesterity(bool isPlus)
@@ -66,67 +64,67 @@ namespace ExWarcraftWPF.enumUnits
 
         if (isPlus)
         {
-            if (currentDesterity < desterityMax)
+            if (CurrentDesterity < desterityMax)
             {
-                currentDesterity += 1;
-                PDet += currentDesterity * 1;
+                CurrentDesterity += 1;
+                PDet += CurrentDesterity * 1;
             }
         }
         else
         {
-            if (currentDesterity > desterityMin)
+            if (CurrentDesterity > desterityMin)
             {
-                PDet -= currentDesterity * 1;
-                currentDesterity -= 1;
+                PDet -= CurrentDesterity * 1;
+                CurrentDesterity -= 1;
             }
         }
-        return currentDesterity;
+        return CurrentDesterity;
     }
 
     public override int changeConstitution(bool isPlus)
     {
         if (isPlus)
         {
-            if (currentConstitution < constitutionMax)
+            if (CurrentConstitution < constitutionMax)
             {
-                currentConstitution += 1;
-                HP += currentConstitution * 3;
-                PDet += currentDesterity * 1;
+                CurrentConstitution += 1;
+                HP += CurrentConstitution * 3;
+                PDet += CurrentConstitution * 1;
             }
         }
         else
         {
-            if (currentConstitution > constitutionMin)
+            if (CurrentConstitution > constitutionMin)
             {
-                HP -= currentConstitution * 3;
-                PDet -= currentDesterity * 1;
-                currentConstitution -= 1;
+                HP -= CurrentConstitution * 3;
+                PDet -= CurrentConstitution * 1;
+                CurrentConstitution -= 1;
             }
         }
-        return currentConstitution;
+        return CurrentConstitution;
     }
 
     public override int changeIntellisense(bool isPlus)
     {
         if (isPlus)
         {
-            if (currentIntellisense < intellisenseMax)
+            if (CurrentIntellisense < intellisenseMax)
             {
-                currentIntellisense += 1;
-                MP += currentIntellisense * 2;
-                MAH += currentIntellisense * 5;
+                CurrentIntellisense += 1;
+                MP += CurrentIntellisense * 2;
+                MAH += CurrentIntellisense * 5;
             }
         }
         else
         {
-            if (currentIntellisense > intellisenseMin)
+            if (CurrentIntellisense > intellisenseMin)
             {
-                MP -= currentIntellisense * 2;
-                MAH -= currentIntellisense * 5;
-                currentIntellisense -= 1;
+                MP -= CurrentIntellisense * 2;
+                MAH -= CurrentIntellisense * 5;
+                CurrentIntellisense -= 1;
             }
         }
-        return currentIntellisense;
+        return CurrentIntellisense;
     }
 }
 }

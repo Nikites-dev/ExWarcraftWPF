@@ -39,6 +39,30 @@ namespace ExWarcraftWPF.enumUnits
         {
             
         }
+        
+        public int CurrentStrensth
+        {
+            get => currentStrensth;
+            set => currentStrensth = value;
+        }
+
+        public int CurrentDesterity
+        {
+            get => currentDesterity;
+            set => currentDesterity = value;
+        }
+
+        public int CurrentConstitution
+        {
+            get => currentConstitution;
+            set => currentConstitution = value;
+        }
+
+        public int CurrentIntellisense
+        {
+            get => currentIntellisense;
+            set => currentIntellisense = value;
+        }
 
         public int HP
         {

@@ -1,6 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using ExWarcraftWPF.enumUnits;
+using Microsoft.Win32;
 
 namespace ExWarcraftWPF
 {
@@ -52,6 +56,73 @@ namespace ExWarcraftWPF
             SetTextCharacter();
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+
+            if (menuItem.Header.ToString() == "Save local") {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+ 
+                saveFileDialog1.FileName = "testWarcraft";
+                saveFileDialog1.DefaultExt = ".text";
+                saveFileDialog1.Filter = "Текстик (*.txt)|*.txt";
+ 
+                if (saveFileDialog1.ShowDialog() == true)
+                {
+                    using (StreamWriter sw = new StreamWriter(saveFileDialog1.OpenFile(), System.Text.Encoding.Default))
+                    {
+                        sw.Write($"{hero.GetType().Name}, {hero.CurrentStrensth}, {hero.CurrentDesterity}, {hero.CurrentConstitution}, {hero.CurrentIntellisense}");
+                        sw.Close();
+                    }
+                }
+                
+                
+            }
+
+            else if(menuItem.Header.ToString() == "Save mongo db")
+            {
+                MessageBox.Show(menuItem.Header.ToString());
+            }
+
+            else if (menuItem.Header.ToString() == "Load local")
+            {
+                
+                
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+ 
+                openFileDialog.Filter = "Текстик (*.txt)|*.txt";
+ 
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+
+                    using (StreamReader reader = new StreamReader(fileInfo.Open(FileMode.Open, FileAccess.Read)))
+                    {
+                        String str = reader.ReadToEnd();
+                    
+                    
+                        reader.Close();
+                            MessageBox.Show(str);
+                    }
+                    
+
+                    
+                    
+                }
+                
+                
+                
+            }
+
+            else if (menuItem.Header.ToString() == "Load mongo db")
+            {
+                MessageBox.Show(menuItem.Header.ToString());
+            }
+        }
+
+
+
+
         public void SetProgressBarValue()
         {
             switch (hero)
@@ -61,16 +132,16 @@ namespace ExWarcraftWPF
                     barDesterity.Maximum = wizard.desterityMax;
                     barConstitution.Maximum = wizard.constitutionMax;
                     barIntel.Maximum = wizard.intellisenseMax;
-                        
+
                     barStrensth.Minimum = wizard.strensthMin;
                     barDesterity.Minimum = wizard.desterityMin;
                     barConstitution.Minimum = wizard.constitutionMin;
                     barIntel.Minimum = wizard.intellisenseMin;
 
-                    barStrensth.Value = wizard.currentStrensth;
-                    barDesterity.Value = wizard.currentDesterity;
-                    barConstitution.Value = wizard.currentConstitution;
-                    barIntel.Value = wizard.currentIntellisense;
+                    barStrensth.Value = wizard.CurrentStrensth;
+                    barDesterity.Value = wizard.CurrentDesterity;
+                    barConstitution.Value = wizard.CurrentConstitution;
+                    barIntel.Value = wizard.CurrentIntellisense;
                     break;
                 
                 case Rogue rogue:
@@ -84,10 +155,10 @@ namespace ExWarcraftWPF
                     barConstitution.Minimum = rogue.constitutionMin;
                     barIntel.Minimum = rogue.intellisenseMin;
                     
-                    barStrensth.Value = rogue.currentStrensth;
-                    barDesterity.Value = rogue.currentDesterity;
-                    barConstitution.Value = rogue.currentConstitution;
-                    barIntel.Value = rogue.currentIntellisense;
+                    barStrensth.Value = rogue.CurrentStrensth;
+                    barDesterity.Value = rogue.CurrentDesterity;
+                    barConstitution.Value = rogue.CurrentConstitution;
+                    barIntel.Value = rogue.CurrentIntellisense;
                     break;
                 
                 case Warrior warrior:
@@ -101,40 +172,22 @@ namespace ExWarcraftWPF
                     barConstitution.Minimum = warrior.constitutionMin;
                     barIntel.Minimum = warrior.intellisenseMin;
                     
-                    barStrensth.Value = warrior.currentStrensth;
-                    barDesterity.Value = warrior.currentDesterity;
-                    barConstitution.Value = warrior.currentConstitution;
-                    barIntel.Value = warrior.currentIntellisense;
+                    barStrensth.Value = warrior.CurrentStrensth;
+                    barDesterity.Value = warrior.CurrentDesterity;
+                    barConstitution.Value = warrior.CurrentConstitution;
+                    barIntel.Value = warrior.CurrentIntellisense;
                     break;
             }
         }
 
         public void SetTextCharacter()
         {
-            switch (hero)
-            {
-                case Wizard wiz:
-                    textHP.Text = "HP: " + wiz.HP.ToString();
-                    textMP.Text = "MP: " + wiz.MP.ToString();
-                    textPdet.Text = "PDet: " + wiz.PDet.ToString();
-                    textAttack.Text = "Attack: " + wiz.Attack.ToString();
-                    textMAH.Text = "MAH: " + wiz.MAH.ToString();
-                    break;
-                case Rogue rogue:
-                    textHP.Text = "HP: " + rogue.HP.ToString();
-                    textMP.Text = "MP: " + rogue.MP.ToString();
-                    textPdet.Text = "PDet: " + rogue.PDet.ToString();
-                    textAttack.Text = "Attack: " + rogue.Attack.ToString();
-                    textMAH.Text = "MAH: " + rogue.MAH.ToString();
-                    break;
-                case Warrior warrior:
-                    textHP.Text = "HP: " + warrior.HP.ToString();
-                    textMP.Text = "MP: " + warrior.MP.ToString();
-                    textPdet.Text = "PDet: " + warrior.PDet.ToString();
-                    textAttack.Text = "Attack: " + warrior.Attack.ToString();
-                    textMAH.Text = "MAH: " + warrior.MAH.ToString();
-                    break;
-            }
+            
+            textHP.Text = "HP: " + hero.HP.ToString();
+            textMP.Text = "MP: " + hero.MP.ToString();
+            textPdet.Text = "PDet: " + hero.PDet.ToString();
+            textAttack.Text = "Attack: " + hero.Attack.ToString();
+            textMAH.Text = "MAH: " + hero.MAH.ToString();
         }
 
         public void PerformAction()

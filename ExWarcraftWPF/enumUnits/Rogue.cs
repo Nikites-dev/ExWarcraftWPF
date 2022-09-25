@@ -18,11 +18,6 @@ namespace ExWarcraftWPF.enumUnits
         public int intellisenseMin = 7;
         public int intellisenseMax = 15;
 
-        public int currentStrensth = 30;
-        public int currentDesterity = 0;
-        public int currentConstitution = 0;
-        public int currentIntellisense = 0;
-
         int health = 0;
         int damage = 0;
         int magicPoints = 0;
@@ -31,10 +26,10 @@ namespace ExWarcraftWPF.enumUnits
 
         public Rogue()
         {
-            currentStrensth = strensthMin;
-            currentDesterity = desterityMin;
-            currentConstitution = constitutionMin;
-            currentIntellisense = intellisenseMin; ;
+            CurrentStrensth = strensthMin;
+            CurrentDesterity = desterityMin;
+            CurrentConstitution = constitutionMin;
+            CurrentIntellisense = intellisenseMin; ;
         }
 
         
@@ -43,90 +38,90 @@ namespace ExWarcraftWPF.enumUnits
         {
             if (isPlus)
             {
-                if (currentStrensth <strensthMax)
+                if (CurrentStrensth <strensthMax)
                 {
-                    currentStrensth += 1;
-                    Attack += currentStrensth * 2;
-                    HP += currentStrensth * 1;
+                    CurrentStrensth += 1;
+                    Attack += CurrentStrensth * 2;
+                    HP += CurrentStrensth * 1;
                 }
             }
             else
             {
-                if (currentStrensth > strensthMin)
+                if (CurrentStrensth > strensthMin)
                 {
-                    Attack -= currentStrensth * 2;
-                    HP -= currentStrensth * 1;
-                    currentStrensth -= 1;
+                    Attack -= CurrentStrensth * 2;
+                    HP -= CurrentStrensth * 1;
+                    CurrentStrensth -= 1;
                 }
             }
-            return currentStrensth;
+            return CurrentStrensth;
         }
 
         public override int changeDesterity(bool isPlus)
         {
             if (isPlus)
             {
-                if (currentDesterity < desterityMax)
+                if (CurrentDesterity < desterityMax)
                 {
-                    currentDesterity += 1;
-                    Attack += currentDesterity * 2;
-                    PDet += currentDesterity * 2;
+                    CurrentDesterity += 1;
+                    Attack += CurrentDesterity * 2;
+                    PDet += CurrentDesterity * 2;
                 }
             }
             else
             {
-                if (currentDesterity > desterityMin)
+                if (CurrentDesterity > desterityMin)
                 {
-                    Attack -= currentDesterity * 2;
-                    PDet -= currentDesterity * 2;
-                    currentDesterity -= 1;
+                    Attack -= CurrentDesterity * 2;
+                    PDet -= CurrentDesterity * 2;
+                    CurrentDesterity -= 1;
                 }
             }
-            return currentDesterity;
+            return CurrentDesterity;
         }
 
         public override int changeConstitution(bool isPlus)
         {
             if (isPlus)
             {
-                if (currentConstitution < constitutionMax)
+                if (CurrentConstitution < constitutionMax)
                 {
-                    currentConstitution += 1;
-                    HP += currentConstitution * 6;
+                    CurrentConstitution += 1;
+                    HP += CurrentConstitution * 6;
                 }
             }
             else
             {
-                if (currentConstitution > constitutionMin)
+                if (CurrentConstitution > constitutionMin)
                 {
-                    HP -= currentConstitution * 6;
-                    currentConstitution -= 1;
+                    HP -= CurrentConstitution * 6;
+                    CurrentConstitution -= 1;
                 }
             }
-            return currentConstitution;
+            return CurrentConstitution;
         }
         
         public override int changeIntellisense(bool isPlus)
         {
             if (isPlus)
             {
-                if (currentIntellisense < intellisenseMax)
+                if (CurrentIntellisense < intellisenseMax)
                 {
-                    currentIntellisense += 1;
-                    MP += currentIntellisense * 2;
-                    MAH += currentIntellisense * 2;
+                    CurrentIntellisense += 1;
+                    MP += CurrentIntellisense * 2;
+                    MAH += CurrentIntellisense * 2;
                 }
             }
             else
             {
-                if (currentIntellisense > intellisenseMin)
+                if (CurrentIntellisense > intellisenseMin)
                 {
-                    MP -= currentIntellisense * 2;
-                    MAH -= currentIntellisense * 2;
-                    currentIntellisense -= 1;
+                    MP -= CurrentIntellisense * 2;
+                    MAH -= CurrentIntellisense * 2;
+                    CurrentIntellisense -= 1;
                 }
             }
-            return currentIntellisense;
+            return CurrentIntellisense;
         }
     }
 }
