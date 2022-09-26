@@ -32,6 +32,7 @@ namespace ExWarcraftWPF
         {
             if(unitType == "Warrior")
             {
+                //hero = new Warrior(0, 0, 0, 0);
                 hero = new Warrior();
                 SetProgressBarValue();
 
@@ -116,8 +117,12 @@ namespace ExWarcraftWPF
                             //warrior.CurrentConstitution = int.Parse(unitInfo[3]);
                             //warrior.CurrentIntellisense = int.Parse(unitInfo[4]);
 
-                            warrior.setCharacter(int.Parse(unitInfo[1]), int.Parse(unitInfo[2]), int.Parse(unitInfo[3]), int.Parse(unitInfo[4]));
+                            warrior.setCharacter(int.Parse(unitInfo[1]) - warrior.strensthMin, int.Parse(unitInfo[2]) - warrior.desterityMin, int.Parse(unitInfo[3]) - warrior.constitutionMin, int.Parse(unitInfo[4]) - warrior.intellisenseMin);
                         }
+
+
+
+
 
                         SetProgressBarValue();
 
@@ -210,7 +215,7 @@ namespace ExWarcraftWPF
             //barDesterity.Value = hero.CurrentDesterity;
             //barConstitution.Value = hero.CurrentConstitution;
             //barIntel.Value = hero.CurrentIntellisense;
-            SetTextCharacter();
+
         }
 
         public void SetTextCharacter()

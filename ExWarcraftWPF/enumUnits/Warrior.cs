@@ -34,10 +34,27 @@ namespace ExWarcraftWPF.enumUnits
             IntellisenseMin = intellisenseMin;
             IntellisenseMax = intellisenseMax;
 
-            CurrentStrensth = StrensthMin;
-            CurrentDesterity = DesterityMin;
-            CurrentConstitution = ConstitutionMin;
-            CurrentIntellisense = IntellisenseMin; ;
+            CurrentStrensth = strensthMin;
+            CurrentDesterity = desterityMin;
+            CurrentConstitution = constitutionMin;
+            CurrentIntellisense = intellisenseMin; ;
+        }
+
+        public Warrior(int strensth, int desterity, int constitution, int inellisense)
+        {
+            StrensthMin = strensthMin;
+            StrensthMax = strensthMax;
+            DesterityMin = desterityMin;
+            DesterityMax = desterityMax;
+            ConstitutionMin = constitutionMin;
+            ConstitutionMax = constitutionMax;
+            IntellisenseMin = intellisenseMin;
+            IntellisenseMax = intellisenseMax;
+
+            CurrentStrensth = strensth;
+            CurrentDesterity = desterity;
+            CurrentConstitution = constitution;
+            CurrentIntellisense = inellisense; ;
         }
 
         public void setCharacter(int strensth, int desterity, int constitution, int inellisense)
