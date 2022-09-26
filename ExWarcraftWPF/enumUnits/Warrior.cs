@@ -34,10 +34,36 @@ namespace ExWarcraftWPF.enumUnits
             IntellisenseMin = intellisenseMin;
             IntellisenseMax = intellisenseMax;
 
-                CurrentStrensth = StrensthMin;
+            CurrentStrensth = StrensthMin;
             CurrentDesterity = DesterityMin;
             CurrentConstitution = ConstitutionMin;
             CurrentIntellisense = IntellisenseMin; ;
+        }
+
+        public void setCharacter(int strensth, int desterity, int constitution, int inellisense)
+        {
+            for (int i = 0; i < strensth; i++)
+            {
+                changeStrensth(true);
+            }
+
+            for (int i = 0; i < constitution; i++)
+            {
+                changeConstitution(true);
+            }
+
+            for (int i = 0; i < desterity; i++)
+            {
+                changeDesterity(true);
+            }
+
+            for (int i = 0; i < inellisense; i++)
+            {
+                changeIntellisense(true);
+            }
+            
+            
+            
         }
 
         public override int changeStrensth(bool isPlus)
