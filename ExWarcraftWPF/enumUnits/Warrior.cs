@@ -25,62 +25,35 @@ namespace ExWarcraftWPF.enumUnits
 
         public Warrior()
         {
-            StrensthMin = strensthMin;
-            StrensthMax = strensthMax;
-            DesterityMin = desterityMin;
-            DesterityMax = desterityMax;
-            ConstitutionMin = constitutionMin;
-            ConstitutionMax = constitutionMax;
-            IntellisenseMin = intellisenseMin;
-            IntellisenseMax = intellisenseMax;
+            
 
             CurrentStrensth = strensthMin;
             CurrentDesterity = desterityMin;
             CurrentConstitution = constitutionMin;
-            CurrentIntellisense = intellisenseMin; ;
+            CurrentIntellisense = intellisenseMin;
         }
 
-        public Warrior(int strensth, int desterity, int constitution, int inellisense)
+        public override void setCharacter(int strensth, int desterity, int constitution, int inellisense)
         {
-            StrensthMin = strensthMin;
-            StrensthMax = strensthMax;
-            DesterityMin = desterityMin;
-            DesterityMax = desterityMax;
-            ConstitutionMin = constitutionMin;
-            ConstitutionMax = constitutionMax;
-            IntellisenseMin = intellisenseMin;
-            IntellisenseMax = intellisenseMax;
-
-            CurrentStrensth = strensth;
-            CurrentDesterity = desterity;
-            CurrentConstitution = constitution;
-            CurrentIntellisense = inellisense; ;
-        }
-
-        public void setCharacter(int strensth, int desterity, int constitution, int inellisense)
-        {
-            for (int i = 0; i < strensth; i++)
+            for (int i = 0; i < strensth-strensthMin; i++)
             {
                 changeStrensth(true);
             }
 
-            for (int i = 0; i < constitution; i++)
+            for (int i = 0; i < constitution-constitutionMin; i++)
             {
                 changeConstitution(true);
             }
 
-            for (int i = 0; i < desterity; i++)
+            for (int i = 0; i < desterity-desterityMin; i++)
             {
                 changeDesterity(true);
             }
 
-            for (int i = 0; i < inellisense; i++)
+            for (int i = 0; i < inellisense-intellisenseMin; i++)
             {
                 changeIntellisense(true);
             }
-            
-            
-            
         }
 
         public override int changeStrensth(bool isPlus)

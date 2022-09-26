@@ -39,7 +39,12 @@ namespace ExWarcraftWPF.enumUnits
         {
             
         }
-        
+
+        public virtual void setCharacter(int strensth, int desterity, int constitution, int inellisense)
+        {
+            
+        }
+
         public int CurrentStrensth
         {
             get => currentStrensth;
