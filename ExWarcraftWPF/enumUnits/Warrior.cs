@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExWarcraftWPF.enumUnits
 {
-    public class Warrior:customMain
+    public class Warrior:Unit
     {
         public int strensthMin = 30;
         public int strensthMax = 250;

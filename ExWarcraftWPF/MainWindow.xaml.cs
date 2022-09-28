@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using ExWarcraftWPF.enumUnits;
+using ExWarcraftWPF.MongoDB;
 using Microsoft.Win32;
 
 namespace ExWarcraftWPF
@@ -12,7 +13,7 @@ namespace ExWarcraftWPF
     public partial class MainWindow : Window
     {
         Button btn = new Button();
-        public customMain hero = null;
+        public Unit hero = null;
       
 
         public MainWindow()
@@ -83,6 +84,8 @@ namespace ExWarcraftWPF
             else if(menuItem.Header.ToString() == "Save mongo db")
             {
                 MessageBox.Show(menuItem.Header.ToString());
+                MongoDBAction.AddToDatabase(hero);
+                
             }
 
             else if (menuItem.Header.ToString() == "Load local")
@@ -114,6 +117,13 @@ namespace ExWarcraftWPF
 
             else if (menuItem.Header.ToString() == "Load mongo db")
             {
+                hero = MongoDBAction.FindByName("");
+               // Console.WriteLine(hero1.Name);
+                //isUnit(hero1.Name);
+                SetProgressBarValue();
+                SetTextCharacter();
+                
+                
                 MessageBox.Show(menuItem.Header.ToString());
             }
         }

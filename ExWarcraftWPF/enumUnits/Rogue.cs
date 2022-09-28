@@ -7,7 +7,7 @@ using ExWarcraftWPF.enumUnits;
 
 namespace ExWarcraftWPF.enumUnits
 {
-   public class Rogue:customMain
+   public class Rogue:Unit
     {
         public int strensthMin = 15;
         public int strensthMax = 55;
