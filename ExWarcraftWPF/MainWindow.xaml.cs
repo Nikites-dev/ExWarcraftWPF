@@ -45,6 +45,8 @@ namespace ExWarcraftWPF
                 hero = new Wizard();
                 SetProgressBarValue();
             }
+
+            textHero.Text = hero.GetType().Name;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -101,11 +103,6 @@ namespace ExWarcraftWPF
                         
                         isUnit(unitInfo[0]);
 
-                        // if(hero is Warrior warrior)
-                        // {
-                        //     warrior.setCharacter(int.Parse(unitInfo[1]), int.Parse(unitInfo[2]), int.Parse(unitInfo[3]), int.Parse(unitInfo[4]));
-                        // }
-                        
                         hero.setCharacter(int.Parse(unitInfo[1]), int.Parse(unitInfo[2]), int.Parse(unitInfo[3]), int.Parse(unitInfo[4]));
                         
                         SetProgressBarValue();

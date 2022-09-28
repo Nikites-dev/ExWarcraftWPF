@@ -25,7 +25,14 @@ namespace ExWarcraftWPF.enumUnits
 
         public Warrior()
         {
-            
+            StrensthMin = strensthMin;
+            StrensthMax = strensthMax;
+            DesterityMin = desterityMin;
+            DesterityMax = desterityMax;
+            ConstitutionMin = constitutionMin;
+            ConstitutionMax = constitutionMax;
+            IntellisenseMin = intellisenseMin;
+            IntellisenseMax = intellisenseMax;
 
             CurrentStrensth = strensthMin;
             CurrentDesterity = desterityMin;
