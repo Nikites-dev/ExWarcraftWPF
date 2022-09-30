@@ -20,6 +20,11 @@ namespace ExWarcraftWPF
         public MainWindow()
         {
             InitializeComponent();
+            
+            ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
+            cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
+          
+           // MessageBox.Show(selectedItem.Content.ToString());
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -89,6 +94,8 @@ namespace ExWarcraftWPF
                 MessageBox.Show(menuItem.Header.ToString());
                 MongoDBAction.AddToDatabase(hero);
                 
+                ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
+                cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
             }
 
             else if (menuItem.Header.ToString() == "Load local")
@@ -122,7 +129,6 @@ namespace ExWarcraftWPF
             {
                 TextBox textBox = (TextBox)this.FindName("btnName");
                 Unit lHero = MongoDBAction.FindByName(textBox.Text);
-                
                 isUnit(MongoDBAction.FindByName(textBox.Text).GetType().Name);
                 
                 hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
@@ -199,5 +205,25 @@ namespace ExWarcraftWPF
                 hero.changeIntellisense(false);
             }
         }
+
+        private void cmbBoxHero_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
+            cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
+           
+            
+            Unit lHero = MongoDBAction.FindByName(cmbBoxHero.Text);
+            isUnit(MongoDBAction.FindByName(cmbBoxHero.Text).GetType().Name);
+                
+            hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
+                        
+            SetProgressBarValue();
+            SetTextCharacter();
+            
+            TextBox textBox = (TextBox)this.FindName("btnName");
+            textBox.Text = cmbBoxHero.Text;
+        }
+
+      
     }
 }

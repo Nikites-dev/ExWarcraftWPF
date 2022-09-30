@@ -454,7 +454,34 @@
             TextWrapping="Wrap"
             Text="Name"
             VerticalAlignment="Top" 
-            Foreground="MediumBlue"
+            Foreground="Navy"
             Grid.ColumnSpan="2" Margin="0,-7,0,0"/>
+
+        <TextBlock 
+            HorizontalAlignment="Left"
+            Grid.Row="5" 
+            TextWrapping="Wrap"
+            Text="Heroes"
+            VerticalAlignment="Top" 
+            Foreground="Navy" Margin="31,0,0,0"
+           />
+
+        <ComboBox
+            x:Name="cmbBoxHero"
+            HorizontalAlignment="Left"
+            Margin="5,14,0,0"
+            Grid.Row="5"
+            VerticalAlignment="Top"
+            Width="90"
+            Text="Hero"
+            BorderBrush="Black"
+            BorderThickness="1"
+            Foreground="Maroon" 
+            SelectionChanged="cmbBoxHero_SelectionChanged" 
+
+            />
+
+
+
     </Grid>
 </Window>

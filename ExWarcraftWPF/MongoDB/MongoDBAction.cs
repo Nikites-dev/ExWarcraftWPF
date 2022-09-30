@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Driver;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDBa;
@@ -60,8 +61,6 @@ namespace ExWarcraftWPF.MongoDB
                         {Name = unit.Name,};
                 default: return null;
             }
-
-
             return null;
         }
 
@@ -78,6 +77,16 @@ namespace ExWarcraftWPF.MongoDB
         {
             var client = new MongoClient("mongodb://localhost");
             client.GetDatabase("Warcraft").DropCollectionAsync("HeroCollection");
+        }
+
+        public static List<String> AddListHeroes()
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Warcraft");
+            var collection = database.GetCollection<CharacterDb>("HeroCollection");
+            var strNames = collection.Find<CharacterDb>(x => x.Name != null && x.Name != "")
+                .ToEnumerable<CharacterDb>();
+            return strNames.Select(x => x.Name).ToList<String>();
         }
     }
 }
