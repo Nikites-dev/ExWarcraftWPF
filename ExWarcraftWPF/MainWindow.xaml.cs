@@ -31,7 +31,8 @@ namespace ExWarcraftWPF
         {
             RadioButton pressed = (RadioButton)sender;
             textHero.Text = pressed.Content.ToString();
-           
+            TextBox textBox = (TextBox)this.FindName("btnName");
+            textBox.Text = "";
             isUnit(pressed.Content.ToString()); 
         }
 
@@ -137,6 +138,13 @@ namespace ExWarcraftWPF
                 SetTextCharacter();
                 
                 MessageBox.Show(Convert.ToString(hero.GetType().Name));
+            } else if (menuItem.Header.ToString() == "Update")
+            {
+                ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
+                cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
+                
+                MongoDBAction.UpdateByName(cmbBoxHero.Text, hero);
+                MessageBox.Show("update success!  " + cmbBoxHero.Text);
             }
         }
         

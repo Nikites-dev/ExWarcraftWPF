@@ -443,7 +443,7 @@
                 <MenuItem Header="Load mongo db" Click="MenuItem_Click"></MenuItem>
             </MenuItem>
 
-            <MenuItem Header="Edit" ></MenuItem>
+            <MenuItem Header="Update" Click="MenuItem_Click"></MenuItem>
             <MenuItem Header="View" ></MenuItem>
         </Menu>
 

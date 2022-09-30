@@ -24,6 +24,21 @@ namespace ExWarcraftWPF.MongoDB
             var collection = database.GetCollection<CharacterDb>("HeroCollection");
             collection.InsertOne(db);
         }
+        
+        public static CharacterDb UnitToCharacter(String name, Unit unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Warcraft");
+            CharacterDb db = new CharacterDb(
+                name,
+                unit.GetType().Name,
+                unit.CurrentStrensth, 
+                unit.CurrentDesterity,
+                unit.CurrentConstitution,
+                unit.CurrentIntellisense);
+            
+           return db;
+        }
 
         public static Unit FindByName(String name)
         {
@@ -31,7 +46,6 @@ namespace ExWarcraftWPF.MongoDB
             var database = client.GetDatabase("Warcraft");
             var collection = database.GetCollection<CharacterDb>("HeroCollection");
             CharacterDb unit = collection.Find(x => x.Name == name).FirstOrDefault();
-            
             
             if (unit == null)
             {
@@ -87,6 +101,14 @@ namespace ExWarcraftWPF.MongoDB
             var strNames = collection.Find<CharacterDb>(x => x.Name != null && x.Name != "")
                 .ToEnumerable<CharacterDb>();
             return strNames.Select(x => x.Name).ToList<String>();
+        }
+
+        public static void UpdateByName(String name, Unit unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Warcraft");
+            var collection = database.GetCollection<CharacterDb>("HeroCollection");
+            var b = collection.ReplaceOne(x => x.Name == name, UnitToCharacter(name, unit)).ModifiedCount > 0;
         }
     }
 }
