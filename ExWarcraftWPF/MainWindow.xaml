@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExWarcraftWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800">
 
 
     <Window.Resources>
@@ -62,15 +62,15 @@
             x:Name="textHero"
             TextWrapping="NoWrap"
             Text="Warier"
-            VerticalAlignment="Center" 
+            VerticalAlignment="Top" 
             Grid.Column="3" 
             TextAlignment="Center" 
-            FontSize="36"
+            FontSize="20"
             FontWeight="Bold"
             FontFamily="Showcard Gothic"
             RenderTransformOrigin="1.66,0.634" 
-            Grid.ColumnSpan="2" 
-            Margin="94,0,6,0">
+            Grid.ColumnSpan="2" Margin="0,15,0,0" Grid.RowSpan="2" 
+           >
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
@@ -79,6 +79,23 @@
                 </LinearGradientBrush>
             </TextBlock.Foreground>
         </TextBlock>
+
+        <TextBox
+            x:Name="btnName"
+            Grid.Column="3"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="30, 10, 30, 5"
+            FontWeight="Bold"
+           
+           
+            Background="#D3D6DB"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            >
+        </TextBox>
 
 
         <!--<Image x:Name="imgRogue" Source="/38f110a9d86c3d75ca5cc8ca8a6d4510.jpg" Stretch="UniformToFill" Grid.Row="1"  Grid.Column="0" HorizontalAlignment="Center" Margin="10,10,10,10">
@@ -103,32 +120,32 @@
             Checked="RadioButton_Checked"
             GroupName="Hero"
             HorizontalAlignment="Left"
-            Margin="35,0,0,0"
+          Margin="10,0,0,0"
             Grid.Row="1"
             VerticalAlignment="Center"
-            FontSize="19px"/>
+            FontSize="15px"/>
 
         <RadioButton
             x:Name="radioWarrior"
             Content="Warrior"
             Checked="RadioButton_Checked"
             GroupName="Hero"
+          Margin="10,0,0,0"
             HorizontalAlignment="Left"
-            Margin="35,0,0,0"
             Grid.Row="2"
             VerticalAlignment="Center"
-            FontSize="19px"/>
+            FontSize="15px"/>
 
         <RadioButton
             x:Name="radioWizard"
             Content="Wizard"
             Checked="RadioButton_Checked"
             GroupName="Hero"
+              Margin="10,0,0,0"
             HorizontalAlignment="Left"
-            Margin="35,0,0,0"
             Grid.Row="3"
             VerticalAlignment="Center"
-            FontSize="19px"/>
+            FontSize="15px"/>
 
 
 

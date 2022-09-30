@@ -14,39 +14,23 @@ namespace ExWarcraftWPF.enumUnits
         private String name = "Sparky";
         [BsonIgnoreIfDefault]
         int strensthMin = 15;
-        [BsonIgnoreIfDefault]
         int strensthMax = 55;
-        [BsonIgnoreIfDefault]
         int desterityMin = 30;
-        [BsonIgnoreIfDefault]
         int desterityMax = 250;
-        [BsonIgnoreIfDefault]
         int constitutionMin = 20;
-        [BsonIgnoreIfDefault]
         int constitutionMax = 80;
-        [BsonIgnoreIfDefault]
         int intellisenseMin = 15;
-        [BsonIgnoreIfDefault]
         int intellisenseMax = 7;
-        [BsonIgnoreIfDefault]
         int currentStrensth = 30;
-        [BsonIgnoreIfDefault]
         int currentDesterity = 0;
-        [BsonIgnoreIfDefault]
         int currentConstitution = 0;
-        [BsonIgnoreIfDefault]
         int currentIntellisense = 0;
         [BsonIgnoreIfDefault]
-        
-        int health = 0;
-        [BsonIgnoreIfDefault]
-        int damage = 0;
-        [BsonIgnoreIfDefault]
-        int magicPoints = 0;
-        [BsonIgnoreIfDefault]
-        int pDet = 0;
-        [BsonIgnoreIfDefault]
-        int mah = 0;
+        double health = 0;
+        double damage = 0;
+        double magicPoints = 0;
+        double pDet = 0;
+        double mah = 0;
 
         public Unit()
         {
@@ -96,57 +80,57 @@ namespace ExWarcraftWPF.enumUnits
             set => currentIntellisense = value;
         }
 
-        [BsonIgnoreIfDefault]
+        
         public int StrensthMin
         {
             get => strensthMin;
             set => strensthMin = value;
         }
-        [BsonIgnoreIfDefault]
+        
         public int StrensthMax
         {
             get => strensthMax;
             set => strensthMax = value;
         }
-        [BsonIgnoreIfDefault]
+
         public int DesterityMin
         {
             get => desterityMin;
             set => desterityMin = value;
         }
-        [BsonIgnoreIfDefault]
+ 
         public int DesterityMax
         {
             get => desterityMax;
             set => desterityMax = value;
         }
-        [BsonIgnoreIfDefault]
+ 
         public int ConstitutionMin
         {
             get => constitutionMin;
             set => constitutionMin = value;
         }
-        [BsonIgnoreIfDefault]
+
         public int ConstitutionMax
         {
             get => constitutionMax;
             set => constitutionMax = value;
         }
-        [BsonIgnoreIfDefault]
+ 
         public int IntellisenseMin
         {
             get => intellisenseMin;
             set => intellisenseMin = value;
         }
-        [BsonIgnoreIfDefault]
+
         public int IntellisenseMax
         {
             get => intellisenseMax;
             set => intellisenseMax = value;
         }
 
-        [BsonIgnoreIfDefault]
-        public int HP
+
+        public double HP
         {
             get { return health; }
             set
@@ -155,7 +139,7 @@ namespace ExWarcraftWPF.enumUnits
             }
         }
         [BsonIgnoreIfDefault]
-        public int MP
+        public double MP
         {
             get { return magicPoints; }
             set
@@ -164,7 +148,7 @@ namespace ExWarcraftWPF.enumUnits
             }
         }
         [BsonIgnoreIfDefault]
-        public int Attack
+        public double Attack
         {
             get { return damage; }
             set
@@ -173,7 +157,7 @@ namespace ExWarcraftWPF.enumUnits
             }
         }
         [BsonIgnoreIfDefault]
-        public int PDet
+        public double PDet
         {
             get { return pDet; }
             set
@@ -182,7 +166,7 @@ namespace ExWarcraftWPF.enumUnits
             }
         }
         [BsonIgnoreIfDefault]
-        public int MAH
+        public double MAH
         {
             get { return mah; }
             set

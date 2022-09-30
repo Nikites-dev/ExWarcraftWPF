@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDB;
 using Microsoft.Win32;
@@ -117,14 +118,17 @@ namespace ExWarcraftWPF
 
             else if (menuItem.Header.ToString() == "Load mongo db")
             {
-                hero = MongoDBAction.FindByName("");
+                TextBox textBox = (TextBox)this.FindName("btnName");
+                
+
+                hero = MongoDBAction.FindByName(textBox.Text);
                // Console.WriteLine(hero1.Name);
                 //isUnit(hero1.Name);
-                SetProgressBarValue();
-                SetTextCharacter();
+                //SetProgressBarValue();
+                //SetTextCharacter();
                 
                 
-                MessageBox.Show(menuItem.Header.ToString());
+                MessageBox.Show(Convert.ToString(hero.CurrentStrensth));
             }
         }
         

@@ -18,11 +18,11 @@ namespace ExWarcraftWPF.enumUnits
         public int intellisenseMin = 7;
         public int intellisenseMax = 15;
 
-        int health = 0;
-        int damage = 0;
-        int magicPoints = 0;
-        int pDet = 0;
-        int mah = 0;
+        double health = 0;
+        double damage = 0;
+        double magicPoints = 0;
+        double pDet = 0;
+        double mah = 0;
 
         public Rogue()
         {
@@ -94,16 +94,16 @@ namespace ExWarcraftWPF.enumUnits
                 if (CurrentDesterity < DesterityMax)
                 {
                     CurrentDesterity += 1;
-                    Attack += CurrentDesterity * 2;
-                    PDet += CurrentDesterity * 2;
+                    Attack += CurrentDesterity * 4;
+                    PDet += CurrentDesterity * 1.5;
                 }
             }
             else
             {
                 if (CurrentDesterity > DesterityMin)
                 {
-                    Attack -= CurrentDesterity * 2;
-                    PDet -= CurrentDesterity * 2;
+                    Attack -= CurrentDesterity * 4;
+                    PDet -= CurrentDesterity * 1.5;
                     CurrentDesterity -= 1;
                 }
             }
@@ -138,7 +138,7 @@ namespace ExWarcraftWPF.enumUnits
                 if (CurrentIntellisense < IntellisenseMax)
                 {
                     CurrentIntellisense += 1;
-                    MP += CurrentIntellisense * 2;
+                    MP += CurrentIntellisense * 1.5;
                     MAH += CurrentIntellisense * 2;
                 }
             }
@@ -147,7 +147,7 @@ namespace ExWarcraftWPF.enumUnits
                 if (CurrentIntellisense > IntellisenseMin)
                 {
                     MP -= CurrentIntellisense * 2;
-                    MAH -= CurrentIntellisense * 2;
+                    MAH -= CurrentIntellisense * 1.5;
                     CurrentIntellisense -= 1;
                 }
             }

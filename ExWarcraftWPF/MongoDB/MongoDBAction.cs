@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using MongoDB.Driver;
 using ExWarcraftWPF.enumUnits;
+using ExWarcraftWPF.MongoDBa;
 
 namespace ExWarcraftWPF.MongoDB
 {
@@ -10,17 +12,59 @@ namespace ExWarcraftWPF.MongoDB
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Warcraft");
-            var collection = database.GetCollection<Unit>("HeroCollection");
-            collection.InsertOne(unit);
+            CharacterDb db = new CharacterDb(
+                "Vupsen",
+                unit.GetType().Name,
+                unit.CurrentStrensth, 
+                unit.CurrentConstitution,
+                unit.CurrentDesterity,
+                unit.CurrentIntellisense);
+            
+            var collection = database.GetCollection<CharacterDb>("HeroCollection");
+            collection.InsertOne(db);
         }
 
         public static Unit FindByName(String name)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Warcraft");
-            var collection = database.GetCollection<Unit>("HeroCollection");
-            Unit unit = collection.Find(x => x.Name == name).FirstOrDefault();
-            return unit;
+            var collection = database.GetCollection<CharacterDb>("HeroCollection");
+            CharacterDb unit = collection.Find(x => x.Name == name).FirstOrDefault();
+            
+            
+            if (unit == null)
+            {
+                return null;
+            }
+
+            switch (unit.ClassName)
+            {
+                case "Warrior":
+                    return new Warrior(unit.Strength,
+                        unit.Dexterity,
+                        unit.Constitution,
+                        unit.Intellisense)
+                    { Name = unit.Name,
+             };
+                // case "Wizard":
+                //     return new Wizard(dbCharacter.Strength,
+                //         dbCharacter.Dexterity,
+                //         dbCharacter.Constitution,
+                //         dbCharacter.Intellisense)
+                //     { Name = dbCharacter.Name,
+                //         Inventory = new Inventory(dbCharacter.Items) };
+                // case "Rogue":
+                //     return new Rogue(dbCharacter.Strength,
+                //         dbCharacter.Dexterity,
+                //         dbCharacter.Constitution,
+                //         dbCharacter.Intellisense)
+                //     { Name = dbCharacter.Name,
+                //         Inventory = new Inventory(dbCharacter.Items) };
+                default: return null;
+            }
+
+
+            return null;
         }
 
         public static String DeleteByName(String name)

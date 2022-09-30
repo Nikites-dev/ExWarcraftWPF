@@ -8,20 +8,20 @@ namespace ExWarcraftWPF.enumUnits
 {
     public class Warrior:Unit
     {
-        public int strensthMin = 30;
-        public int strensthMax = 250;
-        public int desterityMin = 15;
-        public int desterityMax = 70;
-        public int constitutionMin = 20;
-        public int constitutionMax = 100;
-        public int intellisenseMin = 10;
-        public int intellisenseMax = 50;
+         int strensthMin = 30;
+         int strensthMax = 250;
+         int desterityMin = 15;
+         int desterityMax = 70;
+         int constitutionMin = 20;
+         int constitutionMax = 100;
+         int intellisenseMin = 10;
+         int intellisenseMax = 50;
 
-        int health = 0;
-        int damage = 0;
-        int magicPoints = 0;
-        int pDet = 0;
-        int mah = 0;
+        double health = 0;
+        double damage = 0;
+        double magicPoints = 0;
+        double pDet = 0;
+        double mah = 0;
 
         public Warrior()
         {
@@ -40,6 +40,23 @@ namespace ExWarcraftWPF.enumUnits
             CurrentIntellisense = intellisenseMin;
         }
 
+        public Warrior(int strensth, int desterity, int constitution, int inellisense)
+        {
+            StrensthMin = strensthMin;
+            StrensthMax = strensthMax;
+            DesterityMin = desterityMin;
+            DesterityMax = desterityMax;
+            ConstitutionMin = constitutionMin;
+            ConstitutionMax = constitutionMax;
+            IntellisenseMin = intellisenseMin;
+            IntellisenseMax = intellisenseMax;
+
+            CurrentStrensth = strensth;
+            CurrentDesterity = desterity;
+            CurrentConstitution = constitution;
+            CurrentIntellisense = inellisense;
+        }
+        
         public override void setCharacter(int strensth, int desterity, int constitution, int inellisense)
         {
             for (int i = 0; i < strensth-strensthMin; i++)
