@@ -13,11 +13,11 @@ namespace ExWarcraftWPF.MongoDB
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Warcraft");
             CharacterDb db = new CharacterDb(
-                "Vupsen",
+                unit.Name,
                 unit.GetType().Name,
                 unit.CurrentStrensth, 
-                unit.CurrentConstitution,
                 unit.CurrentDesterity,
+                unit.CurrentConstitution,
                 unit.CurrentIntellisense);
             
             var collection = database.GetCollection<CharacterDb>("HeroCollection");
@@ -46,20 +46,18 @@ namespace ExWarcraftWPF.MongoDB
                         unit.Intellisense)
                     { Name = unit.Name,
              };
-                // case "Wizard":
-                //     return new Wizard(dbCharacter.Strength,
-                //         dbCharacter.Dexterity,
-                //         dbCharacter.Constitution,
-                //         dbCharacter.Intellisense)
-                //     { Name = dbCharacter.Name,
-                //         Inventory = new Inventory(dbCharacter.Items) };
-                // case "Rogue":
-                //     return new Rogue(dbCharacter.Strength,
-                //         dbCharacter.Dexterity,
-                //         dbCharacter.Constitution,
-                //         dbCharacter.Intellisense)
-                //     { Name = dbCharacter.Name,
-                //         Inventory = new Inventory(dbCharacter.Items) };
+                case "Wizard":
+                    return new Wizard(unit.Strength,
+                            unit.Dexterity,
+                            unit.Constitution,
+                            unit.Intellisense)
+                        {Name = unit.Name,};
+                case "Rogue":
+                    return new Rogue(unit.Strength,
+                            unit.Dexterity,
+                            unit.Constitution,
+                            unit.Intellisense)
+                        {Name = unit.Name,};
                 default: return null;
             }
 

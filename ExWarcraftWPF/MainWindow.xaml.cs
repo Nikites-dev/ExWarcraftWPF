@@ -84,6 +84,8 @@ namespace ExWarcraftWPF
 
             else if(menuItem.Header.ToString() == "Save mongo db")
             {
+                TextBox textBox = (TextBox)this.FindName("btnName");
+                hero.Name = textBox.Text;
                 MessageBox.Show(menuItem.Header.ToString());
                 MongoDBAction.AddToDatabase(hero);
                 
@@ -119,16 +121,16 @@ namespace ExWarcraftWPF
             else if (menuItem.Header.ToString() == "Load mongo db")
             {
                 TextBox textBox = (TextBox)this.FindName("btnName");
+                Unit lHero = MongoDBAction.FindByName(textBox.Text);
                 
-
-                hero = MongoDBAction.FindByName(textBox.Text);
-               // Console.WriteLine(hero1.Name);
-                //isUnit(hero1.Name);
-                //SetProgressBarValue();
-                //SetTextCharacter();
+                isUnit(MongoDBAction.FindByName(textBox.Text).GetType().Name);
                 
+                hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
+                        
+                SetProgressBarValue();
+                SetTextCharacter();
                 
-                MessageBox.Show(Convert.ToString(hero.CurrentStrensth));
+                MessageBox.Show(Convert.ToString(hero.GetType().Name));
             }
         }
         

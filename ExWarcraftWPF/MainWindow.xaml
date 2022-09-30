@@ -87,11 +87,13 @@
             Grid.ColumnSpan="2"
             Margin="30, 10, 30, 5"
             FontWeight="Bold"
-           
-           
+          
+            Width="150"
+            Height="40"
+            
             Background="#D3D6DB"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
             >
@@ -444,5 +446,15 @@
             <MenuItem Header="Edit" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>
         </Menu>
+
+        <TextBlock
+            Grid.Column="3" 
+            HorizontalAlignment="Center"
+            Grid.Row="2" 
+            TextWrapping="Wrap"
+            Text="Name"
+            VerticalAlignment="Top" 
+            Foreground="MediumBlue"
+            Grid.ColumnSpan="2" Margin="0,-7,0,0"/>
     </Grid>
 </Window>

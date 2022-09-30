@@ -40,6 +40,23 @@ namespace ExWarcraftWPF.enumUnits
             CurrentConstitution = constitutionMin;
             CurrentIntellisense = intellisenseMin; ;
         }
+        
+        public Rogue(int strensth, int desterity, int constitution, int inellisense)
+        {
+            StrensthMin = strensthMin;
+            StrensthMax = strensthMax;
+            DesterityMin = desterityMin;
+            DesterityMax = desterityMax;
+            ConstitutionMin = constitutionMin;
+            ConstitutionMax = constitutionMax;
+            IntellisenseMin = intellisenseMin;
+            IntellisenseMax = intellisenseMax;
+
+            CurrentStrensth = strensth;
+            CurrentDesterity = desterity;
+            CurrentConstitution = constitution;
+            CurrentIntellisense = inellisense;
+        }
 
         public override void setCharacter(int strensth, int desterity, int constitution, int inellisense)
         {
