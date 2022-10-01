@@ -65,7 +65,7 @@
             VerticalAlignment="Top" 
             Grid.Column="3" 
             TextAlignment="Center" 
-            FontSize="20"
+            FontSize="15"
             FontWeight="Bold"
             FontFamily="Showcard Gothic"
             RenderTransformOrigin="1.66,0.634" 
@@ -83,21 +83,21 @@
         <TextBox
             x:Name="btnName"
             Grid.Column="3"
-            Grid.Row="1"
             Grid.ColumnSpan="2"
-            Margin="30, 10, 30, 5"
+           
             FontWeight="Bold"
-          
-            Width="150"
-            Height="40"
-            
+   
+            Width="100"
+            Height="20"
+         
             Background="#D3D6DB"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
-            >
-        </TextBox>
+            BorderThickness="1"
+            BorderBrush="DarkSlateGray" Margin="0,4,0,0" Grid.Row="1"
+            />
 
 
         <!--<Image x:Name="imgRogue" Source="/38f110a9d86c3d75ca5cc8ca8a6d4510.jpg" Stretch="UniformToFill" Grid.Row="1"  Grid.Column="0" HorizontalAlignment="Center" Margin="10,10,10,10">
@@ -155,32 +155,31 @@
         <ProgressBar
             x:Name="barStrensth"
             Grid.Column="6"
-                Grid.Row="2"
+                Grid.Row="3"
             Height="30"
         
             Foreground="Brown"
             Minimum="0"
             Maximum="100"
             Value="50"
-            HorizontalAlignment="Stretch"
-            Margin="0,3,0,4"/>
+            Margin="0,2,0,4"/>
 
         <TextBlock
             Text="{Binding ElementName=barStrensth, Path=Value, StringFormat={}{0:0}}"
             Grid.Column="6"
-                Grid.Row="2"
+                Grid.Row="3"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
 
         <TextBlock
             Grid.Column="5"
-            HorizontalAlignment="Left"
-            Grid.Row="2"
+            HorizontalAlignment="Right"
+            Grid.Row="3"
             TextWrapping="Wrap"
             Text="Strensth"
             Padding="0,0,0,10"
             VerticalAlignment="Center"
-            Margin="16,0,0,0" RenderTransformOrigin="0.541,0.01"/>
+            Margin="0,0,41,0" RenderTransformOrigin="0.541,0.01"/>
 
 
         <Button 
@@ -190,8 +189,8 @@
             Height="30"
               Width="30" 
             FontSize="19px" 
-            Margin="0,3,5,4"
-            Grid.Row="2" HorizontalAlignment="Right"
+            Margin="0,2,5,4"
+            Grid.Row="3" HorizontalAlignment="Right"
             Style="{StaticResource btn_Black}"
             />
 
@@ -202,14 +201,14 @@
             Height="30"
               Width="30" 
             FontSize="19px" 
-             Margin="5,3,0,4"
+             Margin="5,2,0,4"
             Style="{StaticResource btn_Black}"
-            Grid.Row="2" HorizontalAlignment="Left"/>
+            Grid.Row="3" HorizontalAlignment="Left"/>
 
         <ProgressBar
             x:Name="barDesterity"
             Grid.Column="6"
-            Grid.Row="3"
+            Grid.Row="4"
             Height="30"
             Foreground="Brown"
             Minimum="0"
@@ -219,13 +218,13 @@
 
         <TextBlock
             Grid.Column="5"
-            HorizontalAlignment="Left"
-            Grid.Row="3"
+            HorizontalAlignment="Right"
+            Grid.Row="4"
             TextWrapping="Wrap"
             Text="Desterity"
             Padding="0,0,0,10"
             VerticalAlignment="Center"
-            Margin="16,0,0,0" RenderTransformOrigin="0.541,0.01"/>
+            Margin="0,0,37,0" RenderTransformOrigin="0.541,0.01"/>
 
         <Button 
             x:Name="btnDesterityM"
@@ -234,8 +233,8 @@
             Height="30"
               Width="30" 
             FontSize="19px" 
-            Margin="0,3,5,4"
-            Grid.Row="3" HorizontalAlignment="Right"
+            Margin="0,3,5,3"
+            Grid.Row="4" HorizontalAlignment="Right"
             Style="{StaticResource btn_Black}"
            />
 
@@ -248,12 +247,12 @@
             FontSize="19px" 
             Margin="5,3,0,3"
             Style="{StaticResource btn_Black}"
-            Grid.Row="3" HorizontalAlignment="Left"/>
+            Grid.Row="4" HorizontalAlignment="Left"/>
 
         <TextBlock
             Text="{Binding ElementName=barDesterity, Path=Value, StringFormat={}{0:0}}"
             Grid.Column="6"
-                Grid.Row="3"
+                Grid.Row="4"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
 
@@ -323,7 +322,7 @@
         <ProgressBar
             x:Name="barConstitution"
             Grid.Column="6"
-            Grid.Row="4"
+            Grid.Row="5"
             Height="30"
             Foreground="Brown"
             Minimum="0"
@@ -333,13 +332,13 @@
 
         <TextBlock
             Grid.Column="5"
-            HorizontalAlignment="Left"
-            Grid.Row="4"
+            HorizontalAlignment="Right"
+            Grid.Row="5"
             TextWrapping="Wrap"
             Text="Constitutoin"
             Padding="0,0,0,10"
             VerticalAlignment="Center"
-            Margin="16,0,0,0" RenderTransformOrigin="0.541,0.01"/>
+            Margin="0,0,19,0" RenderTransformOrigin="0.541,0.01"/>
 
         <Button 
             x:Name="btnConstitutM"
@@ -348,8 +347,8 @@
             Height="30"
               Width="30" 
             FontSize="19px" 
-            Margin="0,3,5,4"
-            Grid.Row="4"
+            Margin="0,3,5,3"
+            Grid.Row="5"
             HorizontalAlignment="Right"
             Style="{StaticResource btn_Black}"
            />
@@ -363,19 +362,19 @@
             FontSize="19px" 
             Margin="5,3,0,3"
             Style="{StaticResource btn_Black}"
-            Grid.Row="4" HorizontalAlignment="Left"/>
+            Grid.Row="5" HorizontalAlignment="Left"/>
 
         <TextBlock
             Text="{Binding Value, ElementName=barConstitution, StringFormat=\{0:0\}}"
             Grid.Column="6"
-            Grid.Row="4"
+            Grid.Row="5"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
 
         <ProgressBar
             x:Name="barIntel"
             Grid.Column="6"
-            Grid.Row="5"
+            Grid.Row="6"
             Height="30"
             Foreground="Brown"
             Minimum="0"
@@ -385,13 +384,13 @@
 
         <TextBlock
             Grid.Column="5"
-            HorizontalAlignment="Left"
-            Grid.Row="5"
+            HorizontalAlignment="Right"
+            Grid.Row="6"
             TextWrapping="Wrap"
             Text="Intellisense"
             Padding="0,0,0,10"
             VerticalAlignment="Center"
-            Margin="16,0,0,0" RenderTransformOrigin="0.541,0.01"/>
+            Margin="0,0,25,0" RenderTransformOrigin="0.541,0.01"/>
 
         <Button 
             x:Name="btnIntelM"
@@ -400,8 +399,8 @@
             Height="30"
               Width="30" 
             FontSize="19px" 
-            Margin="0,3,5,4"
-            Grid.Row="5"
+            Margin="0,3,5,3"
+            Grid.Row="6"
             HorizontalAlignment="Right"
             Style="{StaticResource btn_Black}"
            />
@@ -415,11 +414,11 @@
             FontSize="19px" 
             Margin="5,3,0,3"
             Style="{StaticResource btn_Black}"
-            Grid.Row="5" HorizontalAlignment="Left"/>
+            Grid.Row="6" HorizontalAlignment="Left"/>
         <TextBlock
             Text="{Binding Value, ElementName=barIntel, StringFormat=\{0:0\}}"
             Grid.Column="6"
-            Grid.Row="5"
+            Grid.Row="6"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
         <Menu
@@ -450,12 +449,11 @@
         <TextBlock
             Grid.Column="3" 
             HorizontalAlignment="Center"
-            Grid.Row="2" 
+            Grid.Row="1" 
             TextWrapping="Wrap"
-            Text="Name"
-            VerticalAlignment="Top" 
+            Text="Name" 
             Foreground="Navy"
-            Grid.ColumnSpan="2" Margin="0,-7,0,0"/>
+            Grid.ColumnSpan="2" Margin="0,21,0,0" Height="16" VerticalAlignment="Top"/>
 
         <TextBlock 
             HorizontalAlignment="Left"
@@ -478,10 +476,56 @@
             BorderThickness="1"
             Foreground="Maroon" 
             SelectionChanged="cmbBoxHero_SelectionChanged" 
-
             />
 
+        <TextBlock
+            Grid.Column="3" 
+            HorizontalAlignment="Center"
+            Grid.Row="2" 
+            TextWrapping="Wrap"
+            Text="Inventory" 
+            Foreground="Navy"
+            Grid.ColumnSpan="2" Margin="0,0,0,1" Height="16" VerticalAlignment="Bottom"/>
 
+        <ListBox 
+            x:Name="ListBoxInventory"
+            Grid.Column="3"
+            Grid.Row="3"
+            d:ItemsSource="{d:SampleData ItemCount=5}" 
+            BorderThickness="3"
+            BorderBrush="DarkSlateGray"
+            Grid.RowSpan="4" 
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Stretch" 
+            Width="190"
+            Background="DarkGray"
+            />
 
+        <ComboBox
+            x:Name="cmbBoxWeapon"
+            HorizontalAlignment="Center"
+            Margin="0,3,0,0"
+            Grid.Row="1"
+            Grid.Column="6"
+            VerticalAlignment="Top"
+            Width="90"
+            Text="Hero"
+            BorderBrush="Black"
+            BorderThickness="1"
+            Foreground="Maroon" SelectionChanged="cmbBoxWeapon_SelectionChanged" 
+        
+            />
+
+        <TextBlock
+            Grid.Column="6" 
+            HorizontalAlignment="Center"
+            Grid.Row="1" 
+            TextWrapping="Wrap"
+            Text="Weapon" 
+            Foreground="Navy"
+            Margin="0,21,0,0" 
+            Height="16"
+            VerticalAlignment="Top"/>
+        
     </Grid>
 </Window>

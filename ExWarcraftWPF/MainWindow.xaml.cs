@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDB;
+using ExWarcraftWPF.res;
 using Microsoft.Win32;
 
 namespace ExWarcraftWPF
@@ -20,11 +23,17 @@ namespace ExWarcraftWPF
         public MainWindow()
         {
             InitializeComponent();
-            
+            List<String> listWeapon = new List<String> { "Glock", "Knife", "Cucumber"};
+
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
-          
-           // MessageBox.Show(selectedItem.Content.ToString());
+
+            ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
+            cmbBoxWeapon.ItemsSource = listWeapon;
+
+          //  hero.AddToInvertory(new Item("sdvdv", 456));
+
+            // MessageBox.Show(selectedItem.Content.ToString());
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -232,6 +241,29 @@ namespace ExWarcraftWPF
             textBox.Text = cmbBoxHero.Text;
         }
 
-      
+        private void cmbBoxWeapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13)};
+            ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
+            
+            cmbBoxWeapon.ItemsSource = listWeapon.Select(item => item.ItemName);
+
+            MessageBox.Show(cmbBoxWeapon.Text);
+
+            foreach (var item in listWeapon)
+            {
+                if (item.ItemName == cmbBoxWeapon.Text)
+                {
+                    hero.AddToInvertory(new Item(item.ItemName, item.ItemCount));
+                    //MessageBox.Show(item);
+                }
+            }
+            
+            // ListBox inventory = (ListBox)this.FindName("ListBoxInventory");
+            // inventory.ItemsSource = (hero.invertory);
+
+
+
+        }
     }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExWarcraftWPF.enumUnits;
+using ExWarcraftWPF.res;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using ExWarcraftWPF.res;
 
 namespace ExWarcraftWPF.enumUnits
 {
@@ -32,14 +34,17 @@ namespace ExWarcraftWPF.enumUnits
         double pDet = 0;
         double mah = 0;
 
+        [BsonIgnoreIfDefault] 
+        public List<Item> invertory;
+
         public Unit()
         {
             Name = "Sparky";
         }
 
-        public void addCustom()
+        public virtual void AddToInvertory(Item item)
         {
-            
+            invertory.Add(item);
         }
     
         public virtual void setCharacter(int strensth, int desterity, int constitution, int inellisense)

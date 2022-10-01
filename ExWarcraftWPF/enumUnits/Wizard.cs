@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExWarcraftWPF.res;
 
 namespace ExWarcraftWPF.enumUnits
 {
@@ -79,6 +80,12 @@ namespace ExWarcraftWPF.enumUnits
         {
             changeIntellisense(true);
         }
+    }
+    
+    
+    public override void AddToInvertory(Item item)
+    {
+        invertory.Add(item);
     }
 
 

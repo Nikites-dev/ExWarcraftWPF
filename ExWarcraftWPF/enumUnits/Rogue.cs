@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExWarcraftWPF.enumUnits;
+using ExWarcraftWPF.res;
 
 namespace ExWarcraftWPF.enumUnits
 {
@@ -58,6 +59,11 @@ namespace ExWarcraftWPF.enumUnits
             CurrentIntellisense = inellisense;
         }
 
+        public override void AddToInvertory(Item item)
+        {
+            invertory.Add(item);
+        }
+        
         public override void setCharacter(int strensth, int desterity, int constitution, int inellisense)
         {
             for (int i = 0; i < strensth-strensthMin; i++)
