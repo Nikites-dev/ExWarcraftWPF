@@ -320,13 +320,33 @@ namespace ExWarcraftWPF
 
             if (btn.Name == "btnItemM")
             {
-                MessageBox.Show(btn.Name);
+                TextBox textBox = (TextBox)this.FindName("boxItemName");
+                TextBlock textItemCnt = (TextBlock)this.FindName("textItemCnt");
+                
+                try
+                {
+                    textItemCnt.Text = Convert.ToString(int.Parse(textItemCnt.Text)-1);
+                }
+                catch (Exception exception)
+                {
+                    textItemCnt.Text = "0";
+                }
             }
             else if (btn.Name == "btnItemP")
             {
-                MessageBox.Show(btn.Name);
+                TextBox textBox = (TextBox)this.FindName("boxItemName");
+                TextBlock textItemCnt = (TextBlock)this.FindName("textItemCnt");
+                
+                try
+                {
+                    textItemCnt.Text = Convert.ToString(int.Parse(textItemCnt.Text)+1);
+                }
+                catch (Exception exception)
+                {
+                    textItemCnt.Text = "0";
+                }
             }
-            else if (btn.Name == "btnItemSave")
+            else if (btn.Name == "btnItemDelete")
             {
                 TextBox textBox = (TextBox)this.FindName("boxItemName");
                 TextBlock textItemCnt = (TextBlock)this.FindName("textItemCnt");
@@ -343,8 +363,57 @@ namespace ExWarcraftWPF
                 }
                 MessageBox.Show(hero.Inventory.Count.ToString());
             }
+            else if (btn.Name == "btnItemAdd")
+            {
+                TextBlock textItemCnt = (TextBlock)this.FindName("textItemCnt");
+                ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+             
+                inventoryListBox.Items.Clear();
+                hero.AddToInvertory(new Item(boxItemName.Text, int.Parse(textItemCnt.Text)));
+                
+                inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+                inventoryListBox.Items.Clear();
+
+                foreach (var itemUnit in hero.inventory)
+                {
+                    inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+                }
+            }
+            
+            
+            
+            else if (btn.Name == "btnItemUpdate")
+            {
+                TextBox textBox = (TextBox)this.FindName("boxItemName");
+                TextBlock textItemCnt = (TextBlock)this.FindName("textItemCnt");
+                ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+                
+                foreach (var item in hero.Inventory)
+                {
+                    if (item.ItemName == textBox.Text)
+                    {
+                        item.ItemCount = int.Parse(this.textItemCnt.Text);
+                        
+                    }
+                }
+                
+                inventoryListBox.Items.Clear();
+
+                foreach (var itemUnit in hero.inventory)
+                {
+                    inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+                }    
+            }
         }
 
+        
+        
+        
+        
+        
+        
+        
+        
         private void ListBoxInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox list = (ListBox)sender;
@@ -371,13 +440,7 @@ namespace ExWarcraftWPF
             {
                 textItemCnt.Text = "0";
             }
-           
-
-            //foreach(var itemUnit in hero.inventory)
-            //{
-            //    inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
-            //}
-
+            
         }
     }
 }
