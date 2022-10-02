@@ -42,7 +42,7 @@ namespace ExWarcraftWPF.enumUnits
             CurrentIntellisense = intellisenseMin; ;
         }
         
-        public Rogue(int strensth, int desterity, int constitution, int inellisense)
+        public Rogue(int strensth, int desterity, int constitution, int inellisense, List<Item> items)
         {
             StrensthMin = strensthMin;
             StrensthMax = strensthMax;
@@ -57,11 +57,12 @@ namespace ExWarcraftWPF.enumUnits
             CurrentDesterity = desterity;
             CurrentConstitution = constitution;
             CurrentIntellisense = inellisense;
+            Inventory = items;
         }
 
         public override void AddToInvertory(Item item)
         {
-            invertory.Add(item);
+            Inventory.Add(item);
         }
         
         public override void setCharacter(int strensth, int desterity, int constitution, int inellisense)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ExWarcraftWPF.res;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -20,12 +21,15 @@ namespace ExWarcraftWPF.MongoDBa
         public int Constitution { get; set; }
         [BsonIgnoreIfDefault]
         public int Intellisense { get; set; }
-        // [BsonIgnoreIfNull]
-        // public List<IItem> Items { get; set; }
+        [BsonIgnoreIfNull]
+        public List<Item> Items { get; set; }
+        
+       // [BsonIgnoreIfNull]
+        // public List<Item> Inventory { get; set; }
 
         public CharacterDb(string name, string className, 
             int strength, int dexterity, 
-            int constitution, int intellisense)
+            int constitution, int intellisense, List<Item> items)
         {
             Name = name;
             ClassName = className;
@@ -33,7 +37,8 @@ namespace ExWarcraftWPF.MongoDBa
             Dexterity = dexterity;
             Constitution = constitution;
             Intellisense = intellisense;
-          
+            Items = items;
+
         }
     }
 }

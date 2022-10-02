@@ -33,18 +33,22 @@ namespace ExWarcraftWPF.enumUnits
         double magicPoints = 0;
         double pDet = 0;
         double mah = 0;
-
+        
+        public List<Item> inventory;
+        
         [BsonIgnoreIfDefault] 
-        public List<Item> invertory;
+        public List<Item> Inventory { get => inventory; set=> inventory = value; }
+        
 
         public Unit()
         {
             Name = "Sparky";
+            inventory = new List<Item>();
         }
 
         public virtual void AddToInvertory(Item item)
         {
-            invertory.Add(item);
+            Inventory.Add(item);
         }
     
         public virtual void setCharacter(int strensth, int desterity, int constitution, int inellisense)

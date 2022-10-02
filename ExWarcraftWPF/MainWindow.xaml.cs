@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Xml.Linq;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDB;
@@ -18,22 +19,31 @@ namespace ExWarcraftWPF
     {
         Button btn = new Button();
         public Unit hero = null;
-      
-
+        ListBox inventoryListBox;
+   
         public MainWindow()
         {
             InitializeComponent();
-            List<String> listWeapon = new List<String> { "Glock", "Knife", "Cucumber"};
+            List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13) };
+            ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
 
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
+            inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+            // ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
+            // cmbBoxWeapon.ItemsSource = listWeapon;
 
-            ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
-            cmbBoxWeapon.ItemsSource = listWeapon;
-
-          //  hero.AddToInvertory(new Item("sdvdv", 456));
-
-            // MessageBox.Show(selectedItem.Content.ToString());
+            cmbBoxWeapon.ItemsSource = listWeapon.Select(item => item.ItemName);
+            inventoryListBox.SelectionChanged += ListBoxInventory_SelectionChanged;
+            // foreach (var item in listWeapon)
+            // {
+            //     if (item.ItemName == cmbBoxWeapon.Text)
+            //     {
+            //         // hero.AddToInvertory(new Item(item.ItemName, item.ItemCount));
+            //         hero.AddToInvertory(new Item("qwfq", 123));
+            //         MessageBox.Show(item.ItemName);
+            //     }
+            // }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -42,17 +52,20 @@ namespace ExWarcraftWPF
             textHero.Text = pressed.Content.ToString();
             TextBox textBox = (TextBox)this.FindName("btnName");
             textBox.Text = "";
-            isUnit(pressed.Content.ToString()); 
+            isUnit(pressed.Content.ToString());
+
+            ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+            inventoryListBox.Items.Clear();
         }
 
         public void isUnit(String unitType)
         {
-            if(unitType == "Warrior")
+            if (unitType == "Warrior")
             {
                 hero = new Warrior();
                 SetProgressBarValue();
-            } 
-            else if(unitType == "Rogue")
+            }
+            else if (unitType == "Rogue")
             {
                 hero = new Rogue();
                 SetProgressBarValue();
@@ -80,13 +93,14 @@ namespace ExWarcraftWPF
         {
             MenuItem menuItem = (MenuItem)sender;
 
-            if (menuItem.Header.ToString() == "Save local") {
+            if (menuItem.Header.ToString() == "Save local")
+            {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
- 
+
                 saveFileDialog1.FileName = "testWarcraft";
                 saveFileDialog1.DefaultExt = ".text";
                 saveFileDialog1.Filter = "Текстик (*.txt)|*.txt";
- 
+
                 if (saveFileDialog1.ShowDialog() == true)
                 {
                     using (StreamWriter sw = new StreamWriter(saveFileDialog1.OpenFile(), System.Text.Encoding.Default))
@@ -97,13 +111,13 @@ namespace ExWarcraftWPF
                 }
             }
 
-            else if(menuItem.Header.ToString() == "Save mongo db")
+            else if (menuItem.Header.ToString() == "Save mongo db")
             {
                 TextBox textBox = (TextBox)this.FindName("btnName");
                 hero.Name = textBox.Text;
                 MessageBox.Show(menuItem.Header.ToString());
                 MongoDBAction.AddToDatabase(hero);
-                
+
                 ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
                 cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
             }
@@ -112,7 +126,7 @@ namespace ExWarcraftWPF
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Текстик (*.txt)|*.txt";
- 
+
                 if (openFileDialog.ShowDialog() == true)
                 {
                     FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
@@ -123,14 +137,14 @@ namespace ExWarcraftWPF
                         String[] unitInfo = str.Split(',');
                         reader.Close();
                         MessageBox.Show(str);
-                        
+
                         isUnit(unitInfo[0]);
 
                         hero.setCharacter(int.Parse(unitInfo[1]), int.Parse(unitInfo[2]), int.Parse(unitInfo[3]), int.Parse(unitInfo[4]));
-                        
+
                         SetProgressBarValue();
                         SetTextCharacter();
-                        
+
                     }
                 }
             }
@@ -140,35 +154,36 @@ namespace ExWarcraftWPF
                 TextBox textBox = (TextBox)this.FindName("btnName");
                 Unit lHero = MongoDBAction.FindByName(textBox.Text);
                 isUnit(MongoDBAction.FindByName(textBox.Text).GetType().Name);
-                
+
                 hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
-                        
+
                 SetProgressBarValue();
                 SetTextCharacter();
-                
+
                 MessageBox.Show(Convert.ToString(hero.GetType().Name));
-            } else if (menuItem.Header.ToString() == "Update")
+            }
+            else if (menuItem.Header.ToString() == "Update")
             {
                 ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
                 cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
-                
+
                 MongoDBAction.UpdateByName(cmbBoxHero.Text, hero);
                 MessageBox.Show("update success!  " + cmbBoxHero.Text);
             }
         }
-        
+
         public void SetProgressBarValue()
         {
             barStrensth.Maximum = hero.StrensthMax;
             barDesterity.Maximum = hero.DesterityMax;
             barConstitution.Maximum = hero.ConstitutionMax;
             barIntel.Maximum = hero.IntellisenseMax;
-            
+
             barStrensth.Minimum = hero.StrensthMin;
             barDesterity.Minimum = hero.DesterityMin;
             barConstitution.Minimum = hero.ConstitutionMin;
             barIntel.Minimum = hero.IntellisenseMin;
-            
+
             barStrensth.Value = hero.CurrentStrensth;
             barDesterity.Value = hero.CurrentDesterity;
             barConstitution.Value = hero.CurrentConstitution;
@@ -227,25 +242,50 @@ namespace ExWarcraftWPF
         {
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
-           
-            
+
+
             Unit lHero = MongoDBAction.FindByName(cmbBoxHero.Text);
             isUnit(MongoDBAction.FindByName(cmbBoxHero.Text).GetType().Name);
-                
+
             hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
-                        
+
             SetProgressBarValue();
             SetTextCharacter();
-            
+
             TextBox textBox = (TextBox)this.FindName("btnName");
             textBox.Text = cmbBoxHero.Text;
+
+
+
+            hero.Inventory = lHero.Inventory;
+
+            MessageBox.Show(lHero.Inventory.Count.ToString() + " count");
+
+            //foreach (var item in hero.Inventory)
+            // {
+            //     MessageBox.Show(item.ItemName + " | " + item.ItemCount);
+            //     hero.AddToInvertory(item);
+            // }
+
+            ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+            inventoryListBox.Items.Clear();
+
+            foreach (var itemUnit in hero.Inventory)
+            {
+                inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+
+            }
+
+
+
+
         }
 
         private void cmbBoxWeapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13)};
+            List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13) };
             ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
-            
+
             cmbBoxWeapon.ItemsSource = listWeapon.Select(item => item.ItemName);
 
             MessageBox.Show(cmbBoxWeapon.Text);
@@ -255,14 +295,88 @@ namespace ExWarcraftWPF
                 if (item.ItemName == cmbBoxWeapon.Text)
                 {
                     hero.AddToInvertory(new Item(item.ItemName, item.ItemCount));
-                    //MessageBox.Show(item);
+
+                    // hero.Inventory.AddItem(new Item(item.ItemName, item.ItemCount));
+
                 }
             }
+
+            ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+            inventoryListBox.Items.Clear();
+
+            foreach (var itemUnit in hero.inventory)
+            {
+                inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+            }
+
+
+
+
+        }
+
+        private void btnItem_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            if (btn.Name == "btnItemM")
+            {
+                MessageBox.Show(btn.Name);
+            }
+            else if (btn.Name == "btnItemP")
+            {
+                MessageBox.Show(btn.Name);
+            }
+            else if (btn.Name == "btnItemSave")
+            {
+                TextBox textBox = (TextBox)this.FindName("boxItemName");
+                TextBlock textItemCnt = (TextBlock)this.FindName("textItemCnt");
+                ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+                var item = hero.Inventory.Find(x => x.ItemName == textBox.Text);
+
+                hero.Inventory.Remove(item);
+                inventoryListBox.Items.Clear();
+
+
+                foreach (var itemUnit in hero.inventory)
+                {
+                    inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+                }
+                MessageBox.Show(hero.Inventory.Count.ToString());
+            }
+        }
+
+        private void ListBoxInventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox list = (ListBox)sender;
+          //  MessageBox.Show((string)list.SelectedItem);
             
-            // ListBox inventory = (ListBox)this.FindName("ListBoxInventory");
-            // inventory.ItemsSource = (hero.invertory);
+           // inventoryListBox.Items.Clear();
+
+            TextBox textBox = (TextBox)this.FindName("boxItemName");
+            TextBlock textItemCnt = (TextBlock)this.FindName("textItemCnt");
 
 
+
+
+
+            String[] strItem = Convert.ToString(list.SelectedItem).Split('|');
+
+            textBox.Text = strItem[0].Trim();
+
+            try
+            {
+                textItemCnt.Text = strItem[1].Trim();
+            }
+            catch (Exception exception)
+            {
+                textItemCnt.Text = "0";
+            }
+           
+
+            //foreach(var itemUnit in hero.inventory)
+            //{
+            //    inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+            //}
 
         }
     }

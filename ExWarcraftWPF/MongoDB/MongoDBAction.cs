@@ -4,6 +4,7 @@ using System.Linq;
 using MongoDB.Driver;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDBa;
+using ExWarcraftWPF.res;
 
 namespace ExWarcraftWPF.MongoDB
 {
@@ -19,7 +20,8 @@ namespace ExWarcraftWPF.MongoDB
                 unit.CurrentStrensth, 
                 unit.CurrentDesterity,
                 unit.CurrentConstitution,
-                unit.CurrentIntellisense);
+                unit.CurrentIntellisense,
+                unit.Inventory);
             
             var collection = database.GetCollection<CharacterDb>("HeroCollection");
             collection.InsertOne(db);
@@ -35,7 +37,8 @@ namespace ExWarcraftWPF.MongoDB
                 unit.CurrentStrensth, 
                 unit.CurrentDesterity,
                 unit.CurrentConstitution,
-                unit.CurrentIntellisense);
+                unit.CurrentIntellisense,
+                unit.Inventory);
             
            return db;
         }
@@ -58,21 +61,22 @@ namespace ExWarcraftWPF.MongoDB
                     return new Warrior(unit.Strength,
                         unit.Dexterity,
                         unit.Constitution,
-                        unit.Intellisense)
-                    { Name = unit.Name,
-             };
+                        unit.Intellisense, unit.Items)
+                    { Name = unit.Name};
+                
                 case "Wizard":
                     return new Wizard(unit.Strength,
                             unit.Dexterity,
                             unit.Constitution,
-                            unit.Intellisense)
-                        {Name = unit.Name,};
+                            unit.Intellisense, unit.Items)
+                        {Name = unit.Name};
+                
                 case "Rogue":
                     return new Rogue(unit.Strength,
                             unit.Dexterity,
                             unit.Constitution,
-                            unit.Intellisense)
-                        {Name = unit.Name,};
+                            unit.Intellisense, unit.Items)
+                        {Name = unit.Name};
                 default: return null;
             }
             return null;
