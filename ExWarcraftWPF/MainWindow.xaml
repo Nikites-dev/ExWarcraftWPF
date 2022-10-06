@@ -10,7 +10,7 @@
 
     <Window.Resources>
 
-        
+
 
         <Style x:Key="btn_Black" TargetType="Button">
             <Setter Property="Content" Value="" />
@@ -21,19 +21,19 @@
         </Style>
 
         <Style x:Key="pbar" TargetType="ProgressBar">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ProgressBar">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
                         <Border BorderBrush="#D9DCE1" BorderThickness="0" Background="Gray" CornerRadius="0" Padding="0">
-                        <Grid x:Name="PART_Track">
+                            <Grid x:Name="PART_Track">
                                 <Grid x:Name="PART_Indicator" HorizontalAlignment="Left" Background="DeepSkyBlue">
                                     <Polygon Points="10,20 20,0 20,20" Stroke="Gray" Fill="Gray" HorizontalAlignment="Right" />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
 
@@ -533,7 +533,6 @@
             BorderBrush="Black"
             BorderThickness="1"
             Foreground="Maroon" SelectionChanged="cmbBoxWeapon_SelectionChanged" 
-        
             />
 
         <TextBlock
@@ -651,7 +650,7 @@
             Style="{StaticResource pbar}"
             Foreground="DeepSkyBlue"
             ForceCursor="True"
-            Value="50"
+            Value="0"
             Margin="40,1,0,0"/>
 
         <TextBlock
@@ -660,9 +659,9 @@
             Grid.Row="8"
             FontSize="10"
           
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center" 
-            Margin="0,-20,0,0" Grid.ColumnSpan="2" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            Margin="90,2,0,0" Grid.ColumnSpan="2" 
             />
         <Button
             x:Name="btnUp100"
@@ -704,7 +703,7 @@
             VerticalContentAlignment="Center" 
             Grid.Column="0"
             Width="50"
-            Height="15" Margin="110,19,0,0" HorizontalAlignment="Left"
+            Height="16" Margin="110,19,0,0" HorizontalAlignment="Left"
             />
 
         <TextBlock
@@ -720,9 +719,50 @@
             VerticalAlignment="Top" Height="20" Width="35"
        />
 
+        <ComboBox
+            x:Name="cmbBoxLevel"
+            HorizontalAlignment="Left"
+            Margin="56,0,0,0"
+            Grid.Row="9"
+            VerticalAlignment="Center"
+            Width="100"
+            Text="Hero"
+            BorderBrush="Black"
+            BorderThickness="1"
+            Foreground="Maroon"
+            Grid.ColumnSpan="2" SelectionChanged="cmbBoxLevel_SelectionChanged" 
+            />
+
+
+        <ListBox 
+            x:Name="listBoxAbility"
+             HorizontalAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+             Margin="10,5,10,0" 
+            Height="30"
+            FontWeight="Bold"
+             VerticalAlignment="Top"
+             Grid.Column="0"
+             Grid.Row="11"
+            Grid.ColumnSpan="12"
+             >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="30 0 30 0" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+
         
+        </ListBox>
 
     </Grid>
+
+
 
 
 </Window>

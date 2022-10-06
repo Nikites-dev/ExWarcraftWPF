@@ -23,14 +23,18 @@ namespace ExWarcraftWPF
         public TextBox textBox;
         TextBox boxName;
         public TextBlock textCnt;
-        
+
+        List<String> strAbility;
+
         public MainWindow()
         {
             InitializeComponent();
             List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13) };
+            strAbility = new List<String> { "nausea", "regeneration", "resistance", "hunger", "invisibility", "weakness", "wither", "poison", "luck", "slow_falling", "water_breathing", "night_vision", "fire_resistance", "jump_boost"};
             ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
 
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
+
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
             inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
             
@@ -40,6 +44,14 @@ namespace ExWarcraftWPF
             
             cmbBoxWeapon.ItemsSource = listWeapon.Select(item => item.ItemName);
             inventoryListBox.SelectionChanged += ListBoxInventory_SelectionChanged;
+
+
+            ListBox listBoxAbility = (ListBox)this.FindName("listBoxAbility");
+            listBoxAbility.Items.Clear();
+
+            
+
+            cmbBoxLevel.ItemsSource = strAbility;
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -52,6 +64,7 @@ namespace ExWarcraftWPF
             SetProgressBarValue();
             ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
             inventoryListBox.Items.Clear();
+            listBoxAbility.Items.Clear();
         }
 
         public void isUnit(String unitType)
@@ -246,6 +259,7 @@ namespace ExWarcraftWPF
             
             boxName.Text = cmbBoxHero.Text;
             hero.Inventory = lHero.Inventory;
+            hero.Exp = lHero.Exp;
 
             ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
             inventoryListBox.Items.Clear();
@@ -253,6 +267,21 @@ namespace ExWarcraftWPF
             foreach (var itemUnit in hero.Inventory)
             {
                 inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+            }
+            ProgressBar barLevel = (ProgressBar)this.FindName("barExperience");
+
+            setLevel(barLevel);
+            barExperience.Value = hero.Exp;
+            txtLevel.Text = hero.Level + "Lvl.";
+
+            listBoxAbility.Items.Clear();
+
+            for (int i = 0; i < hero.Level; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    listBoxAbility.Items.Add(strAbility[j]);
+                }
             }
         }
 
@@ -387,24 +416,7 @@ namespace ExWarcraftWPF
                 hero.Level = 0;
             }
 
-
-            // hero.Level =  hero.Exp / 1000;
-
-
             ProgressBar barLevel = (ProgressBar)this.FindName("barExperience");
-            int nextLvl = hero.Level + 1;
-
-            if (hero.Exp > nextLvl * 1000 * nextLvl  - hero.Level * 1000)
-            {
-                hero.Level++;
-            }
-
-
-            barLevel.Minimum = nextLvl * 1000 * hero.Level - hero.Level * 1000;
-            barLevel.Maximum = nextLvl * 1000 * nextLvl - hero.Level * 1000;
-
-            btnUp100.Content = barExperience.Minimum;
-            btnUp200.Content = barExperience.Maximum;
 
             switch (btn.Name)
             {
@@ -419,9 +431,90 @@ namespace ExWarcraftWPF
                 case "btnUp1000":
                     hero.Exp += 1000;
                     break;
+           }
+
+            hero.Level = hero.Exp;
+
+            setLevel(barLevel);
+
+
+            //if (hero.Exp > nextLvl * 1000 * nextLvl - hero.Level * 1000)
+            //{
+            //    hero.Level++;
+            //}
+
+
+            //barLevel.Minimum = nextLvl * 1000 * hero.Level - hero.Level * 1000;
+            //barLevel.Maximum = nextLvl * 1000 * nextLvl - hero.Level * 1000;
+
+            //btnUp100.Content = barExperience.Minimum;
+            //btnUp200.Content = barExperience.Maximum;
+
+            listBoxAbility.Items.Clear();
+
+            for (int i = 0; i < hero.Level; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    listBoxAbility.Items.Add(strAbility[j]);
+                }
             }
+
+
+
             barExperience.Value = hero.Exp;
             txtLevel.Text = hero.Level + "Lvl.";
+        }
+
+        private void setLevel(ProgressBar barLevel)
+        {
+            if (hero.Exp > 0 && hero.Exp < 1000)
+            {
+                hero.Level = 0;
+                barLevel.Minimum = 0;
+                barLevel.Maximum = 1000;
+            }
+
+            else if (hero.Exp > 1000 && hero.Exp < 3000)
+            {
+                hero.Level = 1;
+                barLevel.Minimum = 1000;
+                barLevel.Maximum = 3000;
+            }
+
+            else if (hero.Exp >= 3000 && hero.Exp < 6000)
+            {
+                hero.Level = 2;
+                barLevel.Minimum = 3000;
+                barLevel.Maximum = 6000;
+            }
+
+            else if (hero.Exp >= 6000 && hero.Exp < 10000)
+            {
+                hero.Level = 3;
+                barLevel.Minimum = 6000;
+                barLevel.Maximum = 10000;
+            }
+
+            else if (hero.Exp >= 10000 && hero.Exp < 15000)
+            {
+                hero.Level = 4;
+                barLevel.Minimum = 10000;
+                barLevel.Maximum = 15000;
+            }
+
+            else if (hero.Exp >= 15000 && hero.Exp < 210000)
+            {
+                hero.Level = 5;
+                barLevel.Minimum = 15000;
+                barLevel.Maximum = 21000;
+            }
+        }
+
+        private void cmbBoxLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbBoxLevel.ItemsSource = strAbility;
+           
         }
     }
 }

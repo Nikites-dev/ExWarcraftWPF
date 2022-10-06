@@ -42,7 +42,7 @@ namespace ExWarcraftWPF.enumUnits
         
         }
 
-        public Warrior(int strensth, int desterity, int constitution, int inellisense, List<Item> items)
+        public Warrior(int strensth, int desterity, int constitution, int inellisense, List<Item> items, int exp)
         {
             StrensthMin = strensthMin;
             StrensthMax = strensthMax;
@@ -58,6 +58,7 @@ namespace ExWarcraftWPF.enumUnits
             CurrentConstitution = constitution;
             CurrentIntellisense = inellisense;
             Inventory = items;
+            Exp = exp;
         }
         
         public override void AddToInvertory(Item item)

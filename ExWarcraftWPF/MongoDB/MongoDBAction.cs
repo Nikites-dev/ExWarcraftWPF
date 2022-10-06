@@ -21,7 +21,9 @@ namespace ExWarcraftWPF.MongoDB
                 unit.CurrentDesterity,
                 unit.CurrentConstitution,
                 unit.CurrentIntellisense,
-                unit.Inventory);
+                unit.Inventory,
+                unit.Exp
+                );
             
             var collection = database.GetCollection<CharacterDb>("HeroCollection");
             collection.InsertOne(db);
@@ -38,7 +40,9 @@ namespace ExWarcraftWPF.MongoDB
                 unit.CurrentDesterity,
                 unit.CurrentConstitution,
                 unit.CurrentIntellisense,
-                unit.Inventory);
+                unit.Inventory,
+                unit.Exp
+                );
             
            return db;
         }
@@ -61,21 +65,27 @@ namespace ExWarcraftWPF.MongoDB
                     return new Warrior(unit.Strength,
                         unit.Dexterity,
                         unit.Constitution,
-                        unit.Intellisense, unit.Items)
+                        unit.Intellisense,
+                        unit.Items, 
+                        unit.Exp)
                     { Name = unit.Name};
                 
                 case "Wizard":
                     return new Wizard(unit.Strength,
                             unit.Dexterity,
                             unit.Constitution,
-                            unit.Intellisense, unit.Items)
+                            unit.Intellisense,
+                            unit.Items,
+                            unit.Exp)
                         {Name = unit.Name};
                 
                 case "Rogue":
                     return new Rogue(unit.Strength,
                             unit.Dexterity,
                             unit.Constitution,
-                            unit.Intellisense, unit.Items)
+                            unit.Intellisense, 
+                            unit.Items,
+                            unit.Exp)
                         {Name = unit.Name};
                 default: return null;
             }
