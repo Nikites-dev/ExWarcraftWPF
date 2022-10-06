@@ -33,6 +33,9 @@ namespace ExWarcraftWPF.enumUnits
         double magicPoints = 0;
         double pDet = 0;
         double mah = 0;
+
+        int level = 1;
+        int exp = 1;
         
         public List<Item> inventory;
         
@@ -55,7 +58,20 @@ namespace ExWarcraftWPF.enumUnits
         {
             
         }
-        
+
+
+        public int Level
+        {
+            get { return level; }
+            set { level = value; }
+        }
+
+        public int Exp
+        {
+            get => exp;
+            set => exp = value;
+        }
+
         [BsonIgnoreIfDefault]
         public ObjectId _id;
         [BsonIgnoreIfNull]

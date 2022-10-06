@@ -375,5 +375,53 @@ namespace ExWarcraftWPF
                 textItemCnt.Text = "0";
             }
         }
+
+        private void btnUp_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            if (hero == null)
+            {
+                MessageBox.Show("Choose unit !!!");
+                hero = new Warrior();
+                hero.Level = 0;
+            }
+
+
+            // hero.Level =  hero.Exp / 1000;
+
+
+            ProgressBar barLevel = (ProgressBar)this.FindName("barExperience");
+            int nextLvl = hero.Level + 1;
+
+            if (hero.Exp > nextLvl * 1000 * nextLvl  - hero.Level * 1000)
+            {
+                hero.Level++;
+            }
+
+
+            barLevel.Minimum = nextLvl * 1000 * hero.Level - hero.Level * 1000;
+            barLevel.Maximum = nextLvl * 1000 * nextLvl - hero.Level * 1000;
+
+            btnUp100.Content = barExperience.Minimum;
+            btnUp200.Content = barExperience.Maximum;
+
+            switch (btn.Name)
+            {
+                case "btnUp100":
+                    hero.Exp += 100;
+                 
+                    break;
+                case "btnUp200":
+                    hero.Exp += 200;
+
+                    break;
+                case "btnUp1000":
+                    hero.Exp += 1000;
+                    break;
+            }
+            barExperience.Value = hero.Exp;
+            txtLevel.Text = hero.Level + "Lvl.";
+        }
     }
 }

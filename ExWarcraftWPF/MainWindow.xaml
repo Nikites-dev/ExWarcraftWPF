@@ -672,9 +672,10 @@
             Grid.Row="8" 
             FontSize="8"
             Padding="2"
+            
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            VerticalAlignment="Top" Grid.ColumnSpan="2"
+            VerticalAlignment="Top" Grid.ColumnSpan="2" Click="btnUp_Click"
             />
 
         <Button
@@ -685,6 +686,7 @@
             Grid.Row="8" 
             FontSize="8"
             Padding="2"
+            Click="btnUp_Click"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
             VerticalAlignment="Top" Grid.ColumnSpan="2"
@@ -695,6 +697,7 @@
             Content="+1000"
             Grid.Row="8" 
             FontSize="8"
+            Click="btnUp_Click"
             Grid.ColumnSpan="2"
             Padding="2"
             HorizontalContentAlignment="Center"
@@ -705,6 +708,7 @@
             />
 
         <TextBlock
+            x:Name="txtLevel"
             Grid.Column="0" 
             HorizontalAlignment="Left"
             Margin="163,-2,0,0"
