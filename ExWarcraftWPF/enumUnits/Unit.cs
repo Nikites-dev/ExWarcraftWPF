@@ -34,7 +34,7 @@ namespace ExWarcraftWPF.enumUnits
         double pDet = 0;
         double mah = 0;
 
-        int level = 1;
+        int level = 0;
         int exp = 1;
         
         public List<Item> inventory;
