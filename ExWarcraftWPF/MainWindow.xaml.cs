@@ -26,13 +26,18 @@ namespace ExWarcraftWPF
 
         List<String> strAbility;
 
+        List<Equipment> equipment1;
+        List<Equipment> equipment2;
+        List<Equipment> equipment3;
+        List<Equipment> equipmentCommon;
+        
         public MainWindow()
         {
             InitializeComponent();
             List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13) };
             strAbility = new List<String> { "nausea", "regeneration", "resistance", "hunger", "invisibility", "weakness", "wither", "poison", "luck", "slow_falling", "water_breathing", "night_vision", "fire_resistance", "jump_boost"};
             ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
-
+            ComboBox eqComboBox = (ComboBox) this.FindName("cmbBoxEquipment");
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
 
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
@@ -49,9 +54,24 @@ namespace ExWarcraftWPF
             ListBox listBoxAbility = (ListBox)this.FindName("listBoxAbility");
             listBoxAbility.Items.Clear();
 
-            
 
-            cmbBoxLevel.ItemsSource = strAbility;
+            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1), new Equipment("leather armor", 1), new Equipment("Revolver", 1) };
+            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2), new Equipment("iron armor", 2), new Equipment("Musket", 2) };
+            equipment3 = new List<Equipment> { new Equipment("modern helmet", 3), new Equipment("modern armor", 3), new Equipment("Sniper Rifle", 3) };
+
+            var allProducts = new List<Equipment>(equipment1.Count +
+                                                  equipment2.Count +
+                                                  equipment3.Count);
+            allProducts.AddRange(equipment1);
+            allProducts.AddRange(equipment2);
+            allProducts.AddRange(equipment3);
+            
+            
+            foreach (var equipment in allProducts)
+            {
+                eqComboBox.Items.Add(equipment.EqpmtLevel + " " + equipment.EqpmtName);
+            }
+           
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -511,10 +531,18 @@ namespace ExWarcraftWPF
             }
         }
 
-        private void cmbBoxLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cmbBoxEquipment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cmbBoxLevel.ItemsSource = strAbility;
+            
+            ComboBox eqComboBox = (ComboBox) this.FindName("cmbBoxEquipment");
+            cmbBoxWeapon.ItemsSource = equipment1.Select(item => item.EqpmtName);
+            // foreach (var equipment in equipment1)
+            // {
+            //     eqComboBox.Items.Add(equipment.EqpmtName);
+            // }
+
            
+
         }
     }
 }
