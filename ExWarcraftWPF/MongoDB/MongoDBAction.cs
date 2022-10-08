@@ -22,8 +22,8 @@ namespace ExWarcraftWPF.MongoDB
                 unit.CurrentConstitution,
                 unit.CurrentIntellisense,
                 unit.Inventory,
-                unit.Exp
-                );
+                unit.Exp,
+                unit.Equipments);
             
             var collection = database.GetCollection<CharacterDb>("HeroCollection");
             collection.InsertOne(db);
@@ -41,8 +41,8 @@ namespace ExWarcraftWPF.MongoDB
                 unit.CurrentConstitution,
                 unit.CurrentIntellisense,
                 unit.Inventory,
-                unit.Exp
-                );
+                unit.Exp,
+                unit.Equipments);
             
            return db;
         }
@@ -67,7 +67,8 @@ namespace ExWarcraftWPF.MongoDB
                         unit.Constitution,
                         unit.Intellisense,
                         unit.Items, 
-                        unit.Exp)
+                        unit.Exp, 
+                        unit.Equipments)
                     { Name = unit.Name};
                 
                 case "Wizard":
@@ -76,7 +77,8 @@ namespace ExWarcraftWPF.MongoDB
                             unit.Constitution,
                             unit.Intellisense,
                             unit.Items,
-                            unit.Exp)
+                            unit.Exp,
+                            unit.Equipments)
                         {Name = unit.Name};
                 
                 case "Rogue":
@@ -85,7 +87,8 @@ namespace ExWarcraftWPF.MongoDB
                             unit.Constitution,
                             unit.Intellisense, 
                             unit.Items,
-                            unit.Exp)
+                            unit.Exp,
+                            unit.Equipments)
                         {Name = unit.Name};
                 default: return null;
             }

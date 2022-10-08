@@ -532,7 +532,7 @@
             Text="Hero"
             BorderBrush="Black"
             BorderThickness="1"
-            Foreground="Maroon" SelectionChanged="cmbBoxWeapon_SelectionChanged" Grid.RowSpan="2" 
+            Foreground="Maroon" SelectionChanged="CmbBoxWeapon_SelectionChanged" Grid.RowSpan="2" 
             />
 
         <TextBlock
@@ -777,7 +777,8 @@
              HorizontalAlignment="Stretch"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
              Margin="10,5,10,0" 
-            Height="30"
+            Height="60"
+            Grid.RowSpan="2"
             Background="Azure"
             FontWeight="Bold"
              VerticalAlignment="Top"
@@ -787,7 +788,7 @@
              >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
+                    <StackPanel Orientation="Vertical" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemContainerStyle>

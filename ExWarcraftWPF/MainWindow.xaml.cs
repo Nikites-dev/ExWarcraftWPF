@@ -30,6 +30,9 @@ namespace ExWarcraftWPF
         List<Equipment> equipment2;
         List<Equipment> equipment3;
         List<Equipment> equipmentCommon;
+
+        List<Equipment> allProducts2;
+        List<Equipment> allProducts3;
         
         public MainWindow()
         {
@@ -37,7 +40,7 @@ namespace ExWarcraftWPF
             List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13) };
             strAbility = new List<String> { "nausea", "regeneration", "resistance", "hunger", "invisibility", "weakness", "wither", "poison", "luck", "slow_falling", "water_breathing", "night_vision", "fire_resistance", "jump_boost"};
             ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
-            ComboBox eqComboBox = (ComboBox) this.FindName("cmbBoxEquipment");
+            //ComboBox eqComboBox = (ComboBox) this.FindName("cmbBoxEquipment");
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
 
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
@@ -55,22 +58,24 @@ namespace ExWarcraftWPF
             listBoxAbility.Items.Clear();
 
 
-            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1), new Equipment("leather armor", 1), new Equipment("Revolver", 1) };
-            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2), new Equipment("iron armor", 2), new Equipment("Musket", 2) };
-            equipment3 = new List<Equipment> { new Equipment("modern helmet", 3), new Equipment("modern armor", 3), new Equipment("Sniper Rifle", 3) };
+            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
+            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Equipment("Musket", 2, "Gun") };
+            equipment3 = new List<Equipment> { new Equipment("modern helmet", 3, "Helmet"), new Equipment("modern armor", 3, "Armor"), new Equipment("Sniper Rifle", 3, "Gun") };
 
-            var allProducts = new List<Equipment>(equipment1.Count +
-                                                  equipment2.Count +
-                                                  equipment3.Count);
-            allProducts.AddRange(equipment1);
-            allProducts.AddRange(equipment2);
-            allProducts.AddRange(equipment3);
+            var allProducts2 = new List<Equipment>(equipment1.Count + equipment2.Count);
+            allProducts2.AddRange(equipment1);
+            allProducts2.AddRange(equipment2);
+
+            var allProducts3 = new List<Equipment>(equipment1.Count + equipment2.Count + equipment3.Count);
+            allProducts3.AddRange(equipment1);
+            allProducts3.AddRange(equipment2);
+            allProducts3.AddRange(equipment3);
             
             
-            foreach (var equipment in allProducts)
-            {
-                eqComboBox.Items.Add(equipment.EqpmtLevel + " " + equipment.EqpmtName);
-            }
+            //foreach (var equipment in allProducts)
+            //{
+            //    eqComboBox.Items.Add(equipment.EqpmtLevel + " " + equipment.EqpmtName);
+            //}
            
         }
 
@@ -79,15 +84,19 @@ namespace ExWarcraftWPF
             RadioButton pressed = (RadioButton)sender;
             textHero.Text = pressed.Content.ToString();
             boxName.Text = "";
-            isUnit(pressed.Content.ToString());
+            IsUnit(pressed.Content.ToString());
             SetTextCharacter();
             SetProgressBarValue();
             ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
             inventoryListBox.Items.Clear();
             listBoxAbility.Items.Clear();
+            
+            ListBox listBoxEquipment = (ListBox)this.FindName("listBoxEquipment");
+            listBoxEquipment.Items.Clear();
+
         }
 
-        public void isUnit(String unitType)
+        public void IsUnit(String unitType)
         {
             if (unitType == "Warrior")
             {
@@ -161,7 +170,7 @@ namespace ExWarcraftWPF
                         String[] unitInfo = str.Split(',');
                         reader.Close();
 
-                        isUnit(unitInfo[0]);
+                        IsUnit(unitInfo[0]);
                         hero.setCharacter(int.Parse(unitInfo[1]), int.Parse(unitInfo[2]), int.Parse(unitInfo[3]), int.Parse(unitInfo[4]));
 
                         SetProgressBarValue();
@@ -173,7 +182,7 @@ namespace ExWarcraftWPF
             else if (menuItem.Header.ToString() == "Load mongo db")
             {
                 Unit lHero = MongoDBAction.FindByName(boxName.Text);
-                isUnit(MongoDBAction.FindByName(boxName.Text).GetType().Name);
+                IsUnit(MongoDBAction.FindByName(boxName.Text).GetType().Name);
 
                 hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
                 SetProgressBarValue();
@@ -271,7 +280,7 @@ namespace ExWarcraftWPF
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
 
             Unit lHero = MongoDBAction.FindByName(cmbBoxHero.Text);
-            isUnit(MongoDBAction.FindByName(cmbBoxHero.Text).GetType().Name);
+            IsUnit(MongoDBAction.FindByName(cmbBoxHero.Text).GetType().Name);
 
             hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
             SetProgressBarValue();
@@ -280,6 +289,7 @@ namespace ExWarcraftWPF
             boxName.Text = cmbBoxHero.Text;
             hero.Inventory = lHero.Inventory;
             hero.Exp = lHero.Exp;
+            hero.Equipments = lHero.Equipments;
 
             ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
             inventoryListBox.Items.Clear();
@@ -303,9 +313,34 @@ namespace ExWarcraftWPF
                     listBoxAbility.Items.Add(strAbility[j]);
                 }
             }
+
+            ComboBox eqComboBox = (ComboBox)this.FindName("cmbBoxEquipment");
+
+            var listEq = GetLimitEquipment();
+            
+            eqComboBox.ItemsSource = listEq.Select(equipment => equipment.EqpmtLevel + " " + equipment.EqpmtName);
+
+            foreach (var equipment in listEq)
+            {
+                if (equipment.EqpmtLevel + " " + equipment.EqpmtName == eqComboBox.Text)
+                {
+                    //hero.AddToEquipments(new Equipment(equipment.EqpmtName, equipment.EqpmtLevel));
+                    //MessageBox.Show(equipment.EqpmtName);
+                }
+            }
+            
+            
+            ListBox listBoxEquipment = (ListBox)this.FindName("listBoxEquipment");
+            listBoxEquipment.Items.Clear();
+
+            foreach (var itemUnit in hero.Equipments)
+            {
+                listBoxEquipment.Items.Add(itemUnit.EqpmtLevel + " | " + itemUnit.EqpmtName);
+            }
+
         }
 
-        private void cmbBoxWeapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CmbBoxWeapon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             List<Item> listWeapon = new List<Item> { new Item("Glock", 1), new Item("Knife", 1), new Item("Cucumber", 13) };
             ComboBox cmbBoxWeapon = (ComboBox)this.FindName("cmbBoxWeapon");
@@ -533,16 +568,90 @@ namespace ExWarcraftWPF
 
         private void cmbBoxEquipment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
+            ComboBox eqComboBox = (ComboBox)this.FindName("cmbBoxEquipment");
+
+
+            var listEq = GetLimitEquipment();
             
-            ComboBox eqComboBox = (ComboBox) this.FindName("cmbBoxEquipment");
-            cmbBoxWeapon.ItemsSource = equipment1.Select(item => item.EqpmtName);
-            // foreach (var equipment in equipment1)
-            // {
-            //     eqComboBox.Items.Add(equipment.EqpmtName);
-            // }
+            
+            
+            eqComboBox.ItemsSource = listEq.Select(equipment => equipment.EqpmtLevel + " " + equipment.EqpmtName);
 
-           
+            
+            
+            foreach (var equipment in listEq)
+            {
+                if (isEquipmrntAvailable(equipment.EqpmtType))
+                {
+                    if (equipment.EqpmtLevel + " " + equipment.EqpmtName == eqComboBox.Text)
+                    {
+                        hero.AddToEquipments(new Equipment(equipment.EqpmtName, equipment.EqpmtLevel, equipment.EqpmtType));
+                        MessageBox.Show(equipment.EqpmtName);
+                    }
+                }
+                //MessageBox.Show(equipment.EqpmtName + " | " + eqComboBox.Text);
+            }
+            
+            ListBox listBoxEquipment = (ListBox)this.FindName("listBoxEquipment");
+            listBoxEquipment.Items.Clear();
 
+            foreach (var itemUnit in hero.Equipments)
+            {
+                listBoxEquipment.Items.Add(itemUnit.EqpmtLevel + " | " + itemUnit.EqpmtName);
+            }
+        }
+
+        public List<Equipment> GetLimitEquipment()
+        {
+            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
+            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Equipment("Musket", 2, "Gun") };
+            equipment3 = new List<Equipment> { new Equipment("modern helmet", 3, "Helmet"), new Equipment("modern armor", 3, "Armor"), new Equipment("Sniper Rifle", 3, "Gun") };
+
+            var allProducts2 = new List<Equipment>(equipment1.Count + equipment2.Count);
+            allProducts2.AddRange(equipment1);
+            allProducts2.AddRange(equipment2);
+
+            var allProducts3 = new List<Equipment>(equipment1.Count + equipment2.Count + equipment3.Count);
+            allProducts3.AddRange(equipment1);
+            allProducts3.AddRange(equipment2);
+            allProducts3.AddRange(equipment3);
+            
+            
+
+            List<Equipment> listEq = new List<Equipment>();
+
+            if (hero.Level <= 1)
+            {
+                listEq = equipment1;
+            }
+            else if (hero.Level > 1 && hero.Level <= 3)
+            {
+                listEq = allProducts2;
+            }
+            else if (hero.Level > 3)
+            {
+                listEq = allProducts3;
+            }
+            else
+            {
+                listEq = equipment1;
+            }
+            
+            return listEq;
+        }
+
+        public bool isEquipmrntAvailable(String eqpmtType)
+        {
+            foreach (var itemUnit in hero.Equipments)
+            {
+                if (itemUnit.EqpmtType == eqpmtType)
+                {
+                    //MessageBox.Show("false");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

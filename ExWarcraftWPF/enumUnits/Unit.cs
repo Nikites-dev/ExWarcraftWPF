@@ -38,20 +38,29 @@ namespace ExWarcraftWPF.enumUnits
         int exp = 1;
         
         public List<Item> inventory;
+        public List<Equipment> equipment;
         
         [BsonIgnoreIfDefault] 
         public List<Item> Inventory { get => inventory; set=> inventory = value; }
-        
+
+        [BsonIgnoreIfDefault]
+        public List<Equipment> Equipments { get => equipment; set => equipment = value; }
 
         public Unit()
         {
             Name = "Sparky";
             inventory = new List<Item>();
+            equipment = new List<Equipment>();
         }
 
         public virtual void AddToInvertory(Item item)
         {
             Inventory.Add(item);
+        }
+
+        public virtual void AddToEquipments(Equipment equipment)
+        {
+            Equipments.Add(equipment);  
         }
     
         public virtual void setCharacter(int strensth, int desterity, int constitution, int inellisense)

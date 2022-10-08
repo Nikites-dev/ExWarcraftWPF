@@ -42,7 +42,7 @@ namespace ExWarcraftWPF.enumUnits
         CurrentIntellisense = intellisenseMin; ;
     }
     
-    public Wizard(int strensth, int desterity, int constitution, int inellisense, List<Item> items, int exp)
+    public Wizard(int strensth, int desterity, int constitution, int inellisense, List<Item> items, int exp, List<Equipment> equipments)
     {
         StrensthMin = strensthMin;
         StrensthMax = strensthMax;
@@ -59,6 +59,7 @@ namespace ExWarcraftWPF.enumUnits
         CurrentIntellisense = inellisense;
         Inventory = items;
         Exp = exp;
+        Equipments = equipments;
     }
 
     public override void setCharacter(int strensth, int desterity, int constitution, int inellisense)
@@ -88,6 +89,11 @@ namespace ExWarcraftWPF.enumUnits
     public override void AddToInvertory(Item item)
     {
         Inventory.Add(item);
+    }
+
+    public override void AddToEquipments(Equipment equipment)
+    {
+        Equipments.Add(equipment);  
     }
 
 

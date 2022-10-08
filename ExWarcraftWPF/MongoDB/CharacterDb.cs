@@ -24,13 +24,18 @@ namespace ExWarcraftWPF.MongoDBa
         public int Exp { get; set; }
         [BsonIgnoreIfNull]
         public List<Item> Items { get; set; }
-        
-       // [BsonIgnoreIfNull]
+
+        [BsonIgnoreIfNull]
+        public List<Equipment> Equipments { get; set; }
+
+
+
+        // [BsonIgnoreIfNull]
         // public List<Item> Inventory { get; set; }
 
         public CharacterDb(string name, string className, 
             int strength, int dexterity, 
-            int constitution, int intellisense, List<Item> items, int exp)
+            int constitution, int intellisense, List<Item> items, int exp, List<Equipment> eqList)
         {
             Name = name;
             ClassName = className;
@@ -40,6 +45,7 @@ namespace ExWarcraftWPF.MongoDBa
             Intellisense = intellisense;
             Items = items;
             Exp = exp;
+            Equipments = eqList;
         }
     }
 }
