@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDB;
 using ExWarcraftWPF.res;
+using ExWarcraftWPF.res.EquipType;
 using Microsoft.Win32;
 
 namespace ExWarcraftWPF
@@ -58,8 +59,8 @@ namespace ExWarcraftWPF
             listBoxAbility.Items.Clear();
 
 
-            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
-            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Equipment("Musket", 2, "Gun") };
+            equipment1 = new List<Equipment> { new LeatherHelmet(), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
+            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Musket() };
             equipment3 = new List<Equipment> { new Equipment("modern helmet", 3, "Helmet"), new Equipment("modern armor", 3, "Armor"), new Equipment("Sniper Rifle", 3, "Gun") };
 
             var allProducts2 = new List<Equipment>(equipment1.Count + equipment2.Count);
@@ -290,7 +291,8 @@ namespace ExWarcraftWPF
             hero.Inventory = lHero.Inventory;
             hero.Exp = lHero.Exp;
             hero.Equipments = lHero.Equipments;
-
+            setEquipmentAbilities();
+            
             ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
             inventoryListBox.Items.Clear();
 
@@ -568,7 +570,7 @@ namespace ExWarcraftWPF
 
         private void cmbBoxEquipment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
+            // equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
             ComboBox eqComboBox = (ComboBox)this.FindName("cmbBoxEquipment");
 
 
@@ -582,12 +584,28 @@ namespace ExWarcraftWPF
             
             foreach (var equipment in listEq)
             {
-                if (isEquipmrntAvailable(equipment.EqpmtType))
+                if (IsEquipmentAvailable(equipment.EqpmtType))
                 {
-                    if (equipment.EqpmtLevel + " " + equipment.EqpmtName == eqComboBox.Text)
-                    {
-                        hero.AddToEquipments(new Equipment(equipment.EqpmtName, equipment.EqpmtLevel, equipment.EqpmtType));
-                        MessageBox.Show(equipment.EqpmtName);
+                    
+                        if (equipment.EqpmtLevel + " " + equipment.EqpmtName == eqComboBox.Text)
+                        {
+                            if (IsEquipmentOpen(equipment) == 0)
+                            {
+                                switch (equipment.EqpmtName)
+                                {
+                                    case "Musket":
+                                        hero.AddToEquipments(new Musket());
+                                        break;
+                                    case "LeatherHelmet":
+                                        hero.AddToEquipments(new LeatherHelmet());
+                                        break;
+                                }
+
+                                setEquipmentAbilities();
+                                
+                                MessageBox.Show(equipment.EqpmtName);
+                                break;
+                        }
                     }
                 }
                 //MessageBox.Show(equipment.EqpmtName + " | " + eqComboBox.Text);
@@ -604,8 +622,8 @@ namespace ExWarcraftWPF
 
         public List<Equipment> GetLimitEquipment()
         {
-            equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
-            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Equipment("Musket", 2, "Gun") };
+            equipment1 = new List<Equipment> { new LeatherHelmet(), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
+            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Musket() };
             equipment3 = new List<Equipment> { new Equipment("modern helmet", 3, "Helmet"), new Equipment("modern armor", 3, "Armor"), new Equipment("Sniper Rifle", 3, "Gun") };
 
             var allProducts2 = new List<Equipment>(equipment1.Count + equipment2.Count);
@@ -641,7 +659,7 @@ namespace ExWarcraftWPF
             return listEq;
         }
 
-        public bool isEquipmrntAvailable(String eqpmtType)
+        public bool IsEquipmentAvailable(String eqpmtType)
         {
             foreach (var itemUnit in hero.Equipments)
             {
@@ -652,6 +670,71 @@ namespace ExWarcraftWPF
                 }
             }
             return true;
+        }
+        
+        public int IsEquipmentOpen(Equipment equipment)
+        {
+            List<String> needList = new List<string>();
+            int countNeed = 0;
+            
+            if (hero.CurrentDesterity >= equipment.Desterity) { }
+            else
+            {
+                needList.Add("you need Desterity:" + (equipment.Desterity - hero.CurrentDesterity).ToString());
+                countNeed++; 
+            }
+            
+            if (hero.CurrentStrensth >= equipment.Strensth) { }
+            else
+            {
+                needList.Add("you need Strensth:" + (equipment.Strensth - hero.CurrentStrensth).ToString());
+                countNeed++; 
+            }
+            
+            if (hero.CurrentConstitution >= equipment.Constitution) {  }
+            else
+            {
+                needList.Add("you need Constitution:" + (equipment.Constitution - hero.CurrentConstitution).ToString());
+                countNeed++;
+            }
+            
+            if (hero.CurrentIntellisense >= equipment.Intellisense) {  }
+            else
+            {
+                needList.Add("you need Intellisense:" + (equipment.Intellisense - hero.CurrentIntellisense).ToString());
+                countNeed++;
+            }
+            
+
+            if (countNeed != 0)
+            {
+                String strNeed = "";
+                foreach (var strMsg in needList)
+                {
+                    strNeed += strMsg + Environment.NewLine;
+                }
+
+                MessageBox.Show(strNeed);
+            }
+            
+            return countNeed;
+        }
+
+        public void setEquipmentAbilities()
+        {
+
+            foreach (var equipment in hero.equipment)
+            {
+                hero.HP += equipment.HP;
+                hero.MP += equipment.MP;
+                hero.Attack += equipment.Attack;
+                hero.PDet += equipment.PDet;
+                hero.MAH += equipment.MAH;
+            }
+            
+            
+            SetTextCharacter();
+
         }
     }
 }

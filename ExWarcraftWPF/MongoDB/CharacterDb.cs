@@ -25,7 +25,7 @@ namespace ExWarcraftWPF.MongoDBa
         [BsonIgnoreIfNull]
         public List<Item> Items { get; set; }
 
-        [BsonIgnoreIfNull]
+        [BsonIgnoreIfDefault]
         public List<Equipment> Equipments { get; set; }
 
 
