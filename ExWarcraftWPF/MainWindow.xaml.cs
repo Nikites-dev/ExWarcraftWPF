@@ -20,6 +20,8 @@ namespace ExWarcraftWPF
 {
     public partial class MainWindow : Window
     {
+
+
         Button btn = new Button();
         public Unit hero = null;
         ListBox inventoryListBox;
@@ -56,12 +58,7 @@ namespace ExWarcraftWPF
             
             cmbBoxWeapon.ItemsSource = listWeapon.Select(item => item.ItemName);
             inventoryListBox.SelectionChanged += ListBoxInventory_SelectionChanged;
-
-
-            ListBox listBoxAbility = (ListBox)this.FindName("listBoxAbility");
-            listBoxAbility.Items.Clear();
-
-
+            
             equipment1 = new List<Equipment> { new LeatherHelmet(), new LeatherArmor(), new Revolver()};
             equipment2 = new List<Equipment> { new IronHelmet(), new IronArmor(), new Musket() };
             equipment3 = new List<Equipment> { new ModernHelmet(), new ModernArmor(), new SniperRifle()};
@@ -75,12 +72,6 @@ namespace ExWarcraftWPF
             allProducts3.AddRange(equipment2);
             allProducts3.AddRange(equipment3);
             
-            
-            //foreach (var equipment in allProducts)
-            //{
-            //    eqComboBox.Items.Add(equipment.EqpmtLevel + " " + equipment.EqpmtName);
-            //}
-           
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -284,6 +275,9 @@ namespace ExWarcraftWPF
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
 
+            ComboBox cmbBoxAbility = (ComboBox)this.FindName("cmbBoxAbility");
+   
+
             Unit lHero = MongoDBAction.FindByName(cmbBoxHero.Text);
             IsUnit(MongoDBAction.FindByName(cmbBoxHero.Text).GetType().Name);
 
@@ -296,7 +290,9 @@ namespace ExWarcraftWPF
             hero.Exp = lHero.Exp;
             hero.Equipments = lHero.Equipments;
             setEquipmentAbilities();
-            
+
+         
+
             ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
             inventoryListBox.Items.Clear();
 
@@ -312,29 +308,20 @@ namespace ExWarcraftWPF
 
             listBoxAbility.Items.Clear();
 
-            for (int i = 0; i < hero.Level; i++)
+
+            List<string> list = new List<string>();
+
+            for (int i = 2; i <= hero.Level + 1; i++)
             {
-                for (int j = 0; j < 2; j++)
-                {
-                    listBoxAbility.Items.Add(strAbility[j]);
-                }
+                list.Add(strAbility[i - 2]);
             }
+            cmbBoxAbility.ItemsSource = list;
 
             ComboBox eqComboBox = (ComboBox)this.FindName("cmbBoxEquipment");
-
             var listEq = GetLimitEquipment();
-            
             eqComboBox.ItemsSource = listEq.Select(equipment => equipment.EqpmtLevel + " " + equipment.EqpmtName);
 
-            foreach (var equipment in listEq)
-            {
-                if (equipment.EqpmtLevel + " " + equipment.EqpmtName == eqComboBox.Text)
-                {
-                    //hero.AddToEquipments(new Equipment(equipment.EqpmtName, equipment.EqpmtLevel));
-                    //MessageBox.Show(equipment.EqpmtName);
-                }
-            }
-            
+        
             
             ListBox listBoxEquipment = (ListBox)this.FindName("listBoxEquipment");
             listBoxEquipment.Items.Clear();
@@ -343,6 +330,17 @@ namespace ExWarcraftWPF
             {
                 listBoxEquipment.Items.Add(itemUnit.EqpmtLevel + " | " + itemUnit.EqpmtName);
             }
+
+
+            var limitEqupments = GetLimitEquipment();
+            foreach (var equipment in limitEqupments)
+            {
+                listBoxAbility.Items.Add(equipment.EqpmtName.ToString());
+            }
+
+
+
+            CategoryHighlightStyleSelector styleSelector = new CategoryHighlightStyleSelector(hero);
 
         }
 
@@ -513,12 +511,9 @@ namespace ExWarcraftWPF
 
             listBoxAbility.Items.Clear();
 
-            for (int i = 0; i < hero.Level; i++)
+            for (int i = 2; i <= hero.Level+1; i++)
             {
-                for (int j = 0; j < 2; j++)
-                {
-                    listBoxAbility.Items.Add(strAbility[j]);
-                }
+                listBoxAbility.Items.Add(strAbility[i-2]);
             }
 
 
@@ -574,19 +569,13 @@ namespace ExWarcraftWPF
 
         private void cmbBoxEquipment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // equipment1 = new List<Equipment> { new Equipment("leather helmet", 1, "Helmet"), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
             ComboBox eqComboBox = (ComboBox)this.FindName("cmbBoxEquipment");
-
-
             var listEq = GetLimitEquipment();
             
-            
-            
             eqComboBox.ItemsSource = listEq.Select(equipment => equipment.EqpmtLevel + " " + equipment.EqpmtName);
+                
             
-            // eqComboBox.Items.Add( typeof(Colors).GetProperties());
             
-            //eqComboBox.ItemsSource = typeof(Colors).GetProperties();
             
             
             foreach (var equipment in listEq)
@@ -766,5 +755,78 @@ namespace ExWarcraftWPF
             SetTextCharacter();
 
         }
+
+        private void cmbBoxAbility_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<string> list = new List<string>();
+
+            for (int i = 2; i <= hero.Level + 1; i++)
+            {
+                list.Add(strAbility[i - 2]);
+            }
+            cmbBoxAbility.ItemsSource = list;
+        }
+
+        private void listBoxAbility_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //ListBox list = (ListBox)sender;
+            //String[] strItem = Convert.ToString(list.SelectedItem).Split('|');
+            //textBox.Text = strItem[0].Trim();
+
+            //try
+            //{
+            //    textItemCnt.Text = strItem[1].Trim();
+            //}
+            //catch (Exception exception)
+            //{
+            //    textItemCnt.Text = "0";
+            //}
+
+        }
+    }
+
+    public class CategoryHighlightStyleSelector : StyleSelector
+    {
+        public Style EconomyClassStyle { get; set; }
+        public Style MiddleClassStyle { get; set; }
+        public Style BuisnessClassStyle { get; set; }
+        public Style PremiumClassStyle { get; set; }
+
+        public Unit Hero { get; set; }
+
+
+        public CategoryHighlightStyleSelector()
+        {
+    
+        }
+
+        public CategoryHighlightStyleSelector(Unit hero)
+        {
+            Hero = hero;
+        }
+        
+        public override Style SelectStyle(object item, DependencyObject container)
+        {
+
+            // Revolver musket = new Revolver();
+         
+            Random rnd = new Random();
+           
+          
+                int xRnd = rnd.Next(1, 5);
+                switch ( xRnd)
+                {
+                    case 1:
+                        return EconomyClassStyle;
+                    case 2:
+                        return MiddleClassStyle;
+                    case 3:
+                        return BuisnessClassStyle;
+                    case 4:
+                        return PremiumClassStyle;
+                    default:
+                        return null;
+                }
+            }
     }
 }
