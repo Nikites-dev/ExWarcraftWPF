@@ -734,17 +734,16 @@
             x:Name="cmbBoxEquipment"
             HorizontalAlignment="Left"
             Margin="0,20,0,0"
-           
             Grid.Column="7"
             VerticalAlignment="Top"
             Width="90"
             Text="Hero"
             BorderBrush="Black"
             BorderThickness="1"
-            Foreground="Maroon" SelectionChanged="cmbBoxEquipment_SelectionChanged" Grid.RowSpan="2"
+            Foreground="Maroon" SelectionChanged="cmbBoxEquipment_SelectionChanged" Grid.RowSpan="2">
             
-            />
-
+            
+            </ComboBox>
 
         <ListBox 
             x:Name="listBoxAbility"

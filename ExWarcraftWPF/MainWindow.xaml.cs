@@ -6,12 +6,15 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using System.Xml.Linq;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDB;
 using ExWarcraftWPF.res;
 using ExWarcraftWPF.res.EquipType;
 using Microsoft.Win32;
+
+
 
 namespace ExWarcraftWPF
 {
@@ -59,9 +62,9 @@ namespace ExWarcraftWPF
             listBoxAbility.Items.Clear();
 
 
-            equipment1 = new List<Equipment> { new LeatherHelmet(), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
-            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Musket() };
-            equipment3 = new List<Equipment> { new Equipment("modern helmet", 3, "Helmet"), new Equipment("modern armor", 3, "Armor"), new Equipment("Sniper Rifle", 3, "Gun") };
+            equipment1 = new List<Equipment> { new LeatherHelmet(), new LeatherArmor(), new Revolver()};
+            equipment2 = new List<Equipment> { new IronHelmet(), new IronArmor(), new Musket() };
+            equipment3 = new List<Equipment> { new ModernHelmet(), new ModernArmor(), new SniperRifle()};
 
             var allProducts2 = new List<Equipment>(equipment1.Count + equipment2.Count);
             allProducts2.AddRange(equipment1);
@@ -190,6 +193,7 @@ namespace ExWarcraftWPF
                 SetTextCharacter();
                 
                 hero.Inventory = lHero.Inventory;
+                hero.Equipments = lHero.Equipments;
 
                 ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
                 inventoryListBox.Items.Clear();
@@ -579,7 +583,10 @@ namespace ExWarcraftWPF
             
             
             eqComboBox.ItemsSource = listEq.Select(equipment => equipment.EqpmtLevel + " " + equipment.EqpmtName);
-
+            
+            // eqComboBox.Items.Add( typeof(Colors).GetProperties());
+            
+            //eqComboBox.ItemsSource = typeof(Colors).GetProperties();
             
             
             foreach (var equipment in listEq)
@@ -591,13 +598,36 @@ namespace ExWarcraftWPF
                         {
                             if (IsEquipmentOpen(equipment) == 0)
                             {
-                                switch (equipment.EqpmtName)
+                                switch (equipment.GetType().Name)
                                 {
+                                    case "Revolver":
+                                        hero.AddToEquipments(new Revolver());
+                                        break;
                                     case "Musket":
                                         hero.AddToEquipments(new Musket());
                                         break;
+                                    case "SniperRifle":
+                                        hero.AddToEquipments(new SniperRifle());
+                                        break;
+                                    
                                     case "LeatherHelmet":
                                         hero.AddToEquipments(new LeatherHelmet());
+                                        break;
+                                    case "IronHelmet":
+                                        hero.AddToEquipments(new IronHelmet());
+                                        break;
+                                    case "ModernHelmet":
+                                        hero.AddToEquipments(new ModernHelmet());
+                                        break;
+                                    
+                                    case "LeatherArmor":
+                                        hero.AddToEquipments(new LeatherArmor());
+                                        break;
+                                    case "IronArmor":
+                                        hero.AddToEquipments(new IronArmor());
+                                        break;
+                                    case "ModernArmor":
+                                        hero.AddToEquipments(new ModernArmor());
                                         break;
                                 }
 
@@ -622,10 +652,10 @@ namespace ExWarcraftWPF
 
         public List<Equipment> GetLimitEquipment()
         {
-            equipment1 = new List<Equipment> { new LeatherHelmet(), new Equipment("leather armor", 1, "Armor"), new Equipment("Revolver", 1, "Gun") };
-            equipment2 = new List<Equipment> { new Equipment("iron helmet", 2, "Helmet"), new Equipment("iron armor", 2, "Armor"), new Musket() };
-            equipment3 = new List<Equipment> { new Equipment("modern helmet", 3, "Helmet"), new Equipment("modern armor", 3, "Armor"), new Equipment("Sniper Rifle", 3, "Gun") };
-
+            equipment1 = new List<Equipment> { new LeatherHelmet(), new LeatherArmor(), new Revolver()};
+            equipment2 = new List<Equipment> { new IronHelmet(), new IronArmor(), new Musket() };
+            equipment3 = new List<Equipment> { new ModernHelmet(), new ModernArmor(), new SniperRifle()};
+            
             var allProducts2 = new List<Equipment>(equipment1.Count + equipment2.Count);
             allProducts2.AddRange(equipment1);
             allProducts2.AddRange(equipment2);

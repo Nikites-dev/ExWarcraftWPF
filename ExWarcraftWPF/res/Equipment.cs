@@ -15,7 +15,7 @@ namespace ExWarcraftWPF.res
         {
             
         }
-        
+
         public String EqpmtName { get; set; }
         public int EqpmtLevel { get; set; }
         public String EqpmtType { get; set; }
