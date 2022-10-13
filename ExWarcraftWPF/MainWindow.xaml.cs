@@ -228,6 +228,14 @@ namespace ExWarcraftWPF
                 MongoDBAction.UpdateByName(cmbBoxHero.Text, hero);
                 MessageBox.Show("update success!:  " + cmbBoxHero.Text);
             }
+            
+            else if (menuItem.Header.ToString() == "Create much")
+            {
+              
+
+                
+                MessageBox.Show(" success!");
+            }
         }
 
         public void SetProgressBarValue()
@@ -312,7 +320,15 @@ namespace ExWarcraftWPF
             
             
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
-            cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
+            try
+            {
+                cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
+            }
+            catch (Exception ex)
+            {
+                cmbBoxHero.ItemsSource = null;
+            }
+           
 
             ComboBox cmbBoxAbility = (ComboBox)this.FindName("cmbBoxAbility");
    

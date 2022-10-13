@@ -585,7 +585,7 @@
             </MenuItem>
 
             <MenuItem Header="Update" Click="MenuItem_Click"></MenuItem>
-            <MenuItem Header="View" ></MenuItem>
+            <MenuItem Header="Create much" Background="AliceBlue" Click="MenuItem_Click"></MenuItem>
         </Menu>
 
         <TextBlock
