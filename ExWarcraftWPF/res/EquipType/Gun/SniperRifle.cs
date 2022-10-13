@@ -10,17 +10,17 @@ namespace ExWarcraftWPF.res.EquipType
         private int eqpmtLevel = 3;
         
         double hp = 0;
-        double mp = 0;
+        double mp = 30;
         double attack = 200;
         double pDet = 10;
         double mah = 0;
 
        
         private int exp = 0;
-        int strensth = 45;
-        int desterity = 60;
-        int constitution = 20;
-        int intellisense = 50;
+        int strensth = 35;
+        int desterity = 50;
+        int constitution = 25;
+        int intellisense = 20;
         
         public SniperRifle()
         {

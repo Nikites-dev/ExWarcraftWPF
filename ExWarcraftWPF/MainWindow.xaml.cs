@@ -40,6 +40,12 @@ namespace ExWarcraftWPF
         List<Equipment> allProducts2;
         List<Equipment> allProducts3;
         
+        double txtHP = 0;
+        double txtMP = 0;
+        double txtAttack = 0;
+        double txtPdet = 0;
+        double txtMAH = 0;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -100,6 +106,11 @@ namespace ExWarcraftWPF
             dopPdet.Text = " ";
             dopMAH.Text = " ";
             
+            txtHP = 0;
+            txtMP = 0;
+            txtAttack = 0;
+            txtPdet = 0;
+            txtMAH = 0;
             
             barExperience.Value = 0;
             txtLevel.Text = "0Lvl.";
@@ -287,6 +298,19 @@ namespace ExWarcraftWPF
 
         private void cmbBoxHero_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // dopHP.Text = " ";
+            // dopMP.Text = " ";
+            // dopAttack.Text = " ";
+            // dopPdet.Text = " ";
+            // dopMAH.Text = " ";
+            
+            txtHP = 0;
+            txtMP = 0;
+            txtAttack = 0;
+            txtPdet = 0;
+            txtMAH = 0;
+            
+            
             ComboBox cmbBoxHero = (ComboBox)this.FindName("cmbBoxHero");
             cmbBoxHero.ItemsSource = MongoDBAction.AddListHeroes();
 
@@ -760,35 +784,39 @@ namespace ExWarcraftWPF
 
                 dopHP.Text = equipment.HP.ToString();
 
+                txtHP  += equipment.HP;
+                txtMP  += equipment.MP;
+                txtAttack  += equipment.Attack;
+                txtPdet  += equipment.PDet;
+                txtMAH  += equipment.MAH;
                 
+                dopHP.Text = "+" + txtHP.ToString();
+                dopMP.Text = "+" + txtMP.ToString();
+                dopAttack.Text = "+" + txtAttack.ToString();
+                dopPdet.Text = "+" + txtPdet.ToString();
+                dopMAH.Text = "+" + txtMAH.ToString();
                 
-                dopHP.Text = "+" + equipment.HP.ToString();
-                dopMP.Text = "+" + equipment.MP.ToString();
-                dopAttack.Text = "+" + equipment.Attack.ToString();
-                dopPdet.Text = "+" + equipment.PDet.ToString();
-                dopMAH.Text = "+" + equipment.MAH.ToString();
-                
-                if (equipment.HP == 0)
+                if (txtHP == 0)
                 {
                     dopHP.Text = " ";
                 }
                 
-                if (equipment.MP == 0)
+                if (txtMP == 0)
                 {
                     dopMP.Text = " ";
                 }
                 
-                if (equipment.Attack == 0)
+                if (txtAttack == 0)
                 {
                     dopAttack.Text = " ";
                 }
                 
-                if (equipment.PDet == 0)
+                if (txtPdet == 0)
                 {
                     dopPdet.Text = " ";
                 }
                 
-                if (equipment.MAH == 0)
+                if (txtMAH == 0)
                 {
                     dopMAH.Text = " ";
                 }

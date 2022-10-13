@@ -10,7 +10,7 @@ namespace ExWarcraftWPF.res.EquipType
         private int eqpmtLevel = 1;
         
         double hp = 0;
-        double mp = 0;
+        double mp = 10;
         double attack = 40;
         double pDet = 15;
         double mah = 0;

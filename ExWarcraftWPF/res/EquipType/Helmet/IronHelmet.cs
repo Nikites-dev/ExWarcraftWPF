@@ -17,7 +17,7 @@ namespace ExWarcraftWPF.res.EquipType
        
         private int exp = 0;
         int strensth = 30;
-        int desterity = 40;
+        int desterity = 15;
         int constitution = 20;
         int intellisense = 10;
         

@@ -16,10 +16,10 @@ namespace ExWarcraftWPF.res.EquipType
 
        
         private int exp = 0;
-        int strensth = 100;
-        int desterity = 50;
-        int constitution = 50;
-        int intellisense = 15;
+        int strensth = 10;
+        int desterity = 12;
+        int constitution = 20;
+        int intellisense = 10;
         
         public LeatherHelmet()
         {

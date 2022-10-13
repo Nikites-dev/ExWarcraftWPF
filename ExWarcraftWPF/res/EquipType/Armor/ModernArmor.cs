@@ -16,10 +16,10 @@ namespace ExWarcraftWPF.res.EquipType
 
        
         private int exp = 0;
-        int strensth = 35;
-        int desterity = 45;
+        int strensth = 30;
+        int desterity = 30;
         int constitution = 35;
-        int intellisense = 20;
+        int intellisense = 15;
         
         public ModernArmor()
         {

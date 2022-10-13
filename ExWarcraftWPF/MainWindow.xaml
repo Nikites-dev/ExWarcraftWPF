@@ -437,7 +437,7 @@
             Foreground="LimeGreen"
         TextAlignment="Center"
              VerticalAlignment="Bottom"
-            Text="0" 
+       
       
             />
 
