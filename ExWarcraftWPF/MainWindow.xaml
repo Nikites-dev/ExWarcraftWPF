@@ -303,7 +303,6 @@
             Orientation="Horizontal"
             HorizontalAlignment="Center"
             Background="LightPink"
-            
             >
 
             <TextBlock
@@ -314,6 +313,7 @@
                 Padding="10"
            TextWrapping="NoWrap" 
             Text="HP: 0" 
+             Width="80"
             VerticalAlignment="Center"
            />
 
@@ -323,6 +323,7 @@
             HorizontalAlignment="Center"
             Grid.Row="10" 
                 Padding="10"
+                   Width="80"
            TextWrapping="NoWrap" 
             Text="MP: 0" 
             VerticalAlignment="Center"
@@ -334,6 +335,7 @@
             HorizontalAlignment="Center"
             Grid.Row="10" 
                 Padding="10"
+                   Width="80"
            TextWrapping="NoWrap" 
             Text="PDet: 0" 
             VerticalAlignment="Center"
@@ -345,6 +347,7 @@
                 Padding="10"
             HorizontalAlignment="Center"
             Grid.Row="10" 
+                   Width="80"
            TextWrapping="NoWrap" 
             Text="Attack: 0" 
             VerticalAlignment="Center"
@@ -355,6 +358,7 @@
             Grid.Column="5"
             HorizontalAlignment="Center"
             Grid.Row="10" 
+                   Width="80"
            TextWrapping="Wrap" 
             Text="MAH: 0" 
                 Padding="10"
@@ -362,6 +366,98 @@
             />
 
         </StackPanel>
+
+
+        <StackPanel 
+            Grid.Column="0" 
+            Grid.Row="10" 
+            Grid.ColumnSpan="8"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+
+            >
+
+            <TextBlock
+            x:Name="dopHP"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
+              TextAlignment="Center"
+             VerticalAlignment="Bottom"
+       Foreground="LimeGreen"
+             Width="80"
+           
+           />
+
+            <TextBlock
+            x:Name="dopMP"
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
+            Width="80"
+    
+          TextAlignment="Center"
+             VerticalAlignment="Bottom"
+          Foreground="LimeGreen"
+          
+           />
+
+            <TextBlock
+            x:Name="dopPdet"
+            Grid.Column="3"
+            HorizontalAlignment="Center"
+            Grid.Row="10" 
+    
+                   Width="80"
+          Foreground="LimeGreen"
+                TextAlignment="Center"
+             VerticalAlignment="Bottom"
+      
+           />
+
+            <TextBlock
+            x:Name="dopAttack"
+            Grid.Column="4"
+    
+            Grid.Row="10" 
+                   Width="80"
+ Foreground="LimeGreen"
+            TextAlignment="Center"
+             VerticalAlignment="Bottom"
+     
+           />
+
+            <TextBlock
+            x:Name="dopMAH"
+            Grid.Column="5"
+            
+            Grid.Row="10" 
+                   Width="80"
+   
+            Foreground="LimeGreen"
+        TextAlignment="Center"
+             VerticalAlignment="Bottom"
+            Text="0" 
+      
+            />
+
+        </StackPanel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <ProgressBar
             x:Name="barConstitution"

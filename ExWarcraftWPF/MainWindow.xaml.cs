@@ -94,7 +94,11 @@ namespace ExWarcraftWPF
             ListBox listBoxEquipment = (ListBox)this.FindName("listBoxEquipment");
             listBoxEquipment.Items.Clear();
 
-           
+            dopHP.Text = " ";
+            dopMP.Text = " ";
+            dopAttack.Text = " ";
+            dopPdet.Text = " ";
+            dopMAH.Text = " ";
             
             
             barExperience.Value = 0;
@@ -752,6 +756,45 @@ namespace ExWarcraftWPF
                 hero.Attack += equipment.Attack;
                 hero.PDet += equipment.PDet;
                 hero.MAH += equipment.MAH;
+
+
+                dopHP.Text = equipment.HP.ToString();
+
+                
+                
+                dopHP.Text = "+" + equipment.HP.ToString();
+                dopMP.Text = "+" + equipment.MP.ToString();
+                dopAttack.Text = "+" + equipment.Attack.ToString();
+                dopPdet.Text = "+" + equipment.PDet.ToString();
+                dopMAH.Text = "+" + equipment.MAH.ToString();
+                
+                if (equipment.HP == 0)
+                {
+                    dopHP.Text = " ";
+                }
+                
+                if (equipment.MP == 0)
+                {
+                    dopMP.Text = " ";
+                }
+                
+                if (equipment.Attack == 0)
+                {
+                    dopAttack.Text = " ";
+                }
+                
+                if (equipment.PDet == 0)
+                {
+                    dopPdet.Text = " ";
+                }
+                
+                if (equipment.MAH == 0)
+                {
+                    dopMAH.Text = " ";
+                }
+                
+              
+               
             }
             
             
