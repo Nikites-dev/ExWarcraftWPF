@@ -178,8 +178,8 @@ namespace ExWarcraftWPF.enumUnits
             {
                 if (CurrentIntellisense > IntellisenseMin)
                 {
-                    MP -= CurrentIntellisense * 2;
-                    MAH -= CurrentIntellisense * 1.5;
+                    MP -= CurrentIntellisense * 1.5;
+                    MAH -= CurrentIntellisense * 2;
                     CurrentIntellisense -= 1;
                 }
             }

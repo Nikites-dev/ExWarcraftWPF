@@ -154,7 +154,7 @@ namespace ExWarcraftWPF.enumUnits
                 {
                     CurrentConstitution += 1;
                     HP += CurrentConstitution * 10;
-                    PDet += CurrentDesterity * 2;
+                    PDet += CurrentConstitution * 2;
                 }
             }
             else
@@ -162,7 +162,7 @@ namespace ExWarcraftWPF.enumUnits
                 if (CurrentConstitution > ConstitutionMin)
                 {
                     HP -= CurrentConstitution * 10;
-                    PDet -= CurrentDesterity * 2;
+                    PDet -= CurrentConstitution * 2;
                     CurrentConstitution -= 1;
                 }
             }
