@@ -13,7 +13,7 @@ using ExWarcraftWPF.MongoDB;
 using ExWarcraftWPF.res;
 using ExWarcraftWPF.res.EquipType;
 using Microsoft.Win32;
-
+using ExWarcraftWPF.WindowRes;
 
 
 namespace ExWarcraftWPF
@@ -232,9 +232,11 @@ namespace ExWarcraftWPF
             else if (menuItem.Header.ToString() == "Create much")
             {
               
-
+                CreateMuch winMuch = new CreateMuch();
+                winMuch.Show();
                 
-                MessageBox.Show(" success!");
+                this.Close();
+             
             }
         }
 

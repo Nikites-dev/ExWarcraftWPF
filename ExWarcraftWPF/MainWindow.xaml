@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExWarcraftWPF"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800">
 
 
@@ -572,7 +573,7 @@
             >
 
             <MenuItem Header="Save" >
-                <MenuItem Header="Save local" Click="MenuItem_Click" ></MenuItem>
+                <MenuItem Header="Save local" Click="MenuItem_Click"></MenuItem>
 
                 <Separator />
                 <MenuItem Header="Save mongo db"  Click="MenuItem_Click"></MenuItem>
