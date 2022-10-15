@@ -32,6 +32,7 @@ namespace ExWarcraftWPF.WindowRes
         private List<Unit> teamUnit2 = new List<Unit>();
 
         private int clickIsFirst = 0;
+        private String chooseHero = "";
 
         public CreateMuch()
         {
@@ -52,24 +53,27 @@ namespace ExWarcraftWPF.WindowRes
 
             if (clickIsFirst == 1)
             {
-                listNamesHeroes.Clear();
-                listNamesHeroes = MongoDBAction.AddListHeroes();
-                listHeroes.Clear();
-                teamUnit1.Clear();
-                teamUnit2.Clear();
-                
-                foreach (var itemHero in listNamesHeroes)
-                {
-                    Unit lHero = MongoDBAction.FindByName(itemHero);
-                    listHeroes.Add(lHero);
-                }
-                ShowHeroList();
-               
+                ResetView();
             }
-
             clickIsFirst = 1;
             
+            SetAuthoGenerate();
+
+    
             
+            while (true) 
+            {
+                if (IsContinue()) { break; }
+                else
+                {
+                    ResetView();
+                    SetAuthoGenerate();
+                }
+            }
+        }
+
+        private void SetAuthoGenerate()
+        {
             List<Unit> list = listHeroes;
             Random rndHero = new Random();
             Random rndTeam = new Random();
@@ -116,14 +120,41 @@ namespace ExWarcraftWPF.WindowRes
                 //MessageBox.Show(isTeam1Full + " | " + isTeam2Full);
             }
             
-            
-            
-            
-            
+            txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit1));
+            txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit2));
             ShowHeroList();
         }
 
-        
+        private bool IsContinue()
+        {
+            if (Math.Abs(CalculateAverageLvl(teamUnit1) - CalculateAverageLvl(teamUnit2)) < 1.0)
+            {
+                btnContinue.Background = Brushes.PaleGreen;
+                return true;
+            }
+            else
+            {
+                btnContinue.Background = Brushes.Crimson;
+                return false;
+            }
+        }
+
+
+        private double CalculateAverageLvl(List<Unit> team)
+        {
+            double averageTeam = 0;
+
+            foreach (var hero in team)
+            {
+                averageTeam += hero.Level;
+            }
+
+            averageTeam /= team.Count;
+
+
+            return averageTeam;
+        }
+
         private void ShowTeamList(int team)
         {
             if (team == 1)
@@ -148,8 +179,6 @@ namespace ExWarcraftWPF.WindowRes
                     listBoxTeam2.Items.Add(itemHero.Level + " | " + itemHero.Name);
                 } 
             }
-            
-            
         }
         
         
@@ -173,14 +202,42 @@ namespace ExWarcraftWPF.WindowRes
             {
                 MainWindow winMain = new MainWindow();
                 winMain.Show();
-
                 this.Close();
+            } 
+            
+            else if (menuItem.Header.ToString() == "reset")
+            {
+               ResetView();
             }
+            
         }
 
         private void listBoxHero_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            ListBox list = (ListBox)sender;
+            String[] strHero = Convert.ToString(list.SelectedItem).Split("|");
+            chooseHero = strHero[1].Trim();
+           
+        }
+
+        public void ResetView()
+        {
+            listNamesHeroes.Clear();
+            listNamesHeroes = MongoDBAction.AddListHeroes();
+            listHeroes.Clear();
+            teamUnit1.Clear();
+            teamUnit2.Clear();
+            txtAverage1.Text = "";
+            txtAverage2.Text = "";
+                
+            foreach (var itemHero in listNamesHeroes)
+            {
+                Unit lHero = MongoDBAction.FindByName(itemHero);
+                listHeroes.Add(lHero);
+            }
+            ShowHeroList();
+            ShowTeamList(1);
+            ShowTeamList(2);
         }
         
         public void IsUnit(String unitType)
@@ -231,6 +288,30 @@ namespace ExWarcraftWPF.WindowRes
             }
         }
 
-        
+        private void btnAddTeam_Click(object sender, RoutedEventArgs e)
+        {
+            Button btnTeam = (Button)sender;
+
+            Unit lHero = MongoDBAction.FindByName(chooseHero);
+            
+            if (btnTeam.Name == "btnAddTeam1")
+            {
+                hero = lHero;
+                setLevel(lHero.Exp);
+                
+                teamUnit1.Add(hero);
+                ShowTeamList(1);
+                listHeroes.Remove(hero);
+            }
+            
+            else if (btnTeam.Name == "btnAddTeam2")
+            {
+                teamUnit2.Add(lHero);
+                ShowTeamList(2);
+                listHeroes.Remove(lHero);
+            }
+           
+            ShowHeroList();
+        }
     }
 }
