@@ -14,7 +14,7 @@ namespace ExWarcraftWPF.enumUnits
     public class Unit
     {
         private String name = "Sparky";
-        [BsonIgnoreIfDefault]
+       
         int strensthMin = 15;
         int strensthMax = 55;
         int desterityMin = 30;

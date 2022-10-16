@@ -55,7 +55,7 @@
             Grid.RowSpan="5"
             Grid.ColumnSpan="2"
             Background="CornflowerBlue"
-            Margin="5, 5, 5, 5"
+            Margin="5, 5, 5, 5" SelectionChanged="listBoxTeam1_SelectionChanged"
             >
         </ListBox>
 
@@ -66,7 +66,7 @@
             Grid.RowSpan="5"
             Grid.ColumnSpan="2"
             Background="OrangeRed"
-            Margin="5, 5, 5, 5"
+            Margin="5, 5, 5, 5" SelectionChanged="listBoxTeam2_SelectionChanged"
             >
         </ListBox>
 
@@ -81,8 +81,8 @@
             HorizontalAlignment="Left"
             Margin="15,25,0,0"
             VerticalAlignment="Top" Click="btnAutho_Click"/>
-        
-        
+
+
         <ListBox
             x:Name="listBoxHero"
             Grid.Column="0"
@@ -128,7 +128,7 @@
             
             
             Grid.Row="7"
-            Grid.ColumnSpan="2"/>
+            Grid.ColumnSpan="2" Click="btnContinue_Click"/>
 
 
         <StackPanel 
@@ -150,13 +150,13 @@
                 />
 
             <Button
-                x:Name="btnDelete"
+                x:Name="btnHeroInfo"
                 HorizontalAlignment="Left"
                 Height="20"
-                Content="Delete"
+                Content="Info"
                 Width="50"
                 Margin="5"
-                Background="Bisque"
+                Background="Bisque" Click="btnHeroInfo_Click"
                 />
 
         </StackPanel>
@@ -192,6 +192,16 @@
                 Grid.ColumnSpan="2" 
                 Click="btnAddTeam_Click"
                 />
+        
+        <ComboBox
+            x:Name="cmbBoxMatchInfo"
+            Grid.Column="6"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left"
+            Margin="50,5,0,0" 
+            Grid.Row="2" 
+            VerticalAlignment="Top"
+            Width="120" SelectionChanged="cmbBoxMatchInfo_SelectionChanged"/>
 
     </Grid>
 </Window>

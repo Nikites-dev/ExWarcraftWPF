@@ -46,6 +46,106 @@ namespace ExWarcraftWPF
         double txtPdet = 0;
         double txtMAH = 0;
         
+        public MainWindow(Unit lHero)
+        {
+            InitializeComponent();
+            strAbility = new List<String> { "nausea", "regeneration", "resistance", "hunger", "invisibility", "weakness", "wither", "poison", "luck", "slow_falling", "water_breathing", "night_vision", "fire_resistance", "jump_boost"};
+            txtHP = 0;
+            txtMP = 0;
+            txtAttack = 0;
+            txtPdet = 0;
+            txtMAH = 0;
+
+            ComboBox cmbBoxAbility = (ComboBox)this.FindName("cmbBoxAbility");
+
+            
+            
+            IsUnit(lHero.GetType().Name);
+
+            hero.setCharacter(lHero.CurrentStrensth, lHero.CurrentDesterity, lHero.CurrentConstitution, lHero.CurrentIntellisense);
+            SetProgressBarValue();
+            SetTextCharacter();
+            
+            btnName.Text = lHero.Name;
+            textHero.Text = lHero.GetType().Name;
+            
+            hero.Inventory = lHero.Inventory;
+            hero.Exp = lHero.Exp;
+            hero.Equipments = lHero.Equipments;
+            
+            setEquipmentAbilities();
+
+         
+
+            ListBox inventoryListBox = (ListBox)this.FindName("ListBoxInventory");
+            inventoryListBox.Items.Clear();
+            
+            foreach (var itemUnit in hero.Inventory)
+            {
+                inventoryListBox.Items.Add(itemUnit.ItemName + " | " + itemUnit.ItemCount);
+            }
+            ProgressBar barLevel = (ProgressBar)this.FindName("barExperience");
+            
+            setLevel(barLevel);
+            barExperience.Value = lHero.Exp;
+            txtLevel.Text = lHero.Level + "Lvl.";
+            
+            
+            List<string> list = new List<string>();
+            
+            for (int i = 0; i < hero.Level+2; i++)
+            {
+                list.Add(strAbility[i]);
+            }
+           cmbBoxAbility.ItemsSource = list;
+            
+            ComboBox eqComboBox = (ComboBox)this.FindName("cmbBoxEquipment");
+            eqComboBox.Visibility = Visibility.Hidden;
+            var listEq = GetLimitEquipment();
+            eqComboBox.ItemsSource = listEq.Select(equipment => equipment.EqpmtLevel + " " + equipment.EqpmtName);
+            
+            
+            
+            ListBox listBoxEquipment = (ListBox)this.FindName("listBoxEquipment");
+            listBoxEquipment.Items.Clear();
+            
+            foreach (var itemUnit in hero.Equipments)
+            {
+                listBoxEquipment.Items.Add(itemUnit.EqpmtLevel + " | " + itemUnit.EqpmtName);
+            }
+
+            btnUp100.Visibility = Visibility.Hidden;
+            btnUp200.Visibility = Visibility.Hidden;
+            btnUp1000.Visibility = Visibility.Hidden;
+            btnConstitutM.Visibility = Visibility.Hidden;
+            btnConstitutP.Visibility = Visibility.Hidden;
+            btnDesterityM.Visibility = Visibility.Hidden;
+            btnDesterityP.Visibility = Visibility.Hidden;
+            btnIntelM.Visibility = Visibility.Hidden;
+            btnIntelP.Visibility = Visibility.Hidden;
+            btnStrensthM.Visibility = Visibility.Hidden;
+            btnStrensthP.Visibility = Visibility.Hidden;
+            cmbBoxEquipment.Visibility = Visibility.Hidden;
+            cmbBoxWeapon.Visibility = Visibility.Hidden;
+            cmbBoxHero.Visibility = Visibility.Hidden;
+            btnItemAdd.Visibility = Visibility.Hidden;
+            btnItemDelete.Visibility = Visibility.Hidden;
+            btnItemUpdate.Visibility = Visibility.Hidden;
+            boxItemName.Visibility = Visibility.Hidden;
+            textItemCnt.Visibility = Visibility.Hidden;
+            txt1.Visibility = Visibility.Hidden;
+            txt2.Visibility = Visibility.Hidden;
+            txt3.Visibility = Visibility.Hidden;
+            radioWarrior.Visibility = Visibility.Hidden;
+            radioWizard.Visibility = Visibility.Hidden;
+            radioRogue.Visibility = Visibility.Hidden;
+            menuBar.Visibility = Visibility.Hidden;
+            btnItemM.Visibility = Visibility.Hidden;
+            btnItemP.Visibility = Visibility.Hidden;
+            
+            
+        }
+        
         public MainWindow()
         {
             InitializeComponent();

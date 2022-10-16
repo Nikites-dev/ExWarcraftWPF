@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDB;
 using ExWarcraftWPF.res;
+using ExWarcraftWPF.Match;
+using ExWarcraftWPF.MongoDB;
+using ExWarcraftWPF.MongoDBa;
 
 namespace ExWarcraftWPF.WindowRes
 {
     public partial class CreateMuch : Window
     {
+        public MatchInfo match = new MatchInfo();
         public Unit hero = null;
         private List<Unit> listHeroes = new List<Unit>();
         private List<String> listNamesHeroes = new List<String>();
@@ -24,29 +30,40 @@ namespace ExWarcraftWPF.WindowRes
         public CreateMuch()
         {
             InitializeComponent();
-            
+            ShowMatchInfo();
+            match.ListHeroes = listHeroes;
+            match.TeamUnit1 = teamUnit1;
+            match.TeamUnit2 = teamUnit2;
+
             listNamesHeroes = MongoDBAction.AddListHeroes();
             foreach (var itemHero in listNamesHeroes)
             {
                 Unit lHero = MongoDBAction.FindByName(itemHero);
-                listHeroes.Add(lHero);
+                match.ListHeroes.Add(lHero);
             }
+
+
             ShowHeroList();
+
         }
-        
-        
+
+
         private void btnAutho_Click(object sender, RoutedEventArgs e)
         {
             if (clickIsFirst == 1)
             {
                 ResetView();
             }
+
             clickIsFirst = 1;
             SetAuthoGenerate();
-            
-            while (true) 
+
+            while (true)
             {
-                if (IsContinue()) { break; }
+                if (IsContinue())
+                {
+                    break;
+                }
                 else
                 {
                     ResetView();
@@ -57,23 +74,23 @@ namespace ExWarcraftWPF.WindowRes
 
         private void SetAuthoGenerate()
         {
-            List<Unit> list = listHeroes;
+            List<Unit> list = match.ListHeroes;
             Random rndHero = new Random();
             Random rndTeam = new Random();
-            
+
             int isTeam1Full = 0;
             int isTeam2Full = 0;
             int isFull = 0;
-            
+
             while (isFull != 2)
             {
-                var currentHero = listHeroes[rndHero.Next(0, listHeroes.Count)];
-                
+                var currentHero = match.ListHeroes[rndHero.Next(0, match.ListHeroes.Count)];
+
                 if (rndTeam.Next(0, 2) == 0)
                 {
-                    if (teamUnit1.Count <= 5)
+                    if (match.TeamUnit1.Count <= 5)
                     {
-                        teamUnit1.Add(currentHero);
+                        match.TeamUnit1.Add(currentHero);
                         ShowTeamList(1);
                     }
                     else
@@ -83,9 +100,9 @@ namespace ExWarcraftWPF.WindowRes
                 }
                 else
                 {
-                    if (teamUnit2.Count <= 5)
+                    if (match.TeamUnit2.Count <= 5)
                     {
-                        teamUnit2.Add(currentHero);
+                        match.TeamUnit2.Add(currentHero);
                         ShowTeamList(2);
                     }
                     else
@@ -93,17 +110,19 @@ namespace ExWarcraftWPF.WindowRes
                         isTeam2Full = 1;
                     }
                 }
-                listHeroes.Remove(hero);
+
+                match.ListHeroes.Remove(hero);
                 isFull = isTeam1Full + isTeam2Full;
             }
-            txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit1));
-            txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit2));
+
+            txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(match.TeamUnit1));
+            txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(match.TeamUnit2));
             ShowHeroList();
         }
-        
+
         private bool IsContinue()
         {
-            if (Math.Abs(CalculateAverageLvl(teamUnit1) - CalculateAverageLvl(teamUnit2)) < 1.0)
+            if (Math.Abs(CalculateAverageLvl(match.TeamUnit1) - CalculateAverageLvl(match.TeamUnit2)) < 1.0)
             {
                 btnContinue.Background = Brushes.PaleGreen;
                 return true;
@@ -124,6 +143,7 @@ namespace ExWarcraftWPF.WindowRes
             {
                 averageTeam += hero.Level;
             }
+
             averageTeam /= team.Count;
             return averageTeam;
         }
@@ -134,23 +154,23 @@ namespace ExWarcraftWPF.WindowRes
             {
                 listBoxTeam1.Items.Clear();
 
-                foreach (var itemHero in teamUnit1)
+                foreach (var itemHero in match.TeamUnit1)
                 {
                     hero = itemHero;
                     setLevel(itemHero.Exp);
                     listBoxTeam1.Items.Add(itemHero.Level + " | " + itemHero.Name);
-                } 
+                }
             }
             else
             {
                 listBoxTeam2.Items.Clear();
 
-                foreach (var itemHero in teamUnit2)
+                foreach (var itemHero in match.TeamUnit2)
                 {
                     hero = itemHero;
                     setLevel(itemHero.Exp);
                     listBoxTeam2.Items.Add(itemHero.Level + " | " + itemHero.Name);
-                } 
+                }
             }
         }
 
@@ -158,14 +178,14 @@ namespace ExWarcraftWPF.WindowRes
         {
             listBoxHero.Items.Clear();
 
-            foreach (var itemHero in listHeroes)
+            foreach (var itemHero in match.ListHeroes)
             {
                 hero = itemHero;
                 setLevel(itemHero.Exp);
                 listBoxHero.Items.Add(itemHero.Level + " | " + itemHero.Name);
             }
         }
-        
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = (MenuItem) sender;
@@ -175,50 +195,56 @@ namespace ExWarcraftWPF.WindowRes
                 MainWindow winMain = new MainWindow();
                 winMain.Show();
                 this.Close();
-            } 
-            
+            }
+
             else if (menuItem.Header.ToString() == "reset")
             {
-               ResetView();
+                ResetView();
             }
-            
+
         }
 
         private void listBoxHero_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox list = (ListBox)sender;
+            ListBox list = (ListBox) sender;
             String[] strItem = Convert.ToString(list.SelectedItem).Split('|');
-            
-           try
-           {
-               chooseHero = strItem[1].Trim();
-           }
-           catch (Exception exception)
-           {
-               chooseHero = " ";
-           }
+
+            try
+            {
+                chooseHero = strItem[1].Trim();
+            }
+            catch (Exception exception)
+            {
+                chooseHero = " ";
+            }
         }
 
         public void ResetView()
         {
             listNamesHeroes.Clear();
             listNamesHeroes = MongoDBAction.AddListHeroes();
-            listHeroes.Clear();
-            teamUnit1.Clear();
-            teamUnit2.Clear();
+            match.ListHeroes.Clear();
+            match.TeamUnit1.Clear();
+            match.TeamUnit2.Clear();
             txtAverage1.Text = "";
             txtAverage2.Text = "";
-                
+            
+            btnAutho.Visibility = Visibility.Visible;
+            btnContinue.Visibility = Visibility.Visible;
+            btnAddTeam1.Visibility = Visibility.Visible;
+            btnAddTeam2.Visibility = Visibility.Visible;
+
             foreach (var itemHero in listNamesHeroes)
             {
                 Unit lHero = MongoDBAction.FindByName(itemHero);
-                listHeroes.Add(lHero);
+                match.ListHeroes.Add(lHero);
             }
+
             ShowHeroList();
             ShowTeamList(1);
             ShowTeamList(2);
         }
-        
+
         private void setLevel(int exp)
         {
             if (exp > 0 && exp < 1000)
@@ -254,10 +280,10 @@ namespace ExWarcraftWPF.WindowRes
 
         private void btnAddTeam_Click(object sender, RoutedEventArgs e)
         {
-            Button btnTeam = (Button)sender;
+            Button btnTeam = (Button) sender;
             Unit currentHero = null;
 
-            foreach (var heroItem in listHeroes)
+            foreach (var heroItem in match.ListHeroes)
             {
                 if (heroItem.Name == chooseHero)
                 {
@@ -267,21 +293,196 @@ namespace ExWarcraftWPF.WindowRes
 
             if (btnTeam.Name == "btnAddTeam1")
             {
-                teamUnit1.Add(currentHero);
+                match.TeamUnit1.Add(currentHero);
                 ShowTeamList(1);
-                listHeroes.Remove(currentHero);
+                match.ListHeroes.Remove(currentHero);
             }
-            
+
             else if (btnTeam.Name == "btnAddTeam2")
             {
-                teamUnit2.Add(currentHero);
+                match.TeamUnit2.Add(currentHero);
                 ShowTeamList(2);
-                listHeroes.Remove(currentHero);
+                match.ListHeroes.Remove(currentHero);
             }
+
             ShowHeroList();
             IsContinue();
-            txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit1));
-            txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit2));
+            txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(match.TeamUnit1));
+            txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(match.TeamUnit2));
+        }
+
+        private void cmbBoxMatchInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        { 
+            ResetView();
+           
+            //listHeroes.Clear();
+
+            MatchDb matchInfo = MongoDBAction.FindByDateMatch(cmbBoxMatchInfo.Text);
+
+            btnAutho.Visibility = Visibility.Hidden;
+            btnContinue.Visibility = Visibility.Hidden;
+            btnAddTeam1.Visibility = Visibility.Hidden;
+            btnAddTeam2.Visibility = Visibility.Hidden;
+
+            try
+            {
+                foreach (var hero in matchInfo.ListHeroes)
+                {
+                    match.ListHeroes.Add(CharacterToUnit(hero));
+                }
+                
+                foreach (var hero in matchInfo.TeamUnit1)
+                {
+                    match.TeamUnit1.Add(CharacterToUnit(hero));
+                }
+                
+                foreach (var hero in matchInfo.TeamUnit2)
+                {
+                    match.TeamUnit2.Add(CharacterToUnit(hero));
+                }
+             
+                ShowHeroList();
+                ShowTeamList(1);
+                ShowTeamList(2);
+                
+                txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(match.TeamUnit1));
+                txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(match.TeamUnit2));
+
+            }
+            catch (Exception exception)
+            {
+                ShowHeroList();
+            }
+
+
+
+            cmbBoxMatchInfo.Items.Clear();
+            ShowMatchInfo();
+        }
+
+
+        public Unit CharacterToUnit(CharacterDb unit)
+        {
+            if (unit == null)
+            {
+                return null;
+            }
+
+            switch (unit.ClassName)
+            {
+                case "Warrior":
+                    return new Warrior(unit.Strength,
+                            unit.Dexterity,
+                            unit.Constitution,
+                            unit.Intellisense,
+                            unit.Items,
+                            unit.Exp,
+                            unit.Equipments)
+                        {Name = unit.Name};
+
+                case "Wizard":
+                    return new Wizard(unit.Strength,
+                            unit.Dexterity,
+                            unit.Constitution,
+                            unit.Intellisense,
+                            unit.Items,
+                            unit.Exp,
+                            unit.Equipments)
+                        {Name = unit.Name};
+
+                case "Rogue":
+                    return new Rogue(unit.Strength,
+                            unit.Dexterity,
+                            unit.Constitution,
+                            unit.Intellisense,
+                            unit.Items,
+                            unit.Exp,
+                            unit.Equipments)
+                        {Name = unit.Name};
+                default: return null;
+            }
+            return null;
+        }
+
+
+
+
+
+
+
+        private void btnContinue_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime time = DateTime.Now;
+
+            match.Date = time.ToString();
+            MongoDBAction.AddMatchInfo(match);
+            ShowMatchInfo();
+            MessageBox.Show("success!");
+        }
+
+        private void ShowMatchInfo()
+        {
+            cmbBoxMatchInfo.Items.Clear();
+            List<String> listMatch = MongoDBAction.GetListMatchInfo();
+
+            foreach (var match in listMatch)
+            {
+                cmbBoxMatchInfo.Items.Add(match);
+            }
+        }
+
+        private void listBoxTeam1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox list = (ListBox) sender;
+            String[] strItem = Convert.ToString(list.SelectedItem).Split('|');
+
+            try
+            {
+                foreach (var unit in teamUnit1)
+                {
+                    if (unit.Name == strItem[1].Trim())
+                    {
+                      
+                        MainWindow mainWindow = new MainWindow(unit);
+                        mainWindow.Show();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                chooseHero = " ";
+            }
+
+            
+            
+            
+        }
+
+        private void listBoxTeam2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox list = (ListBox) sender;
+            String[] strItem = Convert.ToString(list.SelectedItem).Split('|');
+
+            try
+            {
+                foreach (var unit in teamUnit2)
+                {
+                    if (unit.Name == strItem[1].Trim())
+                    {
+                        MainWindow mainWindow = new MainWindow(unit);
+                        mainWindow.Show();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                chooseHero = " ";
+            }
+        }
+
+        private void btnHeroInfo_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
