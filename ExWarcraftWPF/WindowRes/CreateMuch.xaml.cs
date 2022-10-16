@@ -1,30 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ExWarcraftWPF.enumUnits;
 using ExWarcraftWPF.MongoDB;
 using ExWarcraftWPF.res;
 
-
 namespace ExWarcraftWPF.WindowRes
 {
-    /// <summary>
-    /// Interaction logic for CreateMuch.xaml
-    /// </summary>
     public partial class CreateMuch : Window
     {
         public Unit hero = null;
-        
         private List<Unit> listHeroes = new List<Unit>();
         private List<String> listNamesHeroes = new List<String>();
 
@@ -32,7 +19,7 @@ namespace ExWarcraftWPF.WindowRes
         private List<Unit> teamUnit2 = new List<Unit>();
 
         private int clickIsFirst = 0;
-        private String chooseHero = "";
+        public String chooseHero = "";
 
         public CreateMuch()
         {
@@ -50,16 +37,12 @@ namespace ExWarcraftWPF.WindowRes
         
         private void btnAutho_Click(object sender, RoutedEventArgs e)
         {
-
             if (clickIsFirst == 1)
             {
                 ResetView();
             }
             clickIsFirst = 1;
-            
             SetAuthoGenerate();
-
-    
             
             while (true) 
             {
@@ -80,7 +63,6 @@ namespace ExWarcraftWPF.WindowRes
             
             int isTeam1Full = 0;
             int isTeam2Full = 0;
-
             int isFull = 0;
             
             while (isFull != 2)
@@ -93,13 +75,11 @@ namespace ExWarcraftWPF.WindowRes
                     {
                         teamUnit1.Add(currentHero);
                         ShowTeamList(1);
-                       
                     }
                     else
                     {
                         isTeam1Full = 1;
                     }
-                    
                 }
                 else
                 {
@@ -107,24 +87,20 @@ namespace ExWarcraftWPF.WindowRes
                     {
                         teamUnit2.Add(currentHero);
                         ShowTeamList(2);
-                       
                     }
                     else
                     {
                         isTeam2Full = 1;
                     }
                 }
-
                 listHeroes.Remove(hero);
                 isFull = isTeam1Full + isTeam2Full;
-                //MessageBox.Show(isTeam1Full + " | " + isTeam2Full);
             }
-            
             txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit1));
             txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit2));
             ShowHeroList();
         }
-
+        
         private bool IsContinue()
         {
             if (Math.Abs(CalculateAverageLvl(teamUnit1) - CalculateAverageLvl(teamUnit2)) < 1.0)
@@ -148,10 +124,7 @@ namespace ExWarcraftWPF.WindowRes
             {
                 averageTeam += hero.Level;
             }
-
             averageTeam /= team.Count;
-
-
             return averageTeam;
         }
 
@@ -180,8 +153,7 @@ namespace ExWarcraftWPF.WindowRes
                 } 
             }
         }
-        
-        
+
         private void ShowHeroList()
         {
             listBoxHero.Items.Clear();
@@ -215,9 +187,16 @@ namespace ExWarcraftWPF.WindowRes
         private void listBoxHero_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox list = (ListBox)sender;
-            String[] strHero = Convert.ToString(list.SelectedItem).Split("|");
-            chooseHero = strHero[1].Trim();
-           
+            String[] strItem = Convert.ToString(list.SelectedItem).Split('|');
+            
+           try
+           {
+               chooseHero = strItem[1].Trim();
+           }
+           catch (Exception exception)
+           {
+               chooseHero = " ";
+           }
         }
 
         public void ResetView()
@@ -240,21 +219,6 @@ namespace ExWarcraftWPF.WindowRes
             ShowTeamList(2);
         }
         
-        public void IsUnit(String unitType)
-        {
-            if (unitType == "Warrior")
-            {
-                hero = new Warrior();
-            }
-            else if (unitType == "Rogue")
-            {
-                hero = new Rogue();
-            }
-            else if (unitType == "Wizard")
-            {
-                hero = new Wizard();
-            }
-        }
         private void setLevel(int exp)
         {
             if (exp > 0 && exp < 1000)
@@ -291,27 +255,33 @@ namespace ExWarcraftWPF.WindowRes
         private void btnAddTeam_Click(object sender, RoutedEventArgs e)
         {
             Button btnTeam = (Button)sender;
+            Unit currentHero = null;
 
-            Unit lHero = MongoDBAction.FindByName(chooseHero);
-            
+            foreach (var heroItem in listHeroes)
+            {
+                if (heroItem.Name == chooseHero)
+                {
+                    currentHero = heroItem;
+                }
+            }
+
             if (btnTeam.Name == "btnAddTeam1")
             {
-                hero = lHero;
-                setLevel(lHero.Exp);
-                
-                teamUnit1.Add(hero);
+                teamUnit1.Add(currentHero);
                 ShowTeamList(1);
-                listHeroes.Remove(hero);
+                listHeroes.Remove(currentHero);
             }
             
             else if (btnTeam.Name == "btnAddTeam2")
             {
-                teamUnit2.Add(lHero);
+                teamUnit2.Add(currentHero);
                 ShowTeamList(2);
-                listHeroes.Remove(lHero);
+                listHeroes.Remove(currentHero);
             }
-           
             ShowHeroList();
+            IsContinue();
+            txtAverage1.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit1));
+            txtAverage2.Text = string.Format("{0:N1}", CalculateAverageLvl(teamUnit2));
         }
     }
 }

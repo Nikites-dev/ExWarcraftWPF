@@ -141,7 +141,7 @@
             Grid.ColumnSpan="4"
             >
             <TextBlock
-                
+                x:Name="txtSelectHero"
                 HorizontalAlignment="Left"
                 Height="20"
                 Width="100"
