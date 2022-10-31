@@ -108,7 +108,7 @@ namespace ExWarcraftWPF
             
             ListBox listBoxEquipment = (ListBox)this.FindName("listBoxEquipment");
             listBoxEquipment.Items.Clear();
-            
+
             foreach (var itemUnit in hero.Equipments)
             {
                 listBoxEquipment.Items.Add(itemUnit.EqpmtLevel + " | " + itemUnit.EqpmtName);

@@ -412,12 +412,24 @@ namespace ExWarcraftWPF.WindowRes
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            DateTime time = DateTime.Now;
+          
+            
+            if (Math.Abs(CalculateAverageLvl(match.TeamUnit1) - CalculateAverageLvl(match.TeamUnit2)) < 1.0)
+            {
+                DateTime time = DateTime.Now;
 
-            match.Date = time.ToString();
-            MongoDBAction.AddMatchInfo(match);
-            ShowMatchInfo();
-            MessageBox.Show("success!");
+                match.Date = time.ToString();
+                MongoDBAction.AddMatchInfo(match);
+                ShowMatchInfo();
+                
+                MessageBox.Show("success!");
+            }
+            else
+            {
+                MessageBox.Show("no blalance!");
+            }
+            
+            
         }
 
         private void ShowMatchInfo()
